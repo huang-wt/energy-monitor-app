@@ -217,23 +217,24 @@ long LinuxParser::IdleJiffies(int cid) {
 vector<float> LinuxParser::CpuUtilizations() {
   vector<float> cpuUtilizations;
   int cpuNum = CPUCoresNumber();
+  long currActiveJiffies;
+  long currTotalJiffies;
+  bool isFirstTime = prevActiveJiffies.empty();
 
-  vector<long> pre_active_jiffies;
-  vector<long> pre_total_jiffies;
   for (int cid = -1 ; cid < cpuNum ; cid++) { 
-    pre_active_jiffies.push_back(ActiveJiffies(cid));
-    pre_total_jiffies.push_back(Jiffies(cid));
-  }
+    currActiveJiffies = ActiveJiffies(cid);
+    currTotalJiffies = Jiffies(cid);
 
-  sleep(1);
-
-  long curr_active_jiffies;
-  long curr_total_jiffies;
-  for (int cid = -1 ; cid < cpuNum ; cid++) { 
-    curr_active_jiffies = ActiveJiffies(cid);
-    curr_total_jiffies = Jiffies(cid);
-    cpuUtilizations.push_back((float) (curr_active_jiffies - pre_active_jiffies[cid + 1]) /
-                                      (curr_total_jiffies - pre_total_jiffies[cid + 1]));
+    if (!isFirstTime) {
+      cpuUtilizations.push_back((float) (currActiveJiffies - prevActiveJiffies[cid + 1]) /
+                                        (currTotalJiffies - prevTotalJiffies[cid + 1]));
+      prevActiveJiffies[cid + 1] = currActiveJiffies;
+      prevTotalJiffies[cid + 1] = currTotalJiffies;
+    } else {
+      cpuUtilizations.push_back(0);
+      prevActiveJiffies.push_back(currActiveJiffies);
+      prevTotalJiffies.push_back(currTotalJiffies);
+    }
   }
 
   return cpuUtilizations;

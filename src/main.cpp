@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <thread>
+#include <unistd.h>
 
 #include "linux_parser.h"
 
@@ -21,12 +22,6 @@ int main() {
     cout << "Cores number: " << cpuNum << endl;
 
     //---------dynamic----------
-    vector<float> cpuUtilizations = LinuxParser::CpuUtilizations();
-    for (int i = 0 ; i < cpuUtilizations.size() ; i++) {
-        cout << "CPU core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
-
-    } 
-
     float memUtilization = LinuxParser::MemoryUtilization();
     cout << "Memory Utilization: " << memUtilization * 100.0 << "%" << endl;
 
@@ -39,7 +34,14 @@ int main() {
     long upTime = LinuxParser::UpTime();
     cout << "Up Time: " << upTime << endl;
 
+    //---------CPU Utilizations---------
+    for (int i = 0 ; i < 10 ; i++, sleep(1)) {
+        vector<float> cpuUtilizations = LinuxParser::CpuUtilizations();
+        for (int i = 0 ; i < cpuUtilizations.size() ; i++) {
+            cout << "CPU core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
 
+        } 
+    }
 
 
 
