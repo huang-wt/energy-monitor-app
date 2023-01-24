@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <thread>
+#include <unistd.h>
+
 
 #include "linux_parser.h"
 
@@ -10,6 +13,7 @@ using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
+using std::thread;
 
 //-----------------------------------------------------------------------------
 // Utils
@@ -96,15 +100,23 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
+// Reads and return the number of CPU cores
+int LinuxParser::CPUCoresNumber() {
+  return thread::hardware_concurrency();
+}
+
 // Reads and returns CPU utilization
-vector<string> LinuxParser::CpuUtilization() { 
+vector<string> LinuxParser::CPUTimes(int cid) { 
   vector<string> timers;
   string timer;
   string line;
   string skip;
   std::ifstream stream(kProcDirectory + kStatFilename);
   if (stream.is_open()) {
-    std::getline(stream, line);
+    for (int i = -1 ; i < cid + 1 ; i++) {
+      std::getline(stream, line);
+    }
+    
     std::istringstream linestream(line); 
     linestream >> skip;
     for(int i = 0; i < 10; ++i) {
@@ -124,7 +136,7 @@ float LinuxParser::MemoryUtilization() {
   vector<string> memory;
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if (stream.is_open()) {
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 3; ++i) {
       std::getline(stream, line);
       std::istringstream linestream(line);
       linestream >> skip >> temp >> skip;
@@ -132,8 +144,9 @@ float LinuxParser::MemoryUtilization() {
     }
   }
   float mem_total = std::stof(memory[0]);
-  float mem_free = std::stof(memory[1]);
-  mem = (mem_total - mem_free) / mem_total;
+  // float mem_free = std::stof(memory[1]);
+  float mem_aval = std::stof(memory[2]);
+  mem = (mem_total - mem_aval) / mem_total;
   return mem;
 }
 
@@ -175,8 +188,8 @@ long LinuxParser::UpTime() {
 //-----------------------------------------------------------------------------
 
 // Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { 
-  vector<string> jiffies = CpuUtilization();
+long LinuxParser::Jiffies(int cid) { 
+  vector<string> jiffies = CPUTimes(cid);
   long t_jiffies = 0;
   for(string jiffie : jiffies) {
     t_jiffies += std::stoi(jiffie);
@@ -185,15 +198,15 @@ long LinuxParser::Jiffies() {
 }
 
 // Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { 
+long LinuxParser::ActiveJiffies(int cid) { 
   long a_jiffies = 0;
-  a_jiffies = Jiffies() - IdleJiffies();
+  a_jiffies = Jiffies(cid) - IdleJiffies(cid);
   return a_jiffies;
 }
 
 // Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { 
-  vector<string> jiffies = CpuUtilization();
+long LinuxParser::IdleJiffies(int cid) { 
+  vector<string> jiffies = CPUTimes(cid);
   long i_jiffies = 0;
   long idle = std::stoi(jiffies[3]);
   long iowait = std::stoi(jiffies[4]);
@@ -201,8 +214,33 @@ long LinuxParser::IdleJiffies() {
   return i_jiffies;
 }
 
+vector<float> LinuxParser::CpuUtilizations() {
+  vector<float> cpuUtilizations;
+  int cpuNum = CPUCoresNumber();
+
+  vector<long> pre_active_jiffies;
+  vector<long> pre_total_jiffies;
+  for (int cid = -1 ; cid < cpuNum ; cid++) { 
+    pre_active_jiffies.push_back(ActiveJiffies(cid));
+    pre_total_jiffies.push_back(Jiffies(cid));
+  }
+
+  sleep(1);
+
+  long curr_active_jiffies;
+  long curr_total_jiffies;
+  for (int cid = -1 ; cid < cpuNum ; cid++) { 
+    curr_active_jiffies = ActiveJiffies(cid);
+    curr_total_jiffies = Jiffies(cid);
+    cpuUtilizations.push_back((float) (curr_active_jiffies - pre_active_jiffies[cid + 1]) /
+                                      (curr_total_jiffies - pre_total_jiffies[cid + 1]));
+  }
+
+  return cpuUtilizations;
+}
+
 // Reads and returns the number of active jiffies for a PID
-long LinuxParser::ActiveJiffies(int pid) { 
+long LinuxParser::ActiveJiffiesPP(int pid) { 
   long a_jiffies = 0;
   string utime;
   string stime;
