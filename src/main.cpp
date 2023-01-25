@@ -19,7 +19,7 @@ int main() {
     string kernel = LinuxParser::Kernel();
     cout << "Kernel: " << kernel << endl; 
 
-    int cpuNum = LinuxParser::CPUCoresNumber();
+    int cpuNum = LinuxParser::CpuCoresCount();
     cout << "Cores number: " << cpuNum << endl;
 
     //---------dynamic----------
@@ -43,10 +43,4 @@ int main() {
 
         } 
     }
-
-
-
-
-
-
 }

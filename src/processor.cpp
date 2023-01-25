@@ -8,7 +8,7 @@ using std::string;
 using std::vector;
 
 long Processor::Jiffies(int cid) {
-  vector<string> jiffies = LinuxParser::CPUTimes(cid);
+  vector<string> jiffies = LinuxParser::CpuTimes(cid);
   long t_jiffies = 0;
   for(string jiffie : jiffies) {
     t_jiffies += std::stoi(jiffie);
@@ -17,7 +17,7 @@ long Processor::Jiffies(int cid) {
 }
 
 long Processor::IdleJiffies(int cid) {
-  vector<string> jiffies = LinuxParser::CPUTimes(cid);
+  vector<string> jiffies = LinuxParser::CpuTimes(cid);
   long i_jiffies = 0;
   long idle = std::stoi(jiffies[3]);
   long iowait = std::stoi(jiffies[4]);
@@ -34,7 +34,7 @@ long Processor::ActiveJiffies(int cid) {
 // Return the aggregate CPU utilization
 vector<float> Processor::Utilizations() {
   vector<float> cpuUtilizations;
-  int cpuNum = LinuxParser::CPUCoresNumber();
+  int cpuNum = LinuxParser::CpuCoresCount();
   long currActiveJiffies;
   long currTotalJiffies;
   bool isFirstTime = prevActiveJiffies.empty();
