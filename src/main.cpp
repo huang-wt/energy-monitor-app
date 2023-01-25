@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "linux_parser.h"
+#include "processor.h"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int main() {
 
     //---------CPU Utilizations---------
     for (int i = 0 ; i < 10 ; i++, sleep(1)) {
-        vector<float> cpuUtilizations = LinuxParser::CpuUtilizations();
+        vector<float> cpuUtilizations = Processor::Utilizations();
         for (int i = 0 ; i < cpuUtilizations.size() ; i++) {
             cout << "CPU core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
 

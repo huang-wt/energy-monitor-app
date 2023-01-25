@@ -187,59 +187,6 @@ long LinuxParser::UpTime() {
 // Processor
 //-----------------------------------------------------------------------------
 
-// Read and return the number of jiffies for the system
-long LinuxParser::Jiffies(int cid) { 
-  vector<string> jiffies = CPUTimes(cid);
-  long t_jiffies = 0;
-  for(string jiffie : jiffies) {
-    t_jiffies += std::stoi(jiffie);
-  }
-  return t_jiffies;
-}
-
-// Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies(int cid) { 
-  long a_jiffies = 0;
-  a_jiffies = Jiffies(cid) - IdleJiffies(cid);
-  return a_jiffies;
-}
-
-// Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies(int cid) { 
-  vector<string> jiffies = CPUTimes(cid);
-  long i_jiffies = 0;
-  long idle = std::stoi(jiffies[3]);
-  long iowait = std::stoi(jiffies[4]);
-  i_jiffies = idle + iowait;
-  return i_jiffies;
-}
-
-vector<float> LinuxParser::CpuUtilizations() {
-  vector<float> cpuUtilizations;
-  int cpuNum = CPUCoresNumber();
-  long currActiveJiffies;
-  long currTotalJiffies;
-  bool isFirstTime = prevActiveJiffies.empty();
-
-  for (int cid = -1 ; cid < cpuNum ; cid++) { 
-    currActiveJiffies = ActiveJiffies(cid);
-    currTotalJiffies = Jiffies(cid);
-
-    if (!isFirstTime) {
-      cpuUtilizations.push_back((float) (currActiveJiffies - prevActiveJiffies[cid + 1]) /
-                                        (currTotalJiffies - prevTotalJiffies[cid + 1]));
-      prevActiveJiffies[cid + 1] = currActiveJiffies;
-      prevTotalJiffies[cid + 1] = currTotalJiffies;
-    } else {
-      cpuUtilizations.push_back(0);
-      prevActiveJiffies.push_back(currActiveJiffies);
-      prevTotalJiffies.push_back(currTotalJiffies);
-    }
-  }
-
-  return cpuUtilizations;
-}
-
 // Reads and returns the number of active jiffies for a PID
 long LinuxParser::ActiveJiffiesPP(int pid) { 
   long a_jiffies = 0;
