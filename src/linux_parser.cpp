@@ -101,26 +101,21 @@ int LinuxParser::CpuCoresCount() {
 }
 
 // Reads and returns the system memory utilization
-float LinuxParser::MemoryUtilization() { 
+vector<float> LinuxParser::MemoryInfo() { 
   string skip;
   string temp;
   string line;
-  float mem = 0.0;
-  vector<string> memory;
+  vector<float> memoryInfo;
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if (stream.is_open()) {
     for (int i = 0; i < 3; ++i) {
       std::getline(stream, line);
       std::istringstream linestream(line);
       linestream >> skip >> temp >> skip;
-      memory.push_back(temp);
+      memoryInfo.push_back(stof(temp));
     }
   }
-  float mem_total = std::stof(memory[0]);
-  // float mem_free = std::stof(memory[1]);
-  float mem_aval = std::stof(memory[2]);
-  mem = (mem_total - mem_aval) / mem_total;
-  return mem;
+  return memoryInfo;
 }
 
 // Reads and returns the total number of processes

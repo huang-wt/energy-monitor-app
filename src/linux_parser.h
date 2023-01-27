@@ -27,6 +27,7 @@ std::string Kernel();
 std::vector<int> Pids();
 int CpuCoresCount();
 float MemoryUtilization();
+std::vector<float> MemoryInfo();
 int TotalProcesses();
 int RunningProcesses();
 long UpTime();

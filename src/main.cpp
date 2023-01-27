@@ -30,9 +30,6 @@ void displayDynamicData() {
     cout << "\t\t\t -- Dynamic Data --\n\n";
 
     for (int i = 0 ; i < 5 ; i++, sleep(1)) {
-        float memUtilization = LinuxParser::MemoryUtilization();
-        cout << "Memory Utilization: " << memUtilization * 100.0 << "%" << endl;
-
         int totalProcesses = LinuxParser::TotalProcesses();
         cout << "Total Processes: " << totalProcesses << endl;
 
@@ -41,6 +38,27 @@ void displayDynamicData() {
 
         long upTime = LinuxParser::UpTime();
         cout << "Up Time: " << upTime << endl;
+        // * 100.0 
+
+        cout << endl;
+    }
+
+    cin.get();
+    cin.get();
+}
+
+void displayMemoryInfo() {
+    cout << "\t\t\t -- Memory Information --\n\n";
+
+    vector<float> memoryInfo;
+    float totalMemory, usedMemory;
+    for (int i = 0 ; i < 10 ; i++, sleep(1)) {
+        memoryInfo = LinuxParser::MemoryInfo();
+        totalMemory = memoryInfo[0];
+        usedMemory = totalMemory - memoryInfo[2];
+        cout << "Total Memory: " << totalMemory << " KB\n";
+        cout << "Used Memory: " << usedMemory << " KB\n";
+        cout << "Memory Utilization: " << usedMemory / totalMemory * 100.0 << "%\n";
 
         cout << endl;
     }
@@ -76,7 +94,8 @@ void systemDataSelect() {
         cout << "\t\t\t -- Select System Data -- \n\n";
         cout << "1. Static data\n";
         cout << "2. Dynamic data\n";
-        cout << "3. CPU Utilization\n";
+        cout << "3. Memory information\n";
+        cout << "4. CPU utilization\n";
         cout << "\n\n0. Exit\n";
 
         cout << "Enter Option: ";
@@ -93,6 +112,9 @@ void systemDataSelect() {
                 displayDynamicData();
                 break;
             case 3:
+                displayMemoryInfo();
+                break;
+            case 4:
                 displayCpuUtilizations();
                 break;
             case 0:
