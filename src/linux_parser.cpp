@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <thread>
 
 #include "linux_parser.h"
 
@@ -10,6 +11,7 @@ using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
+using std::thread;
 
 //-----------------------------------------------------------------------------
 // Utils
@@ -25,16 +27,16 @@ string LinuxParser::KeyValParser(string key, string path) {
   if(stream.is_open()) {
     while(search == true && stream.peek() != EOF) {
       std::getline(stream, line);
-      std::istringstream linestream(line); 
+      std::istringstream linestream(line);
       linestream >> temp;
       if(temp == key) {
         linestream >> temp;
         value = temp;
         search = false;
-      } // End inner if
-    } // End while
-  } // End outer if
-  return value; 
+      }
+    }
+  }
+  return value;
 }
 
 //-----------------------------------------------------------------------------
@@ -76,15 +78,12 @@ string LinuxParser::Kernel() {
   return kernel;
 }
 
-// BONUS: Update this to use std::filesystem
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
   DIR* directory = opendir(kProcDirectory.c_str());
   struct dirent* file;
   while ((file = readdir(directory)) != nullptr) {
-    // Is this a directory?
     if (file->d_type == DT_DIR) {
-      // Is every character of the name a digit?
       string filename(file->d_name);
       if (std::all_of(filename.begin(), filename.end(), isdigit)) {
         int pid = stoi(filename);
@@ -96,45 +95,27 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// Reads and returns CPU utilization
-vector<string> LinuxParser::CpuUtilization() { 
-  vector<string> timers;
-  string timer;
-  string line;
-  string skip;
-  std::ifstream stream(kProcDirectory + kStatFilename);
-  if (stream.is_open()) {
-    std::getline(stream, line);
-    std::istringstream linestream(line); 
-    linestream >> skip;
-    for(int i = 0; i < 10; ++i) {
-      linestream >> timer;
-      timers.push_back(timer);
-    }
-  }
-  return timers; 
+// Reads and return the number of CPU cores
+int LinuxParser::CpuCoresCount() {
+  return thread::hardware_concurrency();
 }
 
 // Reads and returns the system memory utilization
-float LinuxParser::MemoryUtilization() { 
+vector<float> LinuxParser::MemoryInfo() { 
   string skip;
   string temp;
   string line;
-  float mem = 0.0;
-  vector<string> memory;
+  vector<float> memoryInfo;
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if (stream.is_open()) {
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 3; ++i) {
       std::getline(stream, line);
       std::istringstream linestream(line);
       linestream >> skip >> temp >> skip;
-      memory.push_back(temp);
+      memoryInfo.push_back(stof(temp));
     }
   }
-  float mem_total = std::stof(memory[0]);
-  float mem_free = std::stof(memory[1]);
-  mem = (mem_total - mem_free) / mem_total;
-  return mem;
+  return memoryInfo;
 }
 
 // Reads and returns the total number of processes
@@ -174,31 +155,26 @@ long LinuxParser::UpTime() {
 // Processor
 //-----------------------------------------------------------------------------
 
-// Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { 
-  vector<string> jiffies = CpuUtilization();
-  long t_jiffies = 0;
-  for(string jiffie : jiffies) {
-    t_jiffies += std::stoi(jiffie);
+// Reads and returns CPU times info
+vector<string> LinuxParser::CpuTimes(int cid) { 
+  vector<string> timers;
+  string timer;
+  string line;
+  string skip;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    for (int i = -1 ; i < cid + 1 ; i++) {
+      std::getline(stream, line);
+    }
+    
+    std::istringstream linestream(line); 
+    linestream >> skip;
+    for(int i = 0; i < 10; ++i) {
+      linestream >> timer;
+      timers.push_back(timer);
+    }
   }
-  return t_jiffies;
-}
-
-// Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { 
-  long a_jiffies = 0;
-  a_jiffies = Jiffies() - IdleJiffies();
-  return a_jiffies;
-}
-
-// Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { 
-  vector<string> jiffies = CpuUtilization();
-  long i_jiffies = 0;
-  long idle = std::stoi(jiffies[3]);
-  long iowait = std::stoi(jiffies[4]);
-  i_jiffies = idle + iowait;
-  return i_jiffies;
+  return timers; 
 }
 
 // Reads and returns the number of active jiffies for a PID
