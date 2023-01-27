@@ -6,6 +6,7 @@
 
 #include "linux_parser.h"
 #include "processor.h"
+#include "process.h"
 
 using namespace std;
 
@@ -84,6 +85,45 @@ void displayCpuUtilizations() {
     cin.get();
 }
 
+void displayProcesses() {
+    cout << "\t\t\t -- Processes --\n\n";
+
+    vector<int> pids;
+    map<int, Process> processes;
+    for (int i = 0 ; i < 100 ; i++, sleep(1)) {
+        // Initialize/Update map
+        pids = LinuxParser::Pids();
+        for (int pid : pids) {
+            Process p;
+            p.Pid(pid);
+            processes.insert(make_pair(pid, p));
+        }
+
+        // Update cpu utilization for each process
+        long totalJiffies = Processor::Jiffies(-1);
+        for (int j = 0 ; j < processes.size() ; j++) {
+            Process p = processes[j];
+            p.CpuUtilization(p.Pid(), totalJiffies);
+            processes[j] = p;
+        }
+
+        // Sorting in descending order
+        vector<Process> processesVec;
+        map<int, Process> :: iterator it;
+        for (it = processes.begin() ; it != processes.end() ; it++) {
+            processesVec.push_back(it->second);
+        }
+        std::sort(processesVec.begin(), processesVec.end(), std::greater<Process>());
+        for (int k = 0 ; k < 10 ; k++) {
+            cout << processesVec[k].Pid() << " " << processesVec[k].CpuUtilization() << endl;
+        }
+        cout << endl;
+    }
+
+    cin.get();
+    cin.get();
+}
+
 void systemDataSelect() {
     int intChoice = 0;
     char charChoice[3];
@@ -96,6 +136,7 @@ void systemDataSelect() {
         cout << "2. Dynamic data\n";
         cout << "3. Memory information\n";
         cout << "4. CPU utilization\n";
+        cout << "5. Processes\n";
         cout << "\n\n0. Exit\n";
 
         cout << "Enter Option: ";
@@ -116,6 +157,9 @@ void systemDataSelect() {
                 break;
             case 4:
                 displayCpuUtilizations();
+                break;
+            case 5:
+                displayProcesses();
                 break;
             case 0:
                 exit(1);
