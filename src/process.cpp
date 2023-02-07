@@ -17,32 +17,32 @@ using std::vector;
 //-----------------------------------------------------------------------------
 
 // Return this process's ID
-int Process::Pid() { 
+int Process::pid() { 
   return pid_; 
 }
 
 // Return this process's CPU utilization
-float Process::CpuUtilization() { 
+float Process::cpuUtilization() { 
   return cpu_utilization_;
 }
 
 // Return the command that generated this process
-string Process::Command() { 
+string Process::command() { 
   return command_; 
 }
 
 // Return this process's memory utilization
-string Process::Ram() { 
+string Process::ram() { 
   return ram_;
 }
 
 // Return the user (name) that generated this process
-string Process::User() { 
+string Process::user() { 
   return user_; 
 }
 
 // Return the age of this process (in seconds)
-long Process::UpTime() { 
+long Process::upTime() { 
   return up_time_;
 }
 
@@ -60,20 +60,20 @@ bool Process::operator>(Process const& a) const {
 // Mutators
 //-----------------------------------------------------------------------------
 
-void Process::Pid(int pid) {
+void Process::pid(int pid) {
   pid_ = pid;
 }
 
-void Process::User(int pid) {
-  user_ = LinuxParser::User(pid);
+void Process::user(int pid) {
+  user_ = LinuxParser::user(pid);
 }
 
-void Process::Command(int pid) {
-  command_ = LinuxParser::Command(pid);
+void Process::command(int pid) {
+  command_ = LinuxParser::command(pid);
 }
 
-void Process::CpuUtilization(int pid, long currTotalJiffies) {
-    long currPJiffies = LinuxParser::ActiveJiffies(pid);
+void Process::cpuUtilization(int pid, long currTotalJiffies) {
+    long currPJiffies = LinuxParser::activeJiffies(pid);
     if (prevPJiffies == 0 && prevTotalJiffies == 0) {
         cpu_utilization_ = 0;
     } else {
@@ -85,12 +85,12 @@ void Process::CpuUtilization(int pid, long currTotalJiffies) {
     prevTotalJiffies = currTotalJiffies;
 }
 
-void Process::Ram(int pid) {
-  int kbytes = std::atoi(LinuxParser::Ram(pid).c_str());
+void Process::ram(int pid) {
+  int kbytes = std::atoi(LinuxParser::ram(pid).c_str());
   int mbytes = kbytes / 1000; // in MB
   ram_ = std::to_string(mbytes);
 }
 
-void Process::UpTime(int pid){
-  up_time_ = LinuxParser::UpTime(pid);
+void Process::upTime(int pid){
+  up_time_ = LinuxParser::upTime(pid);
 }

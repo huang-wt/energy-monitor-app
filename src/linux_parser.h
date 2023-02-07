@@ -19,29 +19,28 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // Utils
-std::string KeyValParser(std::string, std::string);
+std::string keyValParser(std::string, std::string);
 
 // System
-std::string OperatingSystem();
-std::string Kernel();
-std::vector<int> Pids();
-int CpuCoresCount();
-float MemoryUtilization();
-std::vector<float> MemoryInfo();
-int TotalProcesses();
-int RunningProcesses();
-long UpTime();
+std::string operatingSystem();
+std::string kernel();
+std::vector<int> pids();
+int cpuCoresCount();
+std::vector<float> memoryInfo();
+int totalProcesses();
+int runningProcesses();
+long upTime();
 
 // CPU
-std::vector<std::string> CpuTimes(int cid);
-long ActiveJiffies(int pid);
+std::vector<std::string> cpuTimes(int cid);
+long activeJiffies(int pid);
 
 // Processes
-std::string Command(int pid);
-std::string Ram(int pid);
-std::string Uid(int pid);
-std::string User(int pid);
-long int UpTime(int pid);
+std::string command(int pid);
+std::string ram(int pid);
+std::string uid(int pid);
+std::string user(int pid);
+long int upTime(int pid);
 };
 
 #endif

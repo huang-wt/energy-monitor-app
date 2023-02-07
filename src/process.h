@@ -6,20 +6,20 @@
 class Process {
  public:
   // Accessors
-  int Pid();
-  std::string User();
-  std::string Command();
-  float CpuUtilization();
-  std::string Ram();
-  long int UpTime();
+  int pid();
+  std::string user();
+  std::string command();
+  float cpuUtilization();
+  std::string ram();
+  long int upTime();
   
   // Mutators
-  void Pid(int);
-  void User(int);
-  void Command(int);
-  void CpuUtilization(int, long);
-  void Ram(int);
-  void UpTime(int);
+  void pid(int);
+  void user(int);
+  void command(int);
+  void cpuUtilization(int, long);
+  void ram(int);
+  void upTime(int);
   
   // Operators overload
   bool operator<(Process const& a) const;
