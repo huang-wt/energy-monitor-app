@@ -59,24 +59,24 @@ void Bind::findAndBind(vector<string> process_ID, int low, int high) {
     cin.get();
 }
 
-string Bind::exec(const char* cmd) {
-    array<char, 128> buffer;
-    string result;
-    shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
-    if (!pipe) throw runtime_error("popen() failed!");
-    while (!feof(pipe.get())) {
-        if (fgets(buffer.data(), 128, pipe.get()) != nullptr)
-            result += buffer.data();
-    }
-    return result;
-}
+// string Bind::exec(const char* cmd) {
+//     array<char, 128> buffer;
+//     string result;
+//     shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+//     if (!pipe) throw runtime_error("popen() failed!");
+//     while (!feof(pipe.get())) {
+//         if (fgets(buffer.data(), 128, pipe.get()) != nullptr)
+//             result += buffer.data();
+//     }
+//     return result;
+// }
 
 vector<int> Bind::getLogicalCoresBounds() {
     vector<int> logicalCoresBounds;
     int tPhysical, tLogical, eCores, pCores, threads;
 
-    string physCores = exec("lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l"); //12
-    string logicalCores = exec("lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l"); //16
+    string physCores = Command::exec("lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l").output; //12
+    string logicalCores = Command::exec("lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l").output; //16
 
     stringstream tmp1(physCores);
     stringstream tmp2(logicalCores);
