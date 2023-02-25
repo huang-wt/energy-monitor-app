@@ -6,10 +6,13 @@
 #include <map>
 
 #include "command.h"
+#include "linux_parser.h"
 #include "power.h"
 
 using namespace std;
 using namespace raymii;
+
+vector<double> hourlyPowerUsage;
 
 void Power::initLogVector() { 
     for (int i = 0 ; i < 24 ; i++) {
@@ -38,7 +41,7 @@ string Power::formatDate(int year, int mon, int day) {
 }
 
 string Power::getLastLoggedDate() {
-    string cmd = "head -1 " + hoursLogFile + " | tr -d '\n";
+    string cmd = "head -1 " + hoursLogFile + " | tr -d '\\n'";
     string lastLoggedDate = Command::exec(cmd).output;
     return lastLoggedDate;
 }
@@ -56,10 +59,11 @@ void Power::updateDaysLogFile(string date) {
     out.close();
 }
 
-int Power::getPowerUsage() {
-    string cmd = "cat " + powerUsageFile;
-    double powerUsage = stod(Command::exec(cmd).output);
-    return powerUsage;
+long long Power::getEnergyUsageInJoules() {
+    string cmd = "sudo cat " + powerUsageFile;
+    long long energyUsage = std::stoll(Command::exec(cmd).output, 0, 10); // in micro joules
+
+    return energyUsage;
 }
 
 void Power::updateHoursLogFile(string currentDate) {
@@ -94,8 +98,9 @@ void Power::logPowerUsage() {
 
     time_t now;
     struct tm *tmp;
-    int hour, day, mon, year;
+    int secs, hour, day, mon, year;
     string currentDate, lastLoggedDate;
+    bool isFirstEnterHour = 1;
 
     now = time(0);
     tmp = gmtime(&now);
@@ -105,7 +110,7 @@ void Power::logPowerUsage() {
     year = tmp->tm_year + 1900;
     currentDate = formatDate(year, mon, day);
     lastLoggedDate = getLastLoggedDate();
-    
+
     if (currentDate != lastLoggedDate) {
         // log total power usage of last date
         updateDaysLogFile(lastLoggedDate);
@@ -116,13 +121,15 @@ void Power::logPowerUsage() {
         updateLogVector();
     }
 
-    double prevHoursUsage = 0;
-    double accumUsage = 0;
-    double currHourUsage = 0;
-    int currHour = hour;
+    long long prevHoursEnergyUsage = 0;
+    long long accumEnergyUsage = 0;
+    double currHourPowerUsage = 0;
+    int currHour;
     double extra = hourlyPowerUsage[hour];
 
     while (true) {
+        this_thread::sleep_for(30000ms); //5 minutes
+
         now = time(0);
         tmp = gmtime(&now);
         currHour = tmp->tm_hour;
@@ -132,7 +139,14 @@ void Power::logPowerUsage() {
         currentDate = formatDate(year, mon, day);
         lastLoggedDate = getLastLoggedDate();
 
+        if (isFirstEnterHour) {
+            secs = LinuxParser::upTime();
+        } else {
+            secs = (tmp->tm_min * 60) + tmp->tm_sec;
+        }
+
         if (currentDate != lastLoggedDate) {
+            cout << "date changed";
             // log total power usage of last date
             updateDaysLogFile(lastLoggedDate);
             // init hourly_log_file
@@ -144,18 +158,19 @@ void Power::logPowerUsage() {
         }
 
         if (currHour != hour) {
-            prevHoursUsage = accumUsage;
+            cout << "hour changed";
+            prevHoursEnergyUsage = accumEnergyUsage;
             extra = 0;
             hour = currHour;
+            isFirstEnterHour = 0;
         }
 
-        accumUsage = getPowerUsage();
-        currHourUsage = accumUsage - prevHoursUsage + extra;
-        hourlyPowerUsage[hour] = currHourUsage;
+        accumEnergyUsage = getEnergyUsageInJoules();
+        currHourPowerUsage = (accumEnergyUsage - prevHoursEnergyUsage) / secs / 1000000.0 + extra;
+        cout << currHourPowerUsage;
+        hourlyPowerUsage[hour] = currHourPowerUsage;
 
         updateHoursLogFile(currentDate);
-
-        this_thread::sleep_for(300000ms); //5 minutes
     }
 
 }
@@ -188,3 +203,10 @@ map<string, double> Power::getLastNDaysPowerUsage(int n) {
 
     return lastNDaysPowerUsage;
 }
+
+// int main(int argc, char const *argv[])
+// {
+//     Power::logPowerUsage();
+//     return 0;
+// }
+

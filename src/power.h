@@ -5,26 +5,25 @@
 #include <vector>
 #include <map>
 
-using namespace std;
+// using namespace std::;
 
 namespace Power {
-    const string hoursLogFile = "../data/hours_power_usage.csv";
-    const string daysLogFile = "../date/days_power_usage.csv";
-    const string powerUsageFile = "/sys/class/power_supply/BAT1/power_now";
-    vector<double> hourlyPowerUsage;
+    const std::string hoursLogFile = "../data/hours_power_usage.csv";
+    const std::string daysLogFile = "../date/days_power_usage.csv";
+    const std::string powerUsageFile = "/sys/class/powercap/intel-rapl/intel-rapl\\:1/energy_uj";
 
     void initLogVector();
     void resetLogVector();
-    string formatDate(int year, int mon, int day);
-    string getLastLoggedDate();
+    std::string formatDate(int year, int mon, int day);
+    std::string getLastLoggedDate();
     double getDailyTotalUsage();
-    void updateDaysLogFile(string date);
-    int getPowerUsage();
-    void updateHoursLogFile(string currentDate);
+    void updateDaysLogFile(std::string date);
+    long long getEnergyUsageInJoules();
+    void updateHoursLogFile(std::string currentDate);
     void updateLogVector();
     void logPowerUsage();
-    vector<double> getTodaysHourlyPowerUsage();
-    map<string, double> getLastNDaysPowerUsage(int n);
+    std::vector<double> getTodaysHourlyPowerUsage();
+    std::map<std::string, double> getLastNDaysPowerUsage(int n);
 
 }
 
