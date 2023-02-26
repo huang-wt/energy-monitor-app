@@ -3,14 +3,14 @@
 
 class Memory {
 
-public:
-    Memory();
-    float getTotalMemory();
-    float getUsedMemory();
-    float getUtilisation();
+    public:
+        Memory();
+        float getTotalMemory();
+        float getUsedMemory();
+        float getUtilisation();
 
-private:
-    float totalMemory = {};
+    private:
+        float totalMemory = {};
 
 };
 

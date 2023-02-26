@@ -11,30 +11,28 @@
 
 class System {
 
-public:
-    System();
-    long getUpTime();
-    int getTotalProcesses();
-    int getRunningProcesses();
-    std::string getKernel();
-    std::string getOperatingSystem();
-    int getCpuCoresCount();
+    public:
+        System();
+        long getUpTime();
+        int getTotalProcesses();
+        int getRunningProcesses();
+        std::string getKernel();
+        std::string getOperatingSystem();
+        int getCpuCoresCount();
 
-    float getTotalMemory();
-    float getUsedMemory();
-    float getMemoryUtilisation();
+        float getTotalMemory();
+        float getUsedMemory();
+        float getMemoryUtilisation();
 
-    std::vector<float> getCpuUtilisations();
-    long getTotalJiffies();
+        std::vector<float> getCpuUtilisations();
+        long getTotalJiffies();
 
-    std::vector<Process> getSortedProcesses();
+        std::vector<Process> getSortedProcesses();
 
-private:
-    Processor cpu = {};
-    Memory memory = {};
-    std::map<int, Process> processes = {};
-
-
+    private:
+        Processor cpu = {};
+        Memory memory = {};
+        std::map<int, Process> processes = {};
 
 };
 
