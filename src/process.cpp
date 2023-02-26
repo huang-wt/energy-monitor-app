@@ -17,32 +17,32 @@ using std::vector;
 //-----------------------------------------------------------------------------
 
 // Return this process's ID
-int Process::pid() { 
+int Process::getPid() { 
   return pid_; 
 }
 
 // Return this process's CPU utilization
-float Process::cpuUtilization() { 
+float Process::getCpuUtilization() { 
   return cpu_utilization_;
 }
 
 // Return the command that generated this process
-string Process::command() { 
+string Process::getCommand() { 
   return command_; 
 }
 
 // Return this process's memory utilization
-string Process::ram() { 
+string Process::getRam() { 
   return ram_;
 }
 
 // Return the user (name) that generated this process
-string Process::user() { 
+string Process::getUser() { 
   return user_; 
 }
 
 // Return the age of this process (in seconds)
-long Process::upTime() { 
+long Process::getUpTime() { 
   return up_time_;
 }
 
@@ -60,19 +60,19 @@ bool Process::operator>(Process const& a) const {
 // Mutators
 //-----------------------------------------------------------------------------
 
-void Process::pid(int pid) {
+void Process::setPid(int pid) {
   pid_ = pid;
 }
 
-void Process::user(int pid) {
+void Process::setUser(int pid) {
   user_ = LinuxParser::user(pid);
 }
 
-void Process::command(int pid) {
+void Process::setCommand(int pid) {
   command_ = LinuxParser::command(pid);
 }
 
-void Process::cpuUtilization(int pid, long currTotalJiffies) {
+void Process::setCpuUtilization(int pid, long currTotalJiffies) {
     long currPJiffies = LinuxParser::activeJiffies(pid);
     if (prevPJiffies == 0 && prevTotalJiffies == 0) {
         cpu_utilization_ = 0;
@@ -85,12 +85,12 @@ void Process::cpuUtilization(int pid, long currTotalJiffies) {
     prevTotalJiffies = currTotalJiffies;
 }
 
-void Process::ram(int pid) {
+void Process::setRam(int pid) {
   int kbytes = std::atoi(LinuxParser::ram(pid).c_str());
   int mbytes = kbytes / 1000; // in MB
   ram_ = std::to_string(mbytes);
 }
 
-void Process::upTime(int pid){
+void Process::setUpTime(int pid){
   up_time_ = LinuxParser::upTime(pid);
 }

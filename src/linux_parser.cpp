@@ -118,6 +118,39 @@ vector<float> LinuxParser::memoryInfo() {
   return memoryInfo;
 }
 
+float LinuxParser::totalMemory() {
+  string skip;
+  string temp;
+  string line;
+  float totalMemory;
+  std::ifstream stream(kProcDirectory + kMeminfoFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> skip >> temp >> skip;
+    totalMemory = stof(temp);
+  }
+  return totalMemory;
+}
+
+float LinuxParser::avalMemory() {
+  string skip;
+  string temp;
+  string line;
+  float avalMemory;
+  std::ifstream stream(kProcDirectory + kMeminfoFilename);
+  if (stream.is_open()) {
+    for (int i = 0; i < 2; ++i) {
+      std::getline(stream, line);
+    }
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    linestream >> skip >> temp >> skip;
+    avalMemory = stof(temp);
+  }
+  return avalMemory;
+}
+
 // Reads and returns the total number of processes
 int LinuxParser::totalProcesses() { 
   int t_processes = 0;

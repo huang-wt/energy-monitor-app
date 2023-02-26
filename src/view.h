@@ -1,20 +1,26 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include<string>
+#include <string>
+#include "system.h"
 
-namespace View {
+class View {
 
-void displayStaticData();
-void displayDynamicData();
-void displayMemoryInfo();
-void displayCpuUtilizations();
-void displayProcesses();
-void systemDataSelect();
-std::string processSelect();
-void generalCoreSelect();
-void serviceSelect();
+public:
+    View(System &sysMonitor);
+    // void displayStaticData();
+    // void displayDynamicData();
+    // void displayMemoryInfo();
+    // void displayCpuUtilizations();
+    void displaySystemInfo();
+    void displayProcesses();
+    // void systemDataSelect();
+    std::string processSelect();
+    void generalCoreSelect();
+    void serviceSelect();
 
-}
+private:
+    System sysMonitor;
+};
 
 #endif

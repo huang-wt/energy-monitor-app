@@ -7,7 +7,9 @@ int main() {
 
     // std::thread t(Power::logPowerUsage);
 
-    View::serviceSelect();
+    System sysMonitor = System();
+    View view = View(sysMonitor);
+    view.serviceSelect();
     
     // t.join();
 }
