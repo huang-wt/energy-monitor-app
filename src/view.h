@@ -3,24 +3,27 @@
 
 #include <string>
 #include "system.h"
+#include "power.h"
 
 class View {
 
     public:
         View(System &sysMonitor);
-        // void displayStaticData();
-        // void displayDynamicData();
-        // void displayMemoryInfo();
-        // void displayCpuUtilizations();
-        void displaySystemInfo();
-        void displayProcesses();
-        // void systemDataSelect();
-        std::string processSelect();
-        void generalCoreSelect();
+        View(System &sysMonitor, Power &powerMonitor);
         void serviceSelect();
 
     private:
         System sysMonitor;
+        Power powerMonitor;
+
+        void displaySystemInfo();
+        void displayProcesses();
+        void displayTodaysPowerUsage();
+        void displayLastWeekPowerUsage();
+        void powerUsageSelect();
+        std::string processSelect();
+        void generalCoreSelect();
+
 };
 
 #endif

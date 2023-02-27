@@ -14,6 +14,11 @@ View::View(System &sysMonitor) {
     this->sysMonitor = sysMonitor;
 }
 
+View::View(System &sysMonitor, Power &powerMonitor) {
+    this->sysMonitor = sysMonitor;
+    this->powerMonitor = powerMonitor;
+}
+
 void View::displaySystemInfo() {
 
     for (int i = 0 ; i < 100 ; i++, sleep(1)) {
@@ -62,6 +67,64 @@ void View::displayProcesses() {
 
     cin.get();
     cin.get();
+}
+
+void View::displayTodaysPowerUsage() {
+    cout << fixed << setprecision(1);
+    cout << "\n";
+    cout << "\t\t\t -- Hourly Power Usage --\n\n";
+    cout << "Hour\tEnergy (in Wh)\n";
+    vector<double> hourlyPowerUsage = powerMonitor.getTodaysHourlyPowerUsage();
+    for (int h = 0 ; h < 24 ; h++) {
+        cout << h << "\t" << hourlyPowerUsage[h] << endl;
+    }
+
+    cin.get();
+    cin.get();
+}
+
+void View::displayLastWeekPowerUsage() {
+    cout << fixed << setprecision(1);
+    cout << "\n";
+    cout << "\t\t\t -- Last Week Power Usage --\n\n";
+    cout << "Date\t\tEnergy (in Wh)\n";
+    map<string, double> lastSevenDaysPowerUsage = powerMonitor.getLastNDaysPowerUsage(7);
+    for (auto const& [key, val] : lastSevenDaysPowerUsage) {
+        cout << key << ": " << val << "Kwh" << endl;
+    }
+
+    cin.get();
+    cin.get();
+}
+
+void View::powerUsageSelect() {
+    int intChoice = 0;
+    char charChoice[3];
+
+    system("clear");
+    cout << "\n";
+    cout << "\t\t\t -- Select Scope -- \n\n";
+    cout << "1. Hourly energy usage for today\n";
+    cout << "2. Energy usage in last seven days\n\n";
+
+    cout << "Enter Option: ";
+
+    cin >> ("%s", charChoice);
+    stringstream tmpcnvt (charChoice);
+    tmpcnvt >> intChoice;
+
+    system("clear");
+    switch (intChoice){
+        case 1:
+            displayTodaysPowerUsage();
+            break;
+        case 2:
+            displayLastWeekPowerUsage();
+            break;
+        default:
+            cout << "Invalid Choice - Re-Enter / Exit";
+            break;
+    }
 }
 
 string View::processSelect() {
@@ -139,9 +202,10 @@ void View::serviceSelect() {
         system("clear");
         cout << "\n";
         cout << "\t\t\t -- Select Service -- \n\n";
-        cout << "1. Monitor system information\n";
-        cout << "2. Monitor running processes\n";
-        cout << "3. General Binds\n";
+        cout << "1. System information\n";
+        cout << "2. Running processes\n";
+        cout << "3. Energy usage\n";
+        cout << "4. General Binds\n";
         cout << "\n\n0. Exit\n";
 
         cout << "Enter Option: ";
@@ -158,6 +222,9 @@ void View::serviceSelect() {
                 displayProcesses();
                 break;
             case 3:
+                powerUsageSelect();
+                break;
+            case 4:
                 generalCoreSelect();
                 break;
             case 0:

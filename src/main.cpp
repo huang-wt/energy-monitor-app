@@ -3,8 +3,9 @@
 #include "view.h"
 #include "power.h"
 
+Power power = Power();
+
 void logPowerUsage() {
-    Power power = Power();
     power.logPowerUsage();
 }
 
@@ -12,7 +13,7 @@ int main() {
     std::thread t(logPowerUsage);
 
     System sysMonitor = System();
-    View view = View(sysMonitor);
+    View view = View(sysMonitor, power);
     view.serviceSelect();
     
     t.join();
