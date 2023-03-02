@@ -11,6 +11,8 @@ class Power {
     public:
         static Power* getInstance();
         void logPowerUsage();
+        double getCurrHourEnergyUsage();
+        double getCurrPowerUsage();
         std::vector<double> getTodaysHourlyPowerUsage();
         std::map<std::string, double> getLastNDaysPowerUsage(int n);
 
@@ -23,6 +25,8 @@ class Power {
         std::string maxPowerUjFile = "/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj";
         std::vector<double> hourlyPowerUsage;
         long long maxPowerUj;
+        double currHourEnergyUsage;
+        double currPowerUsage;
 
         void resetLogVector();
         std::string formatDate(int year, int mon, int day);

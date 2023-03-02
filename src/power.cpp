@@ -105,7 +105,6 @@ void Power::logPowerUsage() {
     struct tm *tmp;
     int secs, hour, day, mon, year;
     string currentDate, lastLoggedDate;
-    // bool isFirstEnterHour = 1;
 
     now = time(0);
     tmp = gmtime(&now);
@@ -126,14 +125,17 @@ void Power::logPowerUsage() {
         updateLogVector();
     }
 
-    long long prevHoursEnergyUsage = 0;
-    long long accumEnergyUsage = 0;
-    double currHourPowerUsage = 0;
+    long long prevHoursEnergyUsage = 0; // in uj
+    long long accumEnergyUsage = 0; // in uj
+    long long energyUsage = 0;
+    long long prevEnergyUsage = 0; // in uj
+    long long capTimes = 0;
+    currHourEnergyUsage = 0;
     int currHour;
     double extra = hourlyPowerUsage[hour];
 
     while (true) {
-        this_thread::sleep_for(1000ms); //1 minutes
+        this_thread::sleep_for(1000ms); //1 second
 
         now = time(0);
         tmp = gmtime(&now);
@@ -143,12 +145,6 @@ void Power::logPowerUsage() {
         year = tmp->tm_year + 1900;
         currentDate = formatDate(year, mon, day);
         lastLoggedDate = getLastLoggedDate();
-
-        // if (isFirstEnterHour) {
-        //     secs = LinuxParser::upTime();
-        // } else {
-        //     secs = (tmp->tm_min * 60) + tmp->tm_sec;
-        // }
 
         if (currentDate != lastLoggedDate) {
             // log total power usage of last date
@@ -165,16 +161,33 @@ void Power::logPowerUsage() {
             prevHoursEnergyUsage = accumEnergyUsage;
             extra = 0;
             hour = currHour;
-            // isFirstEnterHour = 0;
         }
 
-        accumEnergyUsage = getEnergyUsageInUj();
-        currHourPowerUsage = (accumEnergyUsage - prevHoursEnergyUsage) / 1000000.0 / 3600 + extra;
-        hourlyPowerUsage[hour] = currHourPowerUsage;
+        energyUsage = getEnergyUsageInUj();
+        if (energyUsage < prevEnergyUsage) {
+            capTimes += 1;
+            currPowerUsage = (energyUsage - prevEnergyUsage + maxPowerUj) / 1000000.0;
+        } else {
+            currPowerUsage = (energyUsage - prevEnergyUsage) / 1000000.0;
+        }
+                                         
+        prevEnergyUsage = energyUsage;
+        accumEnergyUsage = energyUsage + capTimes * maxPowerUj;
 
+        currHourEnergyUsage = (accumEnergyUsage - prevHoursEnergyUsage) / 1000000 / 3600.0 + extra;
+        
+        hourlyPowerUsage[hour] = currHourEnergyUsage;
         updateHoursLogFile(currentDate);
     }
 
+}
+
+double Power::getCurrHourEnergyUsage() {
+    return currHourEnergyUsage;
+}
+
+double Power::getCurrPowerUsage() {
+    return currPowerUsage;
 }
 
 vector<double> Power::getTodaysHourlyPowerUsage() {
