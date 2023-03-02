@@ -8,13 +8,11 @@
 class View {
 
     public:
-        View(System &sysMonitor);
-        View(System &sysMonitor, const Power &powerMonitor);
         void serviceSelect();
 
     private:
-        System sysMonitor;
-        Power powerMonitor;
+        System* sysMonitor = System::getInstance();
+        Power* powerMonitor = Power::getInstance();
 
         void displaySystemInfo();
         void displayProcesses();

@@ -9,15 +9,6 @@
 
 using namespace std;
 
-View::View(System &sysMonitor) {
-    this->sysMonitor = sysMonitor;
-}
-
-View::View(System &sysMonitor, const Power &powerMonitor) {
-    this->sysMonitor = sysMonitor;
-    this->powerMonitor = powerMonitor;
-}
-
 void View::displaySystemInfo() {
 
     for (int i = 0 ; i < 15 ; i++, sleep(1)) {
@@ -26,21 +17,20 @@ void View::displaySystemInfo() {
         cout << "\n";
         cout << "\t\t\t -- System Infomation --\n\n";
 
-        cout << "Operation System: " << sysMonitor.getOperatingSystem() << endl;
-        cout << "Kernel: " << sysMonitor.getKernel() << endl;
-        cout << "Cores number: " << sysMonitor.getCpuCoresCount() << endl;
+        cout << "Operation System: " << sysMonitor->getOperatingSystem() << endl;
+        cout << "Kernel: " << sysMonitor->getKernel() << endl;
         cout << endl;
-        cout << "Total Processes: " << sysMonitor.getTotalProcesses() << endl;
-        cout << "Running Processes: " << sysMonitor.getRunningProcesses() << endl;
-        cout << "Up Time: " << sysMonitor.getUpTime() << endl;
+        cout << "Total Processes: " << sysMonitor->getTotalProcesses() << endl;
+        cout << "Running Processes: " << sysMonitor->getRunningProcesses() << endl;
+        cout << "Up Time: " << sysMonitor->getUpTime() << endl;
         cout << endl;
-        cout << "Total Memory: " << sysMonitor.getTotalMemory() / 1024 / 1024  << " Gb\n";
-        cout << "Used Memory: " << sysMonitor.getUsedMemory() / 1024 / 1024 << " KB\n";
-        cout << "Memory Utilization: " << sysMonitor.getMemoryUtilisation() * 100.0 << "%\n";
+        cout << "Total Memory: " << sysMonitor->getTotalMemory() / 1024 / 1024  << " Gb\n";
+        cout << "Used Memory: " << sysMonitor->getUsedMemory() / 1024 / 1024 << " KB\n";
+        cout << "Memory Utilization: " << sysMonitor->getMemoryUtilisation() * 100.0 << "%\n";
         cout << endl;
 
-        vector<float> cpuUtilizations = sysMonitor.getCpuUtilisations();
-        cout << "CPU: " << cpuUtilizations[0] * 100.0 << "%" << "\t" << sysMonitor.getCpuTemp() << "C" << endl;
+        vector<float> cpuUtilizations = sysMonitor->getCpuUtilisations();
+        cout << "CPU: " << cpuUtilizations[0] * 100.0 << "%" << "\t" << sysMonitor->getCpuTemp() << "C" << endl;
         for (int i = 1 ; i < cpuUtilizations.size() ; i++) {
             cout << "Core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
         } 
@@ -57,7 +47,7 @@ void View::displayProcesses() {
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- Processes --\n\n";
-        vector<Process> processesSorted = sysMonitor.getSortedProcesses();
+        vector<Process> processesSorted = sysMonitor->getSortedProcesses();
         for (int k = 0 ; k < 10 ; k++) {
             cout << processesSorted[k].getPid() << "\t" << processesSorted[k].getCpuUtilization() * 100 << "%\n";
         }
@@ -75,7 +65,7 @@ void View::displayTodaysEnergyUsage() {
         cout << "\n";
         cout << "\t\t\t -- Hourly Energy Usage --\n\n";
         cout << "Hour\tEnergy (in Wh)\n";
-        vector<double> hourlyPowerUsage = powerMonitor.getTodaysHourlyPowerUsage();
+        vector<double> hourlyPowerUsage = powerMonitor->getTodaysHourlyPowerUsage();
         for (int h = 0 ; h < 24 ; h++) {
             cout << h << "\t" << hourlyPowerUsage[h] << endl;
         }
@@ -90,7 +80,7 @@ void View::displayLastWeekEnergyUsage() {
     cout << "\n";
     cout << "\t\t\t -- Last Week Energy Usage --\n\n";
     cout << "Date\t\tEnergy (in Wh)\n";
-    map<string, double> lastSevenDaysPowerUsage = powerMonitor.getLastNDaysPowerUsage(7);
+    map<string, double> lastSevenDaysPowerUsage = powerMonitor->getLastNDaysPowerUsage(7);
     for (auto const& [key, val] : lastSevenDaysPowerUsage) {
         cout << key << ": " << val << "Wh" << endl;
     }
@@ -100,12 +90,13 @@ void View::displayLastWeekEnergyUsage() {
 }
 
 void View::displayLivePowerUsage() {
-    for (int i = 0 ; i < 20 ; i++, sleep(1)) {
+    while (1) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- Live Power Usage --\n\n";
-        cout << powerMonitor.getCurrPowerUsage() << " watts";
+        sleep(1);
+        cout << powerMonitor->getCurrPowerUsage() << " watts";
     }
 
     cin.get();
@@ -169,17 +160,17 @@ void View::powerModeSelect() {
     switch(int_choice){
         case 1:
             system("clear");
-            sysMonitor.bindProcessesToAllCores();
+            sysMonitor->bindProcessesToAllCores();
             cout << "Balanced Mode (Binding to all cores...)" << endl;
             break;
         case 2:
             system("clear");
-            sysMonitor.bindProcessesToPCores();
+            sysMonitor->bindProcessesToPCores();
             cout << "High Performance Mode (Binding to P-cores...)" << endl;
             break;
         case 3:
             system("clear");
-            sysMonitor.bindProcessesToECores();
+            sysMonitor->bindProcessesToECores();
             cout << "Power Saver Mode (Binding to E-cores...)" << endl;
             break;
         case 4:

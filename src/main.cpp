@@ -1,20 +1,19 @@
 #include <thread>
+#include <iostream>
+#include <unistd.h>
 
 #include "view.h"
-#include "power.h"
-
-Power power = Power();
 
 void logPowerUsage() {
-    power.logPowerUsage();
+    Power* powerMonitor = Power::getInstance();
+    powerMonitor->logPowerUsage();
 }
 
 int main() {
-    std::thread t(logPowerUsage);
+    thread t(logPowerUsage);
 
-    System sysMonitor = System();
-    View view = View(sysMonitor, power);
+    View view = View();
     view.serviceSelect();
-    
+
     t.join();
 }
