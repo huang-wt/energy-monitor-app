@@ -16,6 +16,8 @@ Power::Power() {
     for (int i = 0 ; i < 24 ; i++) {
         hourlyPowerUsage.push_back(0);
     }
+
+    maxPowerUj = std::stoll(Command::exec("cat " + maxPowerUjFile).output, 0, 10); // in micro joules
 }
 
 void Power::resetLogVector() {
@@ -57,8 +59,8 @@ void Power::updateDaysLogFile(string date) {
     out.close();
 }
 
-long long Power::getEnergyUsageInJoules() {
-    string cmd = "sudo cat " + powerUsageFile;
+long long Power::getEnergyUsageInUj() {
+    string cmd = "cat " + powerUsageFile;
     long long energyUsage = std::stoll(Command::exec(cmd).output, 0, 10); // in micro joules
     return energyUsage;
 }
@@ -157,7 +159,7 @@ void Power::logPowerUsage() {
             // isFirstEnterHour = 0;
         }
 
-        accumEnergyUsage = getEnergyUsageInJoules();
+        accumEnergyUsage = getEnergyUsageInUj();
         currHourPowerUsage = (accumEnergyUsage - prevHoursEnergyUsage) / 1000000.0 / 3600 + extra;
         hourlyPowerUsage[hour] = currHourPowerUsage;
 
@@ -194,42 +196,3 @@ map<string, double> Power::getLastNDaysPowerUsage(int n) {
 
     return lastNDaysPowerUsage;
 }
-
-// int main(int argc, char const *argv[]) {
-//     Power powerMonitor = Power();
-//     powerMonitor.logPowerUsage();
-
-//     // vector<double> t = powerMonitor.getTodaysHourlyPowerUsage();
-//     // cout << t.size() << endl;
-//     // powerMonitor.updateLogVector();
-//     // t = powerMonitor.getTodaysHourlyPowerUsage();
-//     // cout << t.size() << endl;
-//     // for (double d : t) {
-//     //     cout << d << ' ';
-//     // }
-
-//     // time_t now;
-//     // struct tm *tmp;
-//     // int secs, hour, day, mon, year;
-//     // string currentDate, lastLoggedDate;
-//     // now = time(0);
-//     // tmp = gmtime(&now);
-//     // hour = tmp->tm_hour;
-//     // day = tmp->tm_mday;
-//     // mon = tmp->tm_mon + 1;
-//     // year = tmp->tm_year + 1900;
-//     // currentDate = powerMonitor.formatDate(year, mon, day);
-//     // lastLoggedDate = powerMonitor.getLastLoggedDate();
-//     // cout << (lastLoggedDate == currentDate) << endl;
-
-//     // double totalUsage = powerMonitor.getDailyTotalUsage();
-//     // cout << totalUsage << endl;
-    
-//     // map<string, double> lastSevenDaysPowerUsage = powerMonitor.getLastNDaysPowerUsage(7);
-//     // for (auto const& [key, val] : lastSevenDaysPowerUsage) {
-//     //     cout << key << ": " << val << "Kwh" << endl;
-//     // }
-    
-//     return 0;
-// }
-
