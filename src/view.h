@@ -9,7 +9,7 @@ class View {
 
     public:
         View(System &sysMonitor);
-        View(System &sysMonitor, Power &powerMonitor);
+        View(System &sysMonitor, const Power &powerMonitor);
         void serviceSelect();
 
     private:
@@ -18,11 +18,13 @@ class View {
 
         void displaySystemInfo();
         void displayProcesses();
-        void displayTodaysPowerUsage();
-        void displayLastWeekPowerUsage();
+        void displayTodaysEnergyUsage();
+        void displayLastWeekEnergyUsage();
+        void displayLivePowerUsage();
         void powerUsageSelect();
-        std::string processSelect();
-        void generalCoreSelect();
+        // std::string processSelect();
+        // void generalCoreSelect();
+        void powerModeSelect();
 
 };
 

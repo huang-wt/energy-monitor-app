@@ -14,14 +14,14 @@ View::View(System &sysMonitor) {
     this->sysMonitor = sysMonitor;
 }
 
-View::View(System &sysMonitor, Power &powerMonitor) {
+View::View(System &sysMonitor, const Power &powerMonitor) {
     this->sysMonitor = sysMonitor;
     this->powerMonitor = powerMonitor;
 }
 
 void View::displaySystemInfo() {
 
-    for (int i = 0 ; i < 100 ; i++, sleep(1)) {
+    for (int i = 0 ; i < 15 ; i++, sleep(1)) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
@@ -53,7 +53,7 @@ void View::displaySystemInfo() {
 }
 
 void View::displayProcesses() {
-    for (int i = 0 ; i < 100 ; i++, sleep(1)) {
+    for (int i = 0 ; i < 15 ; i++, sleep(1)) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
@@ -69,33 +69,49 @@ void View::displayProcesses() {
     cin.get();
 }
 
-void View::displayTodaysPowerUsage() {
-    cout << fixed << setprecision(1);
-    cout << "\n";
-    cout << "\t\t\t -- Hourly Power Usage --\n\n";
-    cout << "Hour\tEnergy (in Wh)\n";
-    vector<double> hourlyPowerUsage = powerMonitor.getTodaysHourlyPowerUsage();
-    for (int h = 0 ; h < 24 ; h++) {
-        cout << h << "\t" << hourlyPowerUsage[h] << endl;
+void View::displayTodaysEnergyUsage() {
+    for (int i = 0 ; i < 20 ; i++, sleep(1)) {
+        system("clear");
+        cout << fixed << setprecision(1);
+        cout << "\n";
+        cout << "\t\t\t -- Hourly Energy Usage --\n\n";
+        cout << "Hour\tEnergy (in Wh)\n";
+        vector<double> hourlyPowerUsage = powerMonitor.getTodaysHourlyPowerUsage();
+        for (int h = 0 ; h < 24 ; h++) {
+            cout << h << "\t" << hourlyPowerUsage[h] << endl;
+        }
     }
 
     cin.get();
     cin.get();
 }
 
-void View::displayLastWeekPowerUsage() {
+void View::displayLastWeekEnergyUsage() {
     cout << fixed << setprecision(1);
     cout << "\n";
-    cout << "\t\t\t -- Last Week Power Usage --\n\n";
+    cout << "\t\t\t -- Last Week Energy Usage --\n\n";
     cout << "Date\t\tEnergy (in Wh)\n";
     map<string, double> lastSevenDaysPowerUsage = powerMonitor.getLastNDaysPowerUsage(7);
     for (auto const& [key, val] : lastSevenDaysPowerUsage) {
-        cout << key << ": " << val << "Kwh" << endl;
+        cout << key << ": " << val << "Wh" << endl;
     }
 
     cin.get();
     cin.get();
 }
+
+void View::displayLivePowerUsage() {
+    for (int i = 0 ; i < 20 ; i++, sleep(1)) {
+        system("clear");
+        cout << fixed << setprecision(1);
+        cout << "\n";
+        cout << "\t\t\t -- Live Power Usage --\n\n";
+        cout << powerMonitor.getCurrPowerUsage() << " watts";
+    }
+
+    cin.get();
+    cin.get();
+}  
 
 void View::powerUsageSelect() {
     int intChoice = 0;
@@ -105,7 +121,8 @@ void View::powerUsageSelect() {
     cout << "\n";
     cout << "\t\t\t -- Select Scope -- \n\n";
     cout << "1. Hourly energy usage for today\n";
-    cout << "2. Energy usage in last seven days\n\n";
+    cout << "2. Energy usage in last seven days\n";
+    cout << "3. Live power usage in watts\n\n";
 
     cout << "Enter Option: ";
 
@@ -116,10 +133,13 @@ void View::powerUsageSelect() {
     system("clear");
     switch (intChoice){
         case 1:
-            displayTodaysPowerUsage();
+            displayTodaysEnergyUsage();
             break;
         case 2:
-            displayLastWeekPowerUsage();
+            displayLastWeekEnergyUsage();
+            break;
+        case 3:
+            displayLivePowerUsage();
             break;
         default:
             cout << "Invalid Choice - Re-Enter / Exit";
@@ -127,32 +147,86 @@ void View::powerUsageSelect() {
     }
 }
 
-string View::processSelect() {
-    system("clear");
-    bool found = false;
-    cout << "\n";
-    cout << "\t\t\t -- Select Program -- \n\n";
-    string word;
-    cout << "Enter a program to target: ";
-    cin >> word;
+// string View::processSelect() {
+//     system("clear");
+//     bool found = false;
+//     cout << "\n";
+//     cout << "\t\t\t -- Select Program -- \n\n";
+//     string word;
+//     cout << "Enter a program to target: ";
+//     cin >> word;
 
-    return word;
-}
+//     return word;
+// }
 
-void View::generalCoreSelect() {
+// void View::generalCoreSelect() {
+//     int int_choice = 0;
+//     char char_choice[3];
+//     int lCore, eCore, pCore, hyperThreads;
+//     string word;
+//     vector <string> process_ID;
+//     vector <int> logicalCoresBounds;
+
+//     system("clear");
+//     cout << ("\n");
+//     cout << ("\t\t\t -- Cores Select -- \n\n");
+//     cout << ("1. All Cores \n");
+//     cout << ("2. P-Cores\n");
+//     cout << ("3. E-Cores\n");
+//     cout << ("\n\n0. Exit\n");
+
+//     cout << ("Enter Option: ");
+//     cin >> ("%s", char_choice);
+//     stringstream tmpcnvt (char_choice);
+//     tmpcnvt >> int_choice;
+
+//     logicalCoresBounds = Bind::getLogicalCoresBounds();
+//     lCore = logicalCoresBounds[0];
+//     eCore = logicalCoresBounds[1];
+//     pCore = logicalCoresBounds[2];
+//     hyperThreads = logicalCoresBounds[3];
+
+    
+//     switch(int_choice){
+//         case 1:
+//             system("clear");
+//             word = processSelect();
+//             process_ID = Bind::findProcessID(word);
+//             Bind::bindProcesses(process_ID, 0, lCore-1);
+//             break;
+//         case 2:
+//             system("clear");
+//             word = processSelect();
+//             process_ID = Bind::findProcessID(word);
+//             Bind::bindProcesses(process_ID, 0, hyperThreads-1);
+//             break;
+//         case 3:
+//             system("clear");
+//             word = processSelect();
+//             process_ID = Bind::findProcessID(word);
+//             Bind::bindProcesses(process_ID, hyperThreads, lCore-1);
+//             break;
+//         case 0:
+//             exit(1);
+//             break;
+//         default:cout << "Invalid Choice - Re-Enter / Exit";
+//         break;
+//     } 
+// }
+
+void View::powerModeSelect() {
     int int_choice = 0;
     char char_choice[3];
     int lCore, eCore, pCore, hyperThreads;
-    string word;
-    vector <string> process_ID;
     vector <int> logicalCoresBounds;
 
     system("clear");
     cout << ("\n");
-    cout << ("\t\t\t -- Cores Select -- \n\n");
-    cout << ("1. All Cores \n");
-    cout << ("2. P-Cores\n");
-    cout << ("3. E-Cores\n");
+    cout << ("\t\t\t -- Performance Mode Select -- \n\n");
+    cout << ("1. Balanced \n");
+    cout << ("2. High-Performance\n");
+    cout << ("3. Power-saver\n");
+    cout << ("4. Auto\n");
     cout << ("\n\n0. Exit\n");
 
     cout << ("Enter Option: ");
@@ -166,26 +240,30 @@ void View::generalCoreSelect() {
     pCore = logicalCoresBounds[2];
     hyperThreads = logicalCoresBounds[3];
 
-    
+    vector<Process> processes = sysMonitor.getSortedProcesses();
+    vector<string> pidsStr;
+    for (Process p : processes) {
+        if (p.getCpuUtilization() * 100 > 1) {
+            pidsStr.push_back(to_string(p.getPid()));
+        }
+    }
+
     switch(int_choice){
         case 1:
             system("clear");
-            word = processSelect();
-            process_ID = Bind::findProcessID(word);
-            Bind::findAndBind(process_ID, 0, lCore-1);
+            Bind::bindProcesses(pidsStr, 0, lCore-1);
             break;
         case 2:
             system("clear");
-            word = processSelect();
-            process_ID = Bind::findProcessID(word);
-            Bind::findAndBind(process_ID, 0, hyperThreads-1);
+            Bind::bindProcesses(pidsStr, 0, hyperThreads-1);
             break;
         case 3:
             system("clear");
-            word = processSelect();
-            process_ID = Bind::findProcessID(word);
-            Bind::findAndBind(process_ID, hyperThreads, lCore-1);
+            cout << 11111;
+            Bind::bindProcesses(pidsStr, hyperThreads, lCore-1);
             break;
+        case 4:
+            system("clear");
         case 0:
             exit(1);
             break;
@@ -225,7 +303,8 @@ void View::serviceSelect() {
                 powerUsageSelect();
                 break;
             case 4:
-                generalCoreSelect();
+                // generalCoreSelect();
+                powerModeSelect();
                 break;
             case 0:
                 exit(1);
