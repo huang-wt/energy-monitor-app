@@ -28,12 +28,11 @@ long Processor::activeJiffies(int cid) {
 // Return the aggregate CPU utilization
 vector<float> Processor::utilizations() {
     vector<float> cpuUtilizations;
-    int cpuNum = LinuxParser::cpuCoresCount();
     long currActiveJiffies;
     long currTotalJiffies;
     bool isFirstTime = prevActiveJiffies.empty();
 
-    for (int cid = -1 ; cid < cpuNum ; cid++) { 
+    for (int cid = -1 ; cid < logicalCores ; cid++) { 
         currActiveJiffies = activeJiffies(cid);
         currTotalJiffies = jiffies(cid);
 
