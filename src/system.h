@@ -19,20 +19,23 @@ class System {
         std::string getKernel();
         std::string getOperatingSystem();
         int getCpuCoresCount();
-
         float getTotalMemory();
         float getUsedMemory();
         float getMemoryUtilisation();
-
+        int getCpuTemp();
         std::vector<float> getCpuUtilisations();
-        long getTotalJiffies();
-
         std::vector<Process> getSortedProcesses();
+        void bindProcessesToPCores();
+        void bindProcessesToAllCores();
+        void bindProcessesToECores();
 
     private:
         Processor cpu = {};
         Memory memory = {};
         std::map<int, Process> processes = {};
+        long getTotalJiffies();
+        void bindProcesses(vector<int> pids, int low, int high);
+        std::vector<int> getCpuConsumingPids();
 
 };
 

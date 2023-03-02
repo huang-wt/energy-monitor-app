@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <bits/stdc++.h>
 
-#include "bind.h"
 #include "view.h"
 
 using namespace std;
@@ -41,7 +40,7 @@ void View::displaySystemInfo() {
         cout << endl;
 
         vector<float> cpuUtilizations = sysMonitor.getCpuUtilisations();
-        cout << "CPU: " << cpuUtilizations[0] * 100.0 << "%" << endl;
+        cout << "CPU: " << cpuUtilizations[0] * 100.0 << "%" << "\t" << sysMonitor.getCpuTemp() << "C" << endl;
         for (int i = 1 ; i < cpuUtilizations.size() ; i++) {
             cout << "Core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
         } 
@@ -147,73 +146,6 @@ void View::powerUsageSelect() {
     }
 }
 
-// string View::processSelect() {
-//     system("clear");
-//     bool found = false;
-//     cout << "\n";
-//     cout << "\t\t\t -- Select Program -- \n\n";
-//     string word;
-//     cout << "Enter a program to target: ";
-//     cin >> word;
-
-//     return word;
-// }
-
-// void View::generalCoreSelect() {
-//     int int_choice = 0;
-//     char char_choice[3];
-//     int lCore, eCore, pCore, hyperThreads;
-//     string word;
-//     vector <string> process_ID;
-//     vector <int> logicalCoresBounds;
-
-//     system("clear");
-//     cout << ("\n");
-//     cout << ("\t\t\t -- Cores Select -- \n\n");
-//     cout << ("1. All Cores \n");
-//     cout << ("2. P-Cores\n");
-//     cout << ("3. E-Cores\n");
-//     cout << ("\n\n0. Exit\n");
-
-//     cout << ("Enter Option: ");
-//     cin >> ("%s", char_choice);
-//     stringstream tmpcnvt (char_choice);
-//     tmpcnvt >> int_choice;
-
-//     logicalCoresBounds = Bind::getLogicalCoresBounds();
-//     lCore = logicalCoresBounds[0];
-//     eCore = logicalCoresBounds[1];
-//     pCore = logicalCoresBounds[2];
-//     hyperThreads = logicalCoresBounds[3];
-
-    
-//     switch(int_choice){
-//         case 1:
-//             system("clear");
-//             word = processSelect();
-//             process_ID = Bind::findProcessID(word);
-//             Bind::bindProcesses(process_ID, 0, lCore-1);
-//             break;
-//         case 2:
-//             system("clear");
-//             word = processSelect();
-//             process_ID = Bind::findProcessID(word);
-//             Bind::bindProcesses(process_ID, 0, hyperThreads-1);
-//             break;
-//         case 3:
-//             system("clear");
-//             word = processSelect();
-//             process_ID = Bind::findProcessID(word);
-//             Bind::bindProcesses(process_ID, hyperThreads, lCore-1);
-//             break;
-//         case 0:
-//             exit(1);
-//             break;
-//         default:cout << "Invalid Choice - Re-Enter / Exit";
-//         break;
-//     } 
-// }
-
 void View::powerModeSelect() {
     int int_choice = 0;
     char char_choice[3];
@@ -234,33 +166,21 @@ void View::powerModeSelect() {
     stringstream tmpcnvt (char_choice);
     tmpcnvt >> int_choice;
 
-    logicalCoresBounds = Bind::getLogicalCoresBounds();
-    lCore = logicalCoresBounds[0];
-    eCore = logicalCoresBounds[1];
-    pCore = logicalCoresBounds[2];
-    hyperThreads = logicalCoresBounds[3];
-
-    vector<Process> processes = sysMonitor.getSortedProcesses();
-    vector<string> pidsStr;
-    for (Process p : processes) {
-        if (p.getCpuUtilization() * 100 > 1) {
-            pidsStr.push_back(to_string(p.getPid()));
-        }
-    }
-
     switch(int_choice){
         case 1:
             system("clear");
-            Bind::bindProcesses(pidsStr, 0, lCore-1);
+            sysMonitor.bindProcessesToAllCores();
+            cout << "Balanced Mode (Binding to all cores...)" << endl;
             break;
         case 2:
             system("clear");
-            Bind::bindProcesses(pidsStr, 0, hyperThreads-1);
+            sysMonitor.bindProcessesToPCores();
+            cout << "High Performance Mode (Binding to P-cores...)" << endl;
             break;
         case 3:
             system("clear");
-            cout << 11111;
-            Bind::bindProcesses(pidsStr, hyperThreads, lCore-1);
+            sysMonitor.bindProcessesToECores();
+            cout << "Power Saver Mode (Binding to E-cores...)" << endl;
             break;
         case 4:
             system("clear");
@@ -269,7 +189,10 @@ void View::powerModeSelect() {
             break;
         default:cout << "Invalid Choice - Re-Enter / Exit";
         break;
-    } 
+    }
+
+    cin.get();
+    cin.get();
 }
 
 void View::serviceSelect() {

@@ -22,8 +22,6 @@ class View {
         void displayLastWeekEnergyUsage();
         void displayLivePowerUsage();
         void powerUsageSelect();
-        // std::string processSelect();
-        // void generalCoreSelect();
         void powerModeSelect();
 
 };
