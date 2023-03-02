@@ -12,6 +12,15 @@
 using namespace std;
 using namespace raymii;
 
+Power* Power::instancePtr = NULL;
+
+Power* Power::getInstance() {
+    if (instancePtr == NULL) {
+        instancePtr = new Power();
+    }
+    return instancePtr;
+}
+
 Power::Power() {
     for (int i = 0 ; i < 24 ; i++) {
         hourlyPowerUsage.push_back(0);

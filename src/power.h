@@ -9,12 +9,14 @@
 
 class Power {
     public:
-        Power();
+        static Power* getInstance();
         void logPowerUsage();
         std::vector<double> getTodaysHourlyPowerUsage();
         std::map<std::string, double> getLastNDaysPowerUsage(int n);
 
     private:
+        static Power* instancePtr;
+        Power();
         std::string hoursLogFile = "../data/hours_power_usage.csv";
         std::string daysLogFile = "../data/days_power_usage.csv";
         std::string powerUsageFile = "/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj";
