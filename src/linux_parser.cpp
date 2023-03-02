@@ -95,11 +95,6 @@ vector<int> LinuxParser::pids() {
 	return pids;
 }
 
-// Reads and return the number of CPU cores
-int LinuxParser::cpuCoresCount() {
-  	return thread::hardware_concurrency();
-}
-
 // Reads and returns the system memory utilization
 vector<float> LinuxParser::memoryInfo() { 
 	string skip;

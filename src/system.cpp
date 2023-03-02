@@ -33,10 +33,6 @@ long int System::getUpTime() {
     return LinuxParser::upTime(); 
 }
 
-int System::getCpuCoresCount() {
-    return LinuxParser::cpuCoresCount();
-}
-
 float System::getTotalMemory() {
     return memory.getTotalMemory();
 }

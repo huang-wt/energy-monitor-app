@@ -25,7 +25,6 @@ namespace LinuxParser {
     std::string operatingSystem();
     std::string kernel();
     std::vector<int> pids();
-    int cpuCoresCount();
     std::vector<float> memoryInfo();
     float totalMemory();
     float avalMemory();
