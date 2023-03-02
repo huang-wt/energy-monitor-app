@@ -8,6 +8,15 @@
 #include "processor.h"
 #include "memory.h"
 
+System* System::instancePtr = NULL;
+
+System* System::getInstance() {
+    if (instancePtr == NULL) {
+        instancePtr = new System();
+    }
+    return instancePtr;
+}
+
 System::System() {
     cpu = Processor();
     memory = Memory();

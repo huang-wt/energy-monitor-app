@@ -12,7 +12,7 @@
 class System {
 
     public:
-        System();
+        static System* getInstance();
         long getUpTime();
         int getTotalProcesses();
         int getRunningProcesses();
@@ -29,6 +29,8 @@ class System {
         void bindProcessesToECores();
 
     private:
+        static System* instancePtr;
+        System();
         Processor cpu;
         Memory memory;
         std::map<int, Process> processes;
