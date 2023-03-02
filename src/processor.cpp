@@ -1,11 +1,5 @@
-#include <string>
-#include <vector>
-
 #include "processor.h"
 #include "linux_parser.h"
-
-using std::string;
-using std::vector;
 
 long Processor::jiffies(int cid) {
     vector<string> jiffies = LinuxParser::cpuTimes(cid);
@@ -56,4 +50,10 @@ vector<float> Processor::utilizations() {
     }
 
     return cpuUtilizations;
+}
+
+int Processor::getCpuTemp() {
+    string cmd = "cat /sys/class/thermal/thermal_zone0/temp";
+    int temp = stoi(Command::exec(cmd).output) / 1000;
+    return temp;
 }
