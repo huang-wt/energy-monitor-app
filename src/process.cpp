@@ -1,96 +1,74 @@
-#include <unistd.h>
-#include <cctype>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <iostream>
-
 #include "process.h"
-#include "linux_parser.h"
+
+#include "system_parser.h"
 
 using std::string;
 using std::to_string;
 using std::vector;
 
-//-----------------------------------------------------------------------------
-// Accessors
-//-----------------------------------------------------------------------------
-
-// Return this process's ID
-int Process::getPid() { 
-    return pid_; 
-}
-
-// Return this process's CPU utilization
-float Process::getCpuUtilization() { 
-    return cpu_utilization_;
-}
-
-// Return the command that generated this process
-string Process::getCommand() { 
-    return command_; 
-}
-
-// Return this process's memory utilization
-string Process::getRam() { 
-    return ram_;
-}
-
-// Return the user (name) that generated this process
-string Process::getUser() { 
-    return user_; 
-}
-
-// Return the age of this process (in seconds)
-long Process::getUpTime() { 
-    return up_time_;
-}
-
-// Overloads the less operator according to cpu utilization
 bool Process::operator<(Process const& a) const { 
-    return this->cpu_utilization_ < a.cpu_utilization_;
+    return this->cpu_utilisation < a.cpu_utilisation;
 }
 
-// Overloads the greater operator according to cpu utilization
 bool Process::operator>(Process const& a) const { 
-    return this->cpu_utilization_ > a.cpu_utilization_;
+    return this->cpu_utilisation > a.cpu_utilisation;
 }
 
-//-----------------------------------------------------------------------------
-// Mutators
-//-----------------------------------------------------------------------------
-
-void Process::setPid(int pid) {
-    pid_ = pid;
+int Process::Pid() { 
+    return pid; 
 }
 
-void Process::setUser(int pid) {
-    user_ = LinuxParser::user(pid);
+float Process::CpuUtilisation() { 
+    return cpu_utilisation;
 }
 
-void Process::setCommand(int pid) {
-    command_ = LinuxParser::command(pid);
+string Process::Command() { 
+    return command; 
 }
 
-void Process::setCpuUtilization(int pid, long currTotalJiffies) {
-    long currPJiffies = LinuxParser::activeJiffies(pid);
-    if (prevPJiffies == 0 && prevTotalJiffies == 0) {
-        cpu_utilization_ = 0;
+string Process::Ram() { 
+    return ram;
+}
+
+string Process::User() { 
+    return user; 
+}
+
+long Process::UpTime() { 
+    return up_time;
+}
+
+void Process::SetPid(int pid) {
+    this->pid = pid;
+}
+
+void Process::SetUser(int pid) {
+    user = SystemParser::User(pid);
+}
+
+void Process::SetCommand(int pid) {
+    command = SystemParser::Command(pid);
+}
+
+void Process::SetCpuUtilization(int pid, long curr_total_jiffies) {
+    long curr_active_jiffies = SystemParser::ActiveJiffiesP(pid);
+    if (prev_active_jiffies == 0 && prev_total_jiffies == 0) {
+        cpu_utilisation = 0;
     } else {
-        cpu_utilization_ = (static_cast<float>(currPJiffies) - static_cast<float>(prevPJiffies)) /
-                           (static_cast<float>(currTotalJiffies) - static_cast<float>(prevTotalJiffies));
+        cpu_utilisation = (curr_active_jiffies - prev_active_jiffies + 0.0) /
+                          (curr_total_jiffies - prev_total_jiffies);
     }
 
-    prevPJiffies = currPJiffies;
-    prevTotalJiffies = currTotalJiffies;
+    prev_active_jiffies = curr_active_jiffies;
+    prev_total_jiffies = curr_total_jiffies;
 }
 
-void Process::setRam(int pid) {
-    int kbytes = std::atoi(LinuxParser::ram(pid).c_str());
-    int mbytes = kbytes / 1000; // in MB
-    ram_ = std::to_string(mbytes);
+void Process::SetRam(int pid) {
+    int kbytes = std::atoi(SystemParser::Ram(pid).c_str());
+    int mbytes = kbytes / 1024;
+    ram = std::to_string(mbytes);
 }
 
-void Process::setUpTime(int pid){
-    up_time_ = LinuxParser::upTime(pid);
+void Process::SetUpTime(int pid){
+    up_time = SystemParser::UpTime(pid);
 }
