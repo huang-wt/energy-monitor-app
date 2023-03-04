@@ -12,12 +12,9 @@
 using namespace std;
 using namespace raymii;
 
-Power* Power::instancePtr = NULL;
+Power* Power::instancePtr = new Power();
 
 Power* Power::getInstance() {
-    if (instancePtr == NULL) {
-        instancePtr = new Power();
-    }
     return instancePtr;
 }
 
