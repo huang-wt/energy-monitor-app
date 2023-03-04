@@ -1,18 +1,24 @@
 #include "memory.h"
-#include "linux_parser.h"
+
+#include "system_parser.h"
+
+float Memory::TotalMemory() {
+    return total_memory;
+}
+
+float Memory::UsedMemory() {
+    return used_memory;
+}
+
+float Memory::Utilisation() {
+    return UsedMemory() / TotalMemory();
+}
+
+void Memory::UpdateUsedMemory() {
+    used_memory = TotalMemory() - SystemParser::AvalMemory();
+}
 
 Memory::Memory() {
-    this->totalMemory = LinuxParser::totalMemory();
-}
-
-float Memory::getTotalMemory() {
-    return totalMemory;
-}
-
-float Memory::getUsedMemory() {
-    return totalMemory - LinuxParser::avalMemory();
-}
-
-float Memory::getUtilisation() {
-    return getUsedMemory() / getTotalMemory();
+    // Initialise totalMemory
+    total_memory = SystemParser::TotalMemory();
 }
