@@ -1,136 +1,136 @@
-#include <string>
-#include <vector>
-#include <iostream>
-
-#include "linux_parser.h"
 #include "system.h"
-#include "process.h"
-#include "processor.h"
-#include "memory.h"
 
-System* System::instancePtr = NULL;
+#include <algorithm>
 
-System* System::getInstance() {
-    if (instancePtr == NULL) {
-        instancePtr = new System();
-    }
-    return instancePtr;
+#include "system_parser.h"
+#include "command.h"
+
+// Hungry singleton pattern (thread-safe)
+System* System::instance = new System();
+
+System* System::Instance() {
+    return instance;
 }
 
 System::System() {
+    // Initialisation
     cpu = Processor();
     memory = Memory();
+    operating_system = SystemParser::OperatingSystem(); 
+    kernel = SystemParser::Kernel();
 }
 
-std::string System::getKernel() { 
-    return LinuxParser::kernel();
+std::string System::OperatingSystem() { 
+    return operating_system;
 }
 
-std::string System::getOperatingSystem() { 
-    return LinuxParser::operatingSystem(); 
+std::string System::Kernel() { 
+    return kernel;
 }
 
-int System::getRunningProcesses() { 
-    return LinuxParser::runningProcesses();
+long int System::UpTime() { 
+    return SystemParser::UpTime(); 
 }
 
-int System::getTotalProcesses() { 
-    return LinuxParser::totalProcesses(); 
+int System::TotalProcesses() { 
+    return SystemParser::TotalProcesses(); 
 }
 
-long int System::getUpTime() { 
-    return LinuxParser::upTime(); 
+int System::RunningProcesses() { 
+    return SystemParser::RunningProcesses();
 }
 
-float System::getTotalMemory() {
-    return memory.getTotalMemory();
+float System::TotalMemory() {
+    return memory.TotalMemory();
 }
 
-float System::getUsedMemory() {
-    return memory.getUsedMemory();
+float System::UsedMemory() {
+    return memory.UsedMemory();
 }
 
-float System::getMemoryUtilisation() {
-    return memory.getUtilisation();
+float System::MemoryUtilisation() {
+    return memory.Utilisation();
 }
 
-int System::getCpuTemp() {
-    return cpu.getCpuTemp();
+int System::CpuTemperature() {
+    return cpu.Temperature();
 }
 
-std::vector<float> System::getCpuUtilisations() {
-    return cpu.utilizations();
+std::vector<float> System::CpuUtilisations() {
+    return cpu.Utilisations();
 }
 
-long System::getTotalJiffies() {
-    return cpu.jiffies(-1);
+std::vector<Process> System::SortedProcesses() {
+    UpdateProcesses();
+
+    // Sorting in descending order on cpu utilisation
+    std::vector<Process> sorted_processes;
+    std::map<int, Process> :: iterator it;
+    for (it = processes.begin() ; it != processes.end() ; it++) {
+        sorted_processes.push_back(it->second);
+    }
+    sort(sorted_processes.begin(), sorted_processes.end(), std::greater<Process>());
+
+    return sorted_processes;
 }
 
-std::vector<Process> System::getSortedProcesses() {
-    // Initialize/Update map
-    std::vector<int> pids = LinuxParser::pids();
-    
+void System::UpdateCpuAndMemory() {
+    cpu.UpdateUtilisations();
+    cpu.UpdateTemperature();
+    memory.UpdateUsedMemory();
+}
+
+void System::UpdateProcesses() {
+    std::vector<int> pids = SystemParser::Pids();
     for (int pid : pids) {
         Process p;
-        p.setPid(pid);
-        p.setCommand(pid);
+        p.SetPid(pid);
+        p.SetCommand(pid);
         processes.insert(std::make_pair(pid, p));
     }
 
-    // Update cpu utilization for each process
-    long totalJiffies = getTotalJiffies();
+    // Update cpu utilization of each process
+    long totalJiffies = SystemParser::TotalJiffies(-1);
     for (int j = 0 ; j < processes.size() ; j++) {
         Process p = processes[j];
-        p.setCpuUtilization(p.getPid(), totalJiffies);
+        p.SetCpuUtilization(p.Pid(), totalJiffies);
         processes[j] = p;
     }
 
-    // Sorting in descending order
-    std::vector<Process> processesSorted;
-    std::map<int, Process> :: iterator it;
-    for (it = processes.begin() ; it != processes.end() ; it++) {
-        processesSorted.push_back(it->second);
-    }
-    std::sort(processesSorted.begin(), processesSorted.end(), std::greater<Process>());
-
-    return processesSorted;
 }
 
-void System::bindProcesses(vector<int> pids, int low, int high) {
-    string tasksetCMD = "taskset -cp";
-    string lowVal, highVal;
-    lowVal = to_string(low);
-    highVal = to_string(high);
+void System::BindProcesses(std::vector<int> pids, int low, int high) {
+    std::string taskset_cmd = "taskset -cp";
     for (auto &id: pids) {
-        string fullcmd = tasksetCMD + " " + lowVal + "-" + highVal + " " + to_string(id);
-        // cout << fullcmd << endl;
-        CommandResult bindCMD = Command::exec(fullcmd);
+        std::string full_cmd = taskset_cmd + " " + std::to_string(low) + "-" + \
+                              std::to_string(high) + " " + std::to_string(id);
+        raymii::Command::exec(full_cmd);
     }
 }
 
-vector<int> System::getCpuConsumingPids() {
-    vector<Process> processes = getSortedProcesses();
-    vector<int> pids;
+std::vector<int> System::CpuConsumingProcesses() {
+    std::vector<Process> processes = SortedProcesses();
+    std::vector<int> pids;
     for (Process p : processes) {
-        if (p.getCpuUtilization() * 100 > 1) {
-            pids.push_back(p.getPid());
+        if (p.CpuUtilisation() * 100 > 1) {
+            pids.push_back(p.Pid());
         }
     }
 
     return pids;
 }
 
-void System::bindProcessesToPCores() {
-    vector<int> pids = getCpuConsumingPids();
-    bindProcesses(pids, 0, cpu.hyperThreadedCores - 1);
+void System::BindToPCores() {
+    std::vector<int> pids = CpuConsumingProcesses();
+    BindProcesses(pids, 0, cpu.HyperThreadedCores() - 1);
 }
 
-void System::bindProcessesToAllCores() {
-    vector<int> pids = getCpuConsumingPids();
-    bindProcesses(pids, 0, cpu.logicalCores - 1);
+void System::BindToAllCores() {
+    std::vector<int> pids = CpuConsumingProcesses();
+    BindProcesses(pids, 0, cpu.LogicalCores() - 1);
 }
 
-void System::bindProcessesToECores() {
-    vector<int> pids = getCpuConsumingPids();
-    bindProcesses(pids, cpu.hyperThreadedCores, cpu.logicalCores - 1);
+void System::BindToECores() {
+    std::vector<int> pids = CpuConsumingProcesses();
+    BindProcesses(pids, cpu.HyperThreadedCores(), cpu.LogicalCores() - 1);
 }
