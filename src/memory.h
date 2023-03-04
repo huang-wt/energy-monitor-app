@@ -8,15 +8,15 @@
 class Memory {
 
     public:
-
         /**
-         * Getter method for totalMemory.
+         * Getter method for total_memory.
+         * @return The amount of used memory in Kb.
         */
         float TotalMemory();
 
         /**
-         * Getter method for usedMemory.
-         * @return The amount of used memory in bytes.
+         * Getter method for used_memory.
+         * @return The amount of used memory in Kb.
          */
         float UsedMemory();
 
