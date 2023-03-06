@@ -1,217 +1,204 @@
-#include <chrono>
-#include <fstream>
-#include <iostream>
-#include <thread>
-#include <vector>
-#include <map>
-
 #include "power.h"
+
+#include <unistd.h>
+
+#include <fstream>
+#include <thread>
+
 #include "command.h"
-// #include "linux_parser.h"
 
-using namespace std;
-using namespace raymii;
+using std::string;
+using std::vector;
+using std::map;
+using std::ifstream;
+using std::ofstream;
 
-Power* Power::instancePtr = new Power();
+Power* Power::instance = new Power();
 
-Power* Power::getInstance() {
-    return instancePtr;
+Power* Power::Instance() {
+    return instance;
 }
 
 Power::Power() {
+    //Initialise the logging vector and max energy
     for (int i = 0 ; i < 24 ; i++) {
-        hourlyPowerUsage.push_back(0);
+        hours_energy_usages.push_back(0);
     }
 
-    maxPowerUj = std::stoll(Command::exec("cat " + maxPowerUjFile).output, 0, 10); // in micro joules
+    string cmd = "cat " + mex_energy_path;
+    max_energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
 }
 
-void Power::resetLogVector() {
-    if (hourlyPowerUsage.size() != 24) {
-        return;
-    }
+void Power::UpdatePowerAndEnergyUsage() {
+    time_t now = time(0);
+    struct tm *tmp = gmtime(&now);
+    int hour = tmp->tm_hour;
+    string current_date = FormatDate(tmp->tm_year + 1900, tmp->tm_mon + 1, tmp->tm_mday);
+    string last_logged_date = LastLoggedDate();
 
-    for (int h = 0 ; h < 24 ; h++) {
-        hourlyPowerUsage[h] = 0;
-    }
-}
-
-// Format the date as YYYY/MM/DD
-string Power::formatDate(int year, int mon, int day) {
-    string yearStr = to_string(year);
-    string monStr = mon > 9 ? to_string(mon) : '0' + to_string(mon);
-    string dayStr = day > 9 ? to_string(day) : '0' + to_string(day);
-    string formatedDate = yearStr + '/' + monStr + '/' + dayStr;
-
-    return formatedDate;
-}
-
-string Power::getLastLoggedDate() {
-    string cmd = "head -1 " + hoursLogFile + " | tr -d '\\n'";
-    string lastLoggedDate = Command::exec(cmd).output;
-    return lastLoggedDate;
-}
-
-double Power::getDailyTotalUsage() {
-    string cmd = "tail -1 " + hoursLogFile + " | cut -d ',' -f2";
-    double totalUsage = stod(Command::exec(cmd).output);
-    return totalUsage;
-}
-
-void Power::updateDaysLogFile(string date) {
-    double totalUsage = getDailyTotalUsage();
-    ofstream out(daysLogFile, ios::app);
-    out << date << ',' << totalUsage << '\n';
-    out.close();
-}
-
-long long Power::getEnergyUsageInUj() {
-    string cmd = "cat " + powerUsageFile;
-    long long energyUsage = std::stoll(Command::exec(cmd).output, 0, 10); // in micro joules
-    return energyUsage;
-}
-
-void Power::updateHoursLogFile(string currentDate) {
-    double totalUsage = 0;
-    ofstream out(hoursLogFile);
-    out << currentDate << '\n';
-    int h = 0;
-    for (h = 0 ; h < 24 ; h++) {
-        out << h << ',' << hourlyPowerUsage[h] << '\n';
-        totalUsage += hourlyPowerUsage[h];
-    }
-    out << h << ',' << totalUsage;
-    out.close();
-} 
-
-void Power::updateLogVector() {
-    ifstream in(hoursLogFile);
-    string row;
-    if (in.is_open()) {
-        getline(in, row);
-        for (int h = 0 ; h < 24 ; h++) {
-            getline(in, row);
-            hourlyPowerUsage[h] = stod(row.substr(row.find(",") + 1));
-        }
-    }
-    in.close();
-}
-
-void Power::logPowerUsage() {
-    time_t now;
-    struct tm *tmp;
-    int secs, hour, day, mon, year;
-    string currentDate, lastLoggedDate;
-
-    now = time(0);
-    tmp = gmtime(&now);
-    hour = tmp->tm_hour;
-    day = tmp->tm_mday;
-    mon = tmp->tm_mon + 1;
-    year = tmp->tm_year + 1900;
-    currentDate = formatDate(year, mon, day);
-    lastLoggedDate = getLastLoggedDate();
-
-    if (currentDate != lastLoggedDate) {
-        // log total power usage of last date
-        updateDaysLogFile(lastLoggedDate);
-        // init hourly_log_file
-        updateHoursLogFile(currentDate);
+    if (current_date != last_logged_date) {
+        UpdateDaysLogFile(last_logged_date);
+        UpdateHoursLogFile(current_date);
     } else {
-        // store data to RAM
-        updateLogVector();
+        UpdateLogVector();
     }
 
-    long long prevHoursEnergyUsage = 0; // in uj
-    long long accumEnergyUsage = 0; // in uj
-    long long energyUsage = 0;
-    long long prevEnergyUsage = 0; // in uj
-    long long capTimes = 0;
-    currHourEnergyUsage = 0;
-    int currHour;
-    double extra = hourlyPowerUsage[hour];
-
+    // The total energy usage (in uj) in the previous hours since the pc boots
+    long long prev_hours_energy = 0;
+    // The total energy usage since the pc boots
+    long long accum_energy_usage = 0;
+    // The current energy amount extracted from the system
+    long long energy = 0;
+    // The energy amount extracted in the last logging time
+    long long prev_energy = 0;
+    // The number of times when the capped (max) energy amount is reached
+    long long capped_times = 0;
+    // The extra energy usage in the current hour (in case the pc reboots)
+    double extra = hours_energy_usages[hour];
+    int curr_hour;
+    
     while (true) {
-        this_thread::sleep_for(1000ms); //1 second
+        sleep(1);
 
         now = time(0);
         tmp = gmtime(&now);
-        currHour = tmp->tm_hour;
-        day = tmp->tm_mday;
-        mon = tmp->tm_mon + 1;
-        year = tmp->tm_year + 1900;
-        currentDate = formatDate(year, mon, day);
-        lastLoggedDate = getLastLoggedDate();
+        curr_hour = tmp->tm_hour;
+        current_date = FormatDate(tmp->tm_year + 1900, tmp->tm_mon + 1, tmp->tm_mday);
+        last_logged_date = LastLoggedDate();
 
-        if (currentDate != lastLoggedDate) {
-            // log total power usage of last date
-            updateDaysLogFile(lastLoggedDate);
-            // init hourly_log_file
-            resetLogVector();
-            updateHoursLogFile(currentDate);
+        if (current_date != last_logged_date) {
+            UpdateDaysLogFile(last_logged_date);
+            ResetLogVector();
+            UpdateHoursLogFile(current_date);
         } else {
-            // store data to RAM
-            updateLogVector();
+            UpdateLogVector();
         }
 
-        if (currHour != hour) {
-            prevHoursEnergyUsage = accumEnergyUsage;
+        if (curr_hour != hour) {
+            prev_hours_energy = accum_energy_usage;
             extra = 0;
-            hour = currHour;
+            hour = curr_hour;
         }
 
-        energyUsage = getEnergyUsageInUj();
-        if (energyUsage < prevEnergyUsage) {
-            capTimes += 1;
-            currPowerUsage = (energyUsage - prevEnergyUsage + maxPowerUj) / 1000000.0;
+        energy = EnergyUsageInUj();
+        if (energy < prev_energy) {
+            capped_times += 1;
+            curr_power_usage = (energy - prev_energy + max_energy) / 1000000.0;
         } else {
-            currPowerUsage = (energyUsage - prevEnergyUsage) / 1000000.0;
+            curr_power_usage = (energy - prev_energy) / 1000000.0;
         }
                                          
-        prevEnergyUsage = energyUsage;
-        accumEnergyUsage = energyUsage + capTimes * maxPowerUj;
-
-        currHourEnergyUsage = (accumEnergyUsage - prevHoursEnergyUsage) / 1000000 / 3600.0 + extra;
+        prev_energy = energy;
+        accum_energy_usage = energy + capped_times * max_energy;
+        curr_hour_energy_usage = (accum_energy_usage - prev_hours_energy) / 1000000 / 3600.0 + extra;
         
-        hourlyPowerUsage[hour] = currHourEnergyUsage;
-        updateHoursLogFile(currentDate);
+        hours_energy_usages[hour] = curr_hour_energy_usage;
+        UpdateHoursLogFile(current_date);
     }
 
 }
 
-double Power::getCurrHourEnergyUsage() {
-    return currHourEnergyUsage;
+double Power::CurrHourEnergyUsage() {
+    return curr_hour_energy_usage;
 }
 
-double Power::getCurrPowerUsage() {
-    return currPowerUsage;
+double Power::CurrPowerUsage() {
+    return curr_power_usage;
 }
 
-vector<double> Power::getTodaysHourlyPowerUsage() {
-    return hourlyPowerUsage;
+double Power::TodaysTotalEnergyUsage() {
+    string cmd = "tail -1 " + hours_log_file + " | cut -d ',' -f2";
+    double total_usage = stod(raymii::Command::exec(cmd).output);
+    return total_usage;
 }
 
-map<string, double> Power::getLastNDaysPowerUsage(int n) {
+vector<double> Power::HoursEnergyUsages() {
+    return hours_energy_usages;
+}
+
+map<string, double> Power::LastNDaysEnergyUsage(int n) {
     vector<string> rows;
-
-    ifstream in(daysLogFile);
+    ifstream in(days_log_file);
     string row;
     while (getline(in, row)) {
         rows.push_back(row);
     }
 
-    int rowsCount = rows.size();
-    n = rowsCount < n ? rowsCount : n;
+    int rows_count = rows.size();
+    n = rows_count < n ? rows_count : n;
 
     string date;
-    double powerUsage;
-    map<string, double> lastNDaysPowerUsage;
+    double energy;
+    map<string, double> last_n_days_energy;
     for (int i = 0 ; i < n ; i++) {
-        row = rows[rowsCount - i - 1];
+        row = rows[rows_count - i - 1];
         date = row.substr(0, 10);
-        powerUsage = stod(row.substr(11));
-        lastNDaysPowerUsage[date] = powerUsage;
+        energy = stod(row.substr(11));
+        last_n_days_energy[date] = energy;
     }
 
-    return lastNDaysPowerUsage;
+    return last_n_days_energy;
+}
+
+void Power::ResetLogVector() {
+    if (hours_energy_usages.size() != 24) {
+        return;
+    }
+
+    for (int h = 0 ; h < 24 ; h++) {
+        hours_energy_usages[h] = 0;
+    }
+}
+
+string Power::FormatDate(int year, int mon, int day) {
+    string year_str = std::to_string(year);
+    string mon_str = mon > 9 ? std::to_string(mon) : '0' + std::to_string(mon);
+    string day_str = day > 9 ? std::to_string(day) : '0' + std::to_string(day);
+    string formated_date = year_str + '/' + mon_str + '/' + day_str;
+    return formated_date;
+}
+
+string Power::LastLoggedDate() {
+    string cmd = "head -1 " + hours_log_file + " | tr -d '\\n'";
+    string last_logged_date = raymii::Command::exec(cmd).output;
+    return last_logged_date;
+}
+
+void Power::UpdateDaysLogFile(string date) {
+    double total_usage = TodaysTotalEnergyUsage();
+    ofstream out(days_log_file, std::ios::app);
+    out << date << ',' << total_usage << '\n';
+    out.close();
+}
+
+long long Power::EnergyUsageInUj() {
+    string cmd = "cat " + energy_usage_path;
+    long long energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
+    return energy;
+}
+
+void Power::UpdateHoursLogFile(string current_date) {
+    double total_usage = 0;
+    ofstream out(hours_log_file);
+    out << current_date << '\n';
+    int h = 0;
+    for (h = 0 ; h < 24 ; h++) {
+        out << h << ',' << hours_energy_usages[h] << '\n';
+        total_usage += hours_energy_usages[h];
+    }
+    out << h << ',' << total_usage;
+    out.close();
+} 
+
+void Power::UpdateLogVector() {
+    ifstream in(hours_log_file);
+    string row;
+    if (in.is_open()) {
+        getline(in, row);
+        for (int h = 0 ; h < 24 ; h++) {
+            getline(in, row);
+            hours_energy_usages[h] = stod(row.substr(row.find(",") + 1));
+        }
+    }
+    in.close();
 }
