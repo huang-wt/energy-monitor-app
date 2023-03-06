@@ -4,16 +4,38 @@
 
 #include "view.h"
 
-void logPowerUsage() {
-    Power* powerMonitor = Power::getInstance();
-    powerMonitor->logPowerUsage();
+using std::thread;
+
+void UpdatePowerAndEnergyUsage() {
+    Power* power_ = Power::Instance();
+    power_->UpdatePowerAndEnergyUsage();
 }
 
+void updateCpuAndMemoryUsage() {
+    System* system_ = System::Instance();
+    while (true) {
+        sleep(1);
+        system_->UpdateCpuAndMemory();
+    } 
+}
+
+// void updateProcesses() {
+//     System* system_ = System::Instance();
+//     while (true) {
+//         sleep(2);
+//         system_->UpdateProcesses();
+//     } 
+// }
+
 int main() {
-    thread t(logPowerUsage);
+    thread t(UpdatePowerAndEnergyUsage);
+    thread t1(updateCpuAndMemoryUsage);
+    // thread t2(updateProcesses);
 
     View view = View();
-    view.serviceSelect();
+    view.ServiceSelect();
 
     t.join();
+    t1.join();
+    // t2.join();
 }

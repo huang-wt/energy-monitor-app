@@ -9,47 +9,31 @@
 
 using namespace std;
 
-void View::displaySystemInfo() {
-
+void View::DisplaySystemInfo() {
     for (int i = 0 ; i < 15 ; i++, sleep(1)) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- System Infomation --\n\n";
 
-        cout << "Operation System: " << sysMonitor->getOperatingSystem() << endl;
-        cout << "Kernel: " << sysMonitor->getKernel() << endl;
+        cout << "Operation System: " << system_->OperatingSystem() << endl;
+        cout << "Kernel: " << system_->Kernel() << endl;
         cout << endl;
-        cout << "Total Processes: " << sysMonitor->getTotalProcesses() << endl;
-        cout << "Running Processes: " << sysMonitor->getRunningProcesses() << endl;
-        cout << "Up Time: " << sysMonitor->getUpTime() << endl;
+        cout << "Total Processes: " << system_->TotalProcesses() << endl;
+        cout << "Running Processes: " << system_->RunningProcesses() << endl;
+        cout << "Up Time: " << system_->UpTime() << endl;
         cout << endl;
-        cout << "Total Memory: " << sysMonitor->getTotalMemory() / 1024 / 1024  << " Gb\n";
-        cout << "Used Memory: " << sysMonitor->getUsedMemory() / 1024 / 1024 << " KB\n";
-        cout << "Memory Utilization: " << sysMonitor->getMemoryUtilisation() * 100.0 << "%\n";
+        cout << "Total Memory: " << system_->TotalMemory() / 1024 / 1024  << " Gb\n";
+        cout << "Used Memory: " << system_->UsedMemory() / 1024 / 1024 << " Gb\n";
+        cout << "Memory Utilization: " << system_->MemoryUtilisation() * 100.0 << "%\n";
         cout << endl;
 
-        vector<float> cpuUtilizations = sysMonitor->getCpuUtilisations();
-        cout << "CPU: " << cpuUtilizations[0] * 100.0 << "%" << "\t" << sysMonitor->getCpuTemp() << "C" << endl;
-        for (int i = 1 ; i < cpuUtilizations.size() ; i++) {
-            cout << "Core " << i - 1 << ": " << cpuUtilizations[i] * 100.0 << "%" << endl;
-        } 
-        cout << endl;
-    }
-
-    cin.get();
-    cin.get();
-}
-
-void View::displayProcesses() {
-    for (int i = 0 ; i < 15 ; i++, sleep(1)) {
-        system("clear");
-        cout << fixed << setprecision(1);
-        cout << "\n";
-        cout << "\t\t\t -- Processes --\n\n";
-        vector<Process> processesSorted = sysMonitor->getSortedProcesses();
-        for (int k = 0 ; k < 10 ; k++) {
-            cout << processesSorted[k].getPid() << "\t" << processesSorted[k].getCpuUtilization() * 100 << "%\n";
+        std::vector<float> cpu_utilisations = system_->CpuUtilisations();
+        if (!cpu_utilisations.empty()) {
+            cout << "CPU: " << cpu_utilisations[0] * 100.0 << "%" << "\t" << system_->CpuTemperature() << "C" << endl;
+            for (int i = 1 ; i < cpu_utilisations.size() ; i++) {
+                cout << "Core " << i - 1 << ": " << cpu_utilisations[i] * 100.0 << "%" << endl;
+            } 
         }
         cout << endl;
     }
@@ -58,16 +42,35 @@ void View::displayProcesses() {
     cin.get();
 }
 
-void View::displayTodaysEnergyUsage() {
+void View::DisplayProcesses() {
+    for (int i = 0 ; i < 15 ; i++, sleep(2)) {
+        system("clear");
+        cout << fixed << setprecision(1);
+        cout << "\n";
+        cout << "\t\t\t -- Processes --\n\n";
+        std::vector<Process> sorted_processes = system_->SortedProcesses();
+        if (!sorted_processes.empty()) {
+            for (int k = 0 ; k < 10 ; k++) {
+                cout << sorted_processes[k].Pid() << "\t" << sorted_processes[k].CpuUtilisation() * 100 << "%\n";
+            }
+        }
+        cout << endl;
+    }
+
+    cin.get();
+    cin.get();
+}
+
+void View::DisplayTodaysEnergyUsage() {
     for (int i = 0 ; i < 20 ; i++, sleep(1)) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- Hourly Energy Usage --\n\n";
         cout << "Hour\tEnergy (in Wh)\n";
-        vector<double> hourlyPowerUsage = powerMonitor->getTodaysHourlyPowerUsage();
+        std::vector<double> hours_energy_usage = power_->HoursEnergyUsages();
         for (int h = 0 ; h < 24 ; h++) {
-            cout << h << "\t" << hourlyPowerUsage[h] << endl;
+            cout << h << "\t" << hours_energy_usage[h] << endl;
         }
     }
 
@@ -75,13 +78,13 @@ void View::displayTodaysEnergyUsage() {
     cin.get();
 }
 
-void View::displayLastWeekEnergyUsage() {
+void View::DisplayLastWeekEnergyUsage() {
     cout << fixed << setprecision(1);
     cout << "\n";
     cout << "\t\t\t -- Last Week Energy Usage --\n\n";
     cout << "Date\t\tEnergy (in Wh)\n";
-    map<string, double> lastSevenDaysPowerUsage = powerMonitor->getLastNDaysPowerUsage(7);
-    for (auto const& [key, val] : lastSevenDaysPowerUsage) {
+    map<string, double> last_seven_days_energy_usage = power_->LastNDaysEnergyUsage(7);
+    for (auto const& [key, val] : last_seven_days_energy_usage) {
         cout << key << ": " << val << "Wh" << endl;
     }
 
@@ -89,47 +92,46 @@ void View::displayLastWeekEnergyUsage() {
     cin.get();
 }
 
-void View::displayLivePowerUsage() {
-    while (1) {
+void View::DisplayLivePowerUsage() {
+    for (int i = 0 ; i < 20 ; i++, sleep(1)) {
         system("clear");
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- Live Power Usage --\n\n";
-        sleep(1);
-        cout << powerMonitor->getCurrPowerUsage() << " watts";
+        cout << power_->CurrPowerUsage() << " watts" << endl;
     }
 
     cin.get();
     cin.get();
 }  
 
-void View::powerUsageSelect() {
-    int intChoice = 0;
-    char charChoice[3];
+void View::PowerUsageSelect() {
+    int choice = 0;
+    char choice_char[3];
 
     system("clear");
     cout << "\n";
-    cout << "\t\t\t -- Select Scope -- \n\n";
+    cout << "\t\t\t -- Select -- \n\n";
     cout << "1. Hourly energy usage for today\n";
     cout << "2. Energy usage in last seven days\n";
-    cout << "3. Live power usage in watts\n\n";
+    cout << "3. Live power usage\n\n";
 
     cout << "Enter Option: ";
 
-    cin >> ("%s", charChoice);
-    stringstream tmpcnvt (charChoice);
-    tmpcnvt >> intChoice;
+    cin >> ("%s", choice_char);
+    stringstream tmpcnvt (choice_char);
+    tmpcnvt >> choice;
 
     system("clear");
-    switch (intChoice){
+    switch (choice){
         case 1:
-            displayTodaysEnergyUsage();
+            DisplayTodaysEnergyUsage();
             break;
         case 2:
-            displayLastWeekEnergyUsage();
+            DisplayLastWeekEnergyUsage();
             break;
         case 3:
-            displayLivePowerUsage();
+            DisplayLivePowerUsage();
             break;
         default:
             cout << "Invalid Choice - Re-Enter / Exit";
@@ -137,19 +139,16 @@ void View::powerUsageSelect() {
     }
 }
 
-void View::powerModeSelect() {
+void View::PowerModeSelect() {
     int int_choice = 0;
     char char_choice[3];
-    int lCore, eCore, pCore, hyperThreads;
-    vector <int> logicalCoresBounds;
 
     system("clear");
     cout << ("\n");
     cout << ("\t\t\t -- Performance Mode Select -- \n\n");
-    cout << ("1. Balanced \n");
-    cout << ("2. High-Performance\n");
-    cout << ("3. Power-saver\n");
-    cout << ("4. Auto\n");
+    cout << ("1. All cores \n");
+    cout << ("2. P cores\n");
+    cout << ("3. E cores\n");
     cout << ("\n\n0. Exit\n");
 
     cout << ("Enter Option: ");
@@ -160,21 +159,19 @@ void View::powerModeSelect() {
     switch(int_choice){
         case 1:
             system("clear");
-            sysMonitor->bindProcessesToAllCores();
+            system_->BindToAllCores();
             cout << "Balanced Mode (Binding to all cores...)" << endl;
             break;
         case 2:
             system("clear");
-            sysMonitor->bindProcessesToPCores();
+            system_->BindToPCores();
             cout << "High Performance Mode (Binding to P-cores...)" << endl;
             break;
         case 3:
             system("clear");
-            sysMonitor->bindProcessesToECores();
+            system_->BindToECores();
             cout << "Power Saver Mode (Binding to E-cores...)" << endl;
             break;
-        case 4:
-            system("clear");
         case 0:
             exit(1);
             break;
@@ -186,9 +183,9 @@ void View::powerModeSelect() {
     cin.get();
 }
 
-void View::serviceSelect() {
-    int intChoice = 0;
-    char charChoice[3];
+void View::ServiceSelect() {
+    int choice = 0;
+    char choice_char[3];
 
     do {
         system("clear");
@@ -197,28 +194,27 @@ void View::serviceSelect() {
         cout << "1. System information\n";
         cout << "2. Running processes\n";
         cout << "3. Energy usage\n";
-        cout << "4. General Binds\n";
+        cout << "4. Bind processes to cores\n";
         cout << "\n\n0. Exit\n";
 
         cout << "Enter Option: ";
-        cin >> ("%s", charChoice);
-        stringstream tmpcnvt (charChoice);
-        tmpcnvt >> intChoice;
+        cin >> ("%s", choice_char);
+        stringstream tmpcnvt (choice_char);
+        tmpcnvt >> choice;
 
         system("clear");
-        switch (intChoice){
+        switch (choice){
             case 1:
-                displaySystemInfo();
+                DisplaySystemInfo();
                 break;
             case 2:
-                displayProcesses();
+                DisplayProcesses();
                 break;
             case 3:
-                powerUsageSelect();
+                PowerUsageSelect();
                 break;
             case 4:
-                // generalCoreSelect();
-                powerModeSelect();
+                PowerModeSelect();
                 break;
             case 0:
                 exit(1);
@@ -228,6 +224,6 @@ void View::serviceSelect() {
                 break;
         }
 
-    } while (intChoice != 0);
+    } while (choice != 0);
 
 }

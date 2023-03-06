@@ -2,25 +2,26 @@
 #define VIEW_H
 
 #include <string>
+
 #include "system.h"
 #include "power.h"
 
 class View {
 
     public:
-        void serviceSelect();
+        void ServiceSelect();
 
     private:
-        System* sysMonitor = System::getInstance();
-        Power* powerMonitor = Power::getInstance();
+        System* system_ = System::Instance();
+        Power* power_ = Power::Instance();
 
-        void displaySystemInfo();
-        void displayProcesses();
-        void displayTodaysEnergyUsage();
-        void displayLastWeekEnergyUsage();
-        void displayLivePowerUsage();
-        void powerUsageSelect();
-        void powerModeSelect();
+        void DisplaySystemInfo();
+        void DisplayProcesses();
+        void DisplayTodaysEnergyUsage();
+        void DisplayLastWeekEnergyUsage();
+        void DisplayLivePowerUsage();
+        void PowerUsageSelect();
+        void PowerModeSelect();
 
 };
 
