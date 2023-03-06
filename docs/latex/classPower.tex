@@ -1,0 +1,96 @@
+\hypertarget{classPower}{}\doxysection{Power Class Reference}
+\label{classPower}\index{Power@{Power}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPower_a82971c5a5461a57e5d58b5664de66d7d}{Update\+Power\+And\+Energy\+Usage}} ()
+\item 
+double \mbox{\hyperlink{classPower_a04553d70a7de54e2e578d78951840fb9}{Curr\+Hour\+Energy\+Usage}} ()
+\item 
+double \mbox{\hyperlink{classPower_ad617abfa1ba104294f1684d63fdcef31}{Curr\+Power\+Usage}} ()
+\item 
+double \mbox{\hyperlink{classPower_a588b2ed84e3dd99ceaeadfae07820581}{Todays\+Total\+Energy\+Usage}} ()
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classPower_af2795e0554b26deff9492d89bb9c080d}{Hours\+Energy\+Usages}} ()
+\item 
+std\+::map$<$ std\+::string, double $>$ \mbox{\hyperlink{classPower_a523069b2125b815361fd3487ed17a360}{Last\+NDays\+Energy\+Usage}} (int n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classPower}{Power}} $\ast$ \mbox{\hyperlink{classPower_a1af979254859dec73c92c8f0cb012432}{Instance}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPower_a04553d70a7de54e2e578d78951840fb9}\label{classPower_a04553d70a7de54e2e578d78951840fb9}} 
+\index{Power@{Power}!CurrHourEnergyUsage@{CurrHourEnergyUsage}}
+\index{CurrHourEnergyUsage@{CurrHourEnergyUsage}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{CurrHourEnergyUsage()}{CurrHourEnergyUsage()}}
+{\footnotesize\ttfamily double Power\+::\+Curr\+Hour\+Energy\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for curr\+\_\+hour\+\_\+energy\+\_\+usage. \begin{DoxyReturn}{Returns}
+The energy usage in Wh in current hour. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_ad617abfa1ba104294f1684d63fdcef31}\label{classPower_ad617abfa1ba104294f1684d63fdcef31}} 
+\index{Power@{Power}!CurrPowerUsage@{CurrPowerUsage}}
+\index{CurrPowerUsage@{CurrPowerUsage}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{CurrPowerUsage()}{CurrPowerUsage()}}
+{\footnotesize\ttfamily double Power\+::\+Curr\+Power\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for curr\+\_\+power\+\_\+usage. \begin{DoxyReturn}{Returns}
+The real-\/time power usage in watts. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_af2795e0554b26deff9492d89bb9c080d}\label{classPower_af2795e0554b26deff9492d89bb9c080d}} 
+\index{Power@{Power}!HoursEnergyUsages@{HoursEnergyUsages}}
+\index{HoursEnergyUsages@{HoursEnergyUsages}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{HoursEnergyUsages()}{HoursEnergyUsages()}}
+{\footnotesize\ttfamily vector$<$ double $>$ Power\+::\+Hours\+Energy\+Usages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for hours\+\_\+energy\+\_\+usages. \begin{DoxyReturn}{Returns}
+The vector containing energy usage in Wh in every hour. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_a1af979254859dec73c92c8f0cb012432}\label{classPower_a1af979254859dec73c92c8f0cb012432}} 
+\index{Power@{Power}!Instance@{Instance}}
+\index{Instance@{Instance}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{Instance()}{Instance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPower}{Power}} $\ast$ Power\+::\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Static method that thread-\/safely provides a single instance of the class. \begin{DoxyReturn}{Returns}
+The single instance of \doxylink{classPower}{Power} class. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_a523069b2125b815361fd3487ed17a360}\label{classPower_a523069b2125b815361fd3487ed17a360}} 
+\index{Power@{Power}!LastNDaysEnergyUsage@{LastNDaysEnergyUsage}}
+\index{LastNDaysEnergyUsage@{LastNDaysEnergyUsage}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{LastNDaysEnergyUsage()}{LastNDaysEnergyUsage()}}
+{\footnotesize\ttfamily map$<$ string, double $>$ Power\+::\+Last\+NDays\+Energy\+Usage (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+Get the energy usage drawn in the last n days. 
+\begin{DoxyParams}{Parameters}
+{\em n} & The last n days. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The date and corresponding energy usage. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_a588b2ed84e3dd99ceaeadfae07820581}\label{classPower_a588b2ed84e3dd99ceaeadfae07820581}} 
+\index{Power@{Power}!TodaysTotalEnergyUsage@{TodaysTotalEnergyUsage}}
+\index{TodaysTotalEnergyUsage@{TodaysTotalEnergyUsage}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{TodaysTotalEnergyUsage()}{TodaysTotalEnergyUsage()}}
+{\footnotesize\ttfamily double Power\+::\+Todays\+Total\+Energy\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the total energy usage that is drawn in the current date. \begin{DoxyReturn}{Returns}
+The total energy usage in Wh. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPower_a82971c5a5461a57e5d58b5664de66d7d}\label{classPower_a82971c5a5461a57e5d58b5664de66d7d}} 
+\index{Power@{Power}!UpdatePowerAndEnergyUsage@{UpdatePowerAndEnergyUsage}}
+\index{UpdatePowerAndEnergyUsage@{UpdatePowerAndEnergyUsage}!Power@{Power}}
+\doxysubsubsection{\texorpdfstring{UpdatePowerAndEnergyUsage()}{UpdatePowerAndEnergyUsage()}}
+{\footnotesize\ttfamily void Power\+::\+Update\+Power\+And\+Energy\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Keep updating and logging power and energy usage. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/power.\+h\item 
+src/power.\+cpp\end{DoxyCompactItemize}

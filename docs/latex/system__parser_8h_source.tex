@@ -1,0 +1,55 @@
+\hypertarget{system__parser_8h_source}{}\doxysection{system\+\_\+parser.\+h}
+\label{system__parser_8h_source}\index{src/system\_parser.h@{src/system\_parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_PARSER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SYSTEM\_PARSER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }SystemParser\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Paths}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kProcDirectory\{\textcolor{stringliteral}{"{}/proc/"{}}\};}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kCmdlineFilename\{\textcolor{stringliteral}{"{}/cmdline"{}}\};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kCpuinfoFilename\{\textcolor{stringliteral}{"{}/cpuinfo"{}}\};}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kStatusFilename\{\textcolor{stringliteral}{"{}/status"{}}\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kStatFilename\{\textcolor{stringliteral}{"{}/stat"{}}\};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kUptimeFilename\{\textcolor{stringliteral}{"{}/uptime"{}}\};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kMeminfoFilename\{\textcolor{stringliteral}{"{}/meminfo"{}}\};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kVersionFilename\{\textcolor{stringliteral}{"{}/version"{}}\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kOSPath\{\textcolor{stringliteral}{"{}/etc/os-\/release"{}}\};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ kPasswordPath\{\textcolor{stringliteral}{"{}/etc/passwd"{}}\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Utils}}
+\DoxyCodeLine{00021\ \ \ \ \ std::string\ KeyValParser(std::string,\ std::string);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ System}}
+\DoxyCodeLine{00024\ \ \ \ \ std::string\ OperatingSystem();}
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ Kernel();}
+\DoxyCodeLine{00026\ \ \ \ \ std::vector<int>\ Pids();}
+\DoxyCodeLine{00027\ \ \ \ \ std::vector<float>\ MemoryInfo();}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{float}\ TotalMemory();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{float}\ AvalMemory();}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ TotalProcesses();}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ RunningProcesses();}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{long}\ UpTime();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ CPU}}
+\DoxyCodeLine{00035\ \ \ \ \ std::vector<long>\ CpuTimes(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{long}\ TotalJiffies(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{long}\ IdleJiffiesC(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{long}\ ActiveJiffiesC(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Processes}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{long}\ ActiveJiffiesP(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00042\ \ \ \ \ std::string\ Command(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ Ram(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00044\ \ \ \ \ std::string\ Uid(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00045\ \ \ \ \ std::string\ User(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ UpTime(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SYSTEM\_PARSER\_H}}
+
+\end{DoxyCode}

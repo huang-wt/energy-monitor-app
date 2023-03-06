@@ -1,0 +1,192 @@
+\hypertarget{classProcess}{}\doxysection{Process Class Reference}
+\label{classProcess}\index{Process@{Process}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classProcess_aacf1830ab1c6fa73f1b1ef5e5272d341}{operator$<$}} (\mbox{\hyperlink{classProcess}{Process}} const \&a) const
+\item 
+bool \mbox{\hyperlink{classProcess_a8145d360c8c850011a4eacbbb9e4161f}{operator$>$}} (\mbox{\hyperlink{classProcess}{Process}} const \&a) const
+\item 
+int \mbox{\hyperlink{classProcess_a2caa00783b6c26d0c5811e70ebc0c022}{Pid}} ()
+\item 
+std\+::string \mbox{\hyperlink{classProcess_ade012c7096df8a4d694cf03571016031}{User}} ()
+\item 
+std\+::string \mbox{\hyperlink{classProcess_aa1e0d81d6787f69a81219714a0007fbf}{Command}} ()
+\item 
+float \mbox{\hyperlink{classProcess_a0657047d1bbcbbc24252a85980bb3126}{Cpu\+Utilisation}} ()
+\item 
+std\+::string \mbox{\hyperlink{classProcess_a56dbfa4e549c22fcc76102f58cbb40da}{Ram}} ()
+\item 
+long int \mbox{\hyperlink{classProcess_afaa1f1e34d3a315164d2855ab911f36a}{Up\+Time}} ()
+\item 
+void \mbox{\hyperlink{classProcess_aab89d3f3c0ee65b5c6076d2ca8cfa5c3}{Set\+Pid}} (int pid)
+\item 
+void \mbox{\hyperlink{classProcess_a006c3e2d9e362eadd601ec2250723295}{Set\+User}} (int pid)
+\item 
+void \mbox{\hyperlink{classProcess_aea010e091766f01144fa4c82f8aba5b2}{Set\+Command}} (int pid)
+\item 
+void \mbox{\hyperlink{classProcess_ac5029ce91954b17daf12dc99b0f8e857}{Set\+Cpu\+Utilization}} (int pid, long curr\+\_\+total\+\_\+jiffies)
+\item 
+void \mbox{\hyperlink{classProcess_a0d80a4a68d894a47ba9afe42522fb0d4}{Set\+Ram}} (int pid)
+\item 
+void \mbox{\hyperlink{classProcess_a36041648659a41bb1cbfa82381c974ca}{Set\+Up\+Time}} (int pid)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classProcess_aa1e0d81d6787f69a81219714a0007fbf}\label{classProcess_aa1e0d81d6787f69a81219714a0007fbf}} 
+\index{Process@{Process}!Command@{Command}}
+\index{Command@{Command}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{Command()}{Command()}}
+{\footnotesize\ttfamily string Process\+::\+Command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for command. \begin{DoxyReturn}{Returns}
+The command that generated the process. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_a0657047d1bbcbbc24252a85980bb3126}\label{classProcess_a0657047d1bbcbbc24252a85980bb3126}} 
+\index{Process@{Process}!CpuUtilisation@{CpuUtilisation}}
+\index{CpuUtilisation@{CpuUtilisation}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{CpuUtilisation()}{CpuUtilisation()}}
+{\footnotesize\ttfamily float Process\+::\+Cpu\+Utilisation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for cpu utilisation. \begin{DoxyReturn}{Returns}
+The cpu utilisation of the process as a percentage. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_aacf1830ab1c6fa73f1b1ef5e5272d341}\label{classProcess_aacf1830ab1c6fa73f1b1ef5e5272d341}} 
+\index{Process@{Process}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool Process\+::operator$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classProcess}{Process}} const \&}]{a }\end{DoxyParamCaption}) const}
+
+Overloads the less operator according to cpu utilisation 
+\begin{DoxyParams}{Parameters}
+{\em a} & Another \doxylink{classProcess}{Process} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if this process is less than a; otherwise false. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_a8145d360c8c850011a4eacbbb9e4161f}\label{classProcess_a8145d360c8c850011a4eacbbb9e4161f}} 
+\index{Process@{Process}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily bool Process\+::operator$>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classProcess}{Process}} const \&}]{a }\end{DoxyParamCaption}) const}
+
+Overloads the greater operator according to cpu utilisation 
+\begin{DoxyParams}{Parameters}
+{\em a} & Another \doxylink{classProcess}{Process} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if this process is greater than a; otherwise false. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_a2caa00783b6c26d0c5811e70ebc0c022}\label{classProcess_a2caa00783b6c26d0c5811e70ebc0c022}} 
+\index{Process@{Process}!Pid@{Pid}}
+\index{Pid@{Pid}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{Pid()}{Pid()}}
+{\footnotesize\ttfamily int Process\+::\+Pid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for pid. \begin{DoxyReturn}{Returns}
+The process id. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_a56dbfa4e549c22fcc76102f58cbb40da}\label{classProcess_a56dbfa4e549c22fcc76102f58cbb40da}} 
+\index{Process@{Process}!Ram@{Ram}}
+\index{Ram@{Ram}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{Ram()}{Ram()}}
+{\footnotesize\ttfamily string Process\+::\+Ram (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for memory. \begin{DoxyReturn}{Returns}
+The memory used by the process in Mb. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_aea010e091766f01144fa4c82f8aba5b2}\label{classProcess_aea010e091766f01144fa4c82f8aba5b2}} 
+\index{Process@{Process}!SetCommand@{SetCommand}}
+\index{SetCommand@{SetCommand}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetCommand()}{SetCommand()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+Command (\begin{DoxyParamCaption}\item[{int}]{pid }\end{DoxyParamCaption})}
+
+Setter method for process command. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_ac5029ce91954b17daf12dc99b0f8e857}\label{classProcess_ac5029ce91954b17daf12dc99b0f8e857}} 
+\index{Process@{Process}!SetCpuUtilization@{SetCpuUtilization}}
+\index{SetCpuUtilization@{SetCpuUtilization}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetCpuUtilization()}{SetCpuUtilization()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+Cpu\+Utilization (\begin{DoxyParamCaption}\item[{int}]{pid,  }\item[{long}]{curr\+\_\+total\+\_\+jiffies }\end{DoxyParamCaption})}
+
+Setter method for cpu utilisation. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+{\em curr\+\_\+total\+\_\+jiffies} & The current total cpu jiffies. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_aab89d3f3c0ee65b5c6076d2ca8cfa5c3}\label{classProcess_aab89d3f3c0ee65b5c6076d2ca8cfa5c3}} 
+\index{Process@{Process}!SetPid@{SetPid}}
+\index{SetPid@{SetPid}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetPid()}{SetPid()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+Pid (\begin{DoxyParamCaption}\item[{int}]{pid }\end{DoxyParamCaption})}
+
+Setter method for process id. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_a0d80a4a68d894a47ba9afe42522fb0d4}\label{classProcess_a0d80a4a68d894a47ba9afe42522fb0d4}} 
+\index{Process@{Process}!SetRam@{SetRam}}
+\index{SetRam@{SetRam}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetRam()}{SetRam()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+Ram (\begin{DoxyParamCaption}\item[{int}]{pid }\end{DoxyParamCaption})}
+
+Setter method for memory usage. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_a36041648659a41bb1cbfa82381c974ca}\label{classProcess_a36041648659a41bb1cbfa82381c974ca}} 
+\index{Process@{Process}!SetUpTime@{SetUpTime}}
+\index{SetUpTime@{SetUpTime}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetUpTime()}{SetUpTime()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+Up\+Time (\begin{DoxyParamCaption}\item[{int}]{pid }\end{DoxyParamCaption})}
+
+Setter method for up time of the process. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_a006c3e2d9e362eadd601ec2250723295}\label{classProcess_a006c3e2d9e362eadd601ec2250723295}} 
+\index{Process@{Process}!SetUser@{SetUser}}
+\index{SetUser@{SetUser}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{SetUser()}{SetUser()}}
+{\footnotesize\ttfamily void Process\+::\+Set\+User (\begin{DoxyParamCaption}\item[{int}]{pid }\end{DoxyParamCaption})}
+
+Setter method for process user. 
+\begin{DoxyParams}{Parameters}
+{\em pid} & The process id. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classProcess_afaa1f1e34d3a315164d2855ab911f36a}\label{classProcess_afaa1f1e34d3a315164d2855ab911f36a}} 
+\index{Process@{Process}!UpTime@{UpTime}}
+\index{UpTime@{UpTime}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{UpTime()}{UpTime()}}
+{\footnotesize\ttfamily long Process\+::\+Up\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for up time. \begin{DoxyReturn}{Returns}
+The age of the process in seconds. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classProcess_ade012c7096df8a4d694cf03571016031}\label{classProcess_ade012c7096df8a4d694cf03571016031}} 
+\index{Process@{Process}!User@{User}}
+\index{User@{User}!Process@{Process}}
+\doxysubsubsection{\texorpdfstring{User()}{User()}}
+{\footnotesize\ttfamily string Process\+::\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for user. \begin{DoxyReturn}{Returns}
+The user (name) who runs the process. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/process.\+h\item 
+src/process.\+cpp\end{DoxyCompactItemize}
