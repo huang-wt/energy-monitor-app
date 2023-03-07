@@ -11,7 +11,7 @@ void UpdatePowerAndEnergyUsage() {
     power_->UpdatePowerAndEnergyUsage();
 }
 
-void updateCpuAndMemoryUsage() {
+void UpdateCpuAndMemoryUsage() {
     System* system_ = System::Instance();
     while (true) {
         sleep(1);
@@ -19,7 +19,7 @@ void updateCpuAndMemoryUsage() {
     } 
 }
 
-// void updateProcesses() {
+// void UpdateProcesses() {
 //     System* system_ = System::Instance();
 //     while (true) {
 //         sleep(2);
@@ -29,8 +29,8 @@ void updateCpuAndMemoryUsage() {
 
 int main() {
     thread t(UpdatePowerAndEnergyUsage);
-    thread t1(updateCpuAndMemoryUsage);
-    // thread t2(updateProcesses);
+    thread t1(UpdateCpuAndMemoryUsage);
+    // thread t2(UpdateProcesses);
 
     View view = View();
     view.ServiceSelect();
