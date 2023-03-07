@@ -1,0 +1,214 @@
+\begin{theindex}
+
+  \item {BindToAllCores}
+    \subitem {System}, \hyperpage{17}
+  \item {BindToECores}
+    \subitem {System}, \hyperpage{17}
+  \item {BindToPCores}
+    \subitem {System}, \hyperpage{17}
+
+  \indexspace
+
+  \item {Command}
+    \subitem {Process}, \hyperpage{10}
+  \item {CpuTemperature}
+    \subitem {System}, \hyperpage{17}
+  \item {CpuUtilisation}
+    \subitem {Process}, \hyperpage{10}
+  \item {CpuUtilisations}
+    \subitem {System}, \hyperpage{18}
+  \item {CurrHourEnergyUsage}
+    \subitem {Power}, \hyperpage{8}
+  \item {CurrPowerUsage}
+    \subitem {Power}, \hyperpage{8}
+
+  \indexspace
+
+  \item {ECores}
+    \subitem {Processor}, \hyperpage{15}
+  \item {exec}
+    \subitem {raymii::Command}, \hyperpage{5}
+
+  \indexspace
+
+  \item {HoursEnergyUsages}
+    \subitem {Power}, \hyperpage{8}
+  \item {HyperThreadedCores}
+    \subitem {Processor}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Instance}
+    \subitem {Power}, \hyperpage{9}
+    \subitem {System}, \hyperpage{18}
+
+  \indexspace
+
+  \item {Kernel}
+    \subitem {System}, \hyperpage{18}
+
+  \indexspace
+
+  \item {LastNDaysEnergyUsage}
+    \subitem {Power}, \hyperpage{9}
+  \item {LogicalCores}
+    \subitem {Processor}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Memory}, \hyperpage{6}
+    \subitem {TotalMemory}, \hyperpage{6}
+    \subitem {UpdateUsedMemory}, \hyperpage{7}
+    \subitem {UsedMemory}, \hyperpage{7}
+    \subitem {Utilisation}, \hyperpage{7}
+  \item {MemoryUtilisation}
+    \subitem {System}, \hyperpage{18}
+
+  \indexspace
+
+  \item {OperatingSystem}
+    \subitem {System}, \hyperpage{19}
+  \item {operator$<$}
+    \subitem {Process}, \hyperpage{11}
+  \item {operator$>$}
+    \subitem {Process}, \hyperpage{11}
+
+  \indexspace
+
+  \item {PCores}
+    \subitem {Processor}, \hyperpage{15}
+  \item {PhysicalCores}
+    \subitem {Processor}, \hyperpage{15}
+  \item {Pid}
+    \subitem {Process}, \hyperpage{11}
+  \item {Power}, \hyperpage{8}
+    \subitem {CurrHourEnergyUsage}, \hyperpage{8}
+    \subitem {CurrPowerUsage}, \hyperpage{8}
+    \subitem {HoursEnergyUsages}, \hyperpage{8}
+    \subitem {Instance}, \hyperpage{9}
+    \subitem {LastNDaysEnergyUsage}, \hyperpage{9}
+    \subitem {TodaysTotalEnergyUsage}, \hyperpage{9}
+    \subitem {UpdatePowerAndEnergyUsage}, \hyperpage{9}
+  \item {Process}, \hyperpage{10}
+    \subitem {Command}, \hyperpage{10}
+    \subitem {CpuUtilisation}, \hyperpage{10}
+    \subitem {operator$<$}, \hyperpage{11}
+    \subitem {operator$>$}, \hyperpage{11}
+    \subitem {Pid}, \hyperpage{11}
+    \subitem {Ram}, \hyperpage{12}
+    \subitem {SetCommand}, \hyperpage{12}
+    \subitem {SetCpuUtilization}, \hyperpage{12}
+    \subitem {SetPid}, \hyperpage{13}
+    \subitem {SetRam}, \hyperpage{13}
+    \subitem {SetUpTime}, \hyperpage{13}
+    \subitem {SetUser}, \hyperpage{13}
+    \subitem {UpTime}, \hyperpage{14}
+    \subitem {User}, \hyperpage{14}
+  \item {Processor}, \hyperpage{14}
+    \subitem {ECores}, \hyperpage{15}
+    \subitem {HyperThreadedCores}, \hyperpage{15}
+    \subitem {LogicalCores}, \hyperpage{15}
+    \subitem {PCores}, \hyperpage{15}
+    \subitem {PhysicalCores}, \hyperpage{15}
+    \subitem {Temperature}, \hyperpage{16}
+    \subitem {UpdateTemperature}, \hyperpage{16}
+    \subitem {UpdateUtilisations}, \hyperpage{16}
+    \subitem {Utilisations}, \hyperpage{16}
+
+  \indexspace
+
+  \item {Ram}
+    \subitem {Process}, \hyperpage{12}
+  \item {raymii::Command}, \hyperpage{5}
+    \subitem {exec}, \hyperpage{5}
+  \item {raymii::CommandResult}, \hyperpage{6}
+  \item {RunningProcesses}
+    \subitem {System}, \hyperpage{19}
+
+  \indexspace
+
+  \item {SetCommand}
+    \subitem {Process}, \hyperpage{12}
+  \item {SetCpuUtilization}
+    \subitem {Process}, \hyperpage{12}
+  \item {SetPid}
+    \subitem {Process}, \hyperpage{13}
+  \item {SetRam}
+    \subitem {Process}, \hyperpage{13}
+  \item {SetUpTime}
+    \subitem {Process}, \hyperpage{13}
+  \item {SetUser}
+    \subitem {Process}, \hyperpage{13}
+  \item {SortedProcesses}
+    \subitem {System}, \hyperpage{19}
+  \item {src/command.h}, \hyperpage{23}
+  \item {src/memory.h}, \hyperpage{24}
+  \item {src/power.h}, \hyperpage{24}
+  \item {src/process.h}, \hyperpage{25}
+  \item {src/processor.h}, \hyperpage{26}
+  \item {src/system.h}, \hyperpage{26}
+  \item {src/system\_parser.h}, \hyperpage{27}
+  \item {src/view.h}, \hyperpage{28}
+  \item {System}, \hyperpage{17}
+    \subitem {BindToAllCores}, \hyperpage{17}
+    \subitem {BindToECores}, \hyperpage{17}
+    \subitem {BindToPCores}, \hyperpage{17}
+    \subitem {CpuTemperature}, \hyperpage{17}
+    \subitem {CpuUtilisations}, \hyperpage{18}
+    \subitem {Instance}, \hyperpage{18}
+    \subitem {Kernel}, \hyperpage{18}
+    \subitem {MemoryUtilisation}, \hyperpage{18}
+    \subitem {OperatingSystem}, \hyperpage{19}
+    \subitem {RunningProcesses}, \hyperpage{19}
+    \subitem {SortedProcesses}, \hyperpage{19}
+    \subitem {TotalMemory}, \hyperpage{19}
+    \subitem {TotalProcesses}, \hyperpage{20}
+    \subitem {UpdateCpuAndMemory}, \hyperpage{20}
+    \subitem {UpdateProcesses}, \hyperpage{20}
+    \subitem {UpTime}, \hyperpage{20}
+    \subitem {UsedMemory}, \hyperpage{20}
+
+  \indexspace
+
+  \item {Temperature}
+    \subitem {Processor}, \hyperpage{16}
+  \item {TodaysTotalEnergyUsage}
+    \subitem {Power}, \hyperpage{9}
+  \item {TotalMemory}
+    \subitem {Memory}, \hyperpage{6}
+    \subitem {System}, \hyperpage{19}
+  \item {TotalProcesses}
+    \subitem {System}, \hyperpage{20}
+
+  \indexspace
+
+  \item {UpdateCpuAndMemory}
+    \subitem {System}, \hyperpage{20}
+  \item {UpdatePowerAndEnergyUsage}
+    \subitem {Power}, \hyperpage{9}
+  \item {UpdateProcesses}
+    \subitem {System}, \hyperpage{20}
+  \item {UpdateTemperature}
+    \subitem {Processor}, \hyperpage{16}
+  \item {UpdateUsedMemory}
+    \subitem {Memory}, \hyperpage{7}
+  \item {UpdateUtilisations}
+    \subitem {Processor}, \hyperpage{16}
+  \item {UpTime}
+    \subitem {Process}, \hyperpage{14}
+    \subitem {System}, \hyperpage{20}
+  \item {UsedMemory}
+    \subitem {Memory}, \hyperpage{7}
+    \subitem {System}, \hyperpage{20}
+  \item {User}
+    \subitem {Process}, \hyperpage{14}
+  \item {Utilisation}
+    \subitem {Memory}, \hyperpage{7}
+  \item {Utilisations}
+    \subitem {Processor}, \hyperpage{16}
+
+  \indexspace
+
+  \item {View}, \hyperpage{21}
+
+\end{theindex}
