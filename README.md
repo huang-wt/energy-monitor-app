@@ -20,10 +20,17 @@ See the project report website for more details:______
 - CMake
 ### Installation
 ```shell
-XXX
+git clone https://github.com/huang-wt/energy-monitor-app.git
+cd energy-monitor-app
 ```
 
 ### Build and Run
+```shell
+mkdir build && cd build
+cmake ..
+make
+./energy_monitor
+```
 
 ### Test
 
