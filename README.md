@@ -6,8 +6,10 @@ See the project report website for more details:______
 ## Project Tree
 ```txt
 .
-├── src
-│   └──...
+├── src/        # The project source code
+├── include/    # Headers
+├── data/       # Date storage csv files
+├── docs/       # Documentation files
 └──...
 ```
 
