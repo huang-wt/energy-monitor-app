@@ -3,17 +3,21 @@
 
 #include <string>
 
+/**
+ * This class represents a computer process with attrbutes of ID, 
+ * user name, command, cpu utilisation, memory usage and up time.
+*/
 class Process {
     public:
         /**
-         * Overloads the less operator according to cpu utilisation
+         * Overloads the less operator according to cpu utilisation.
          * @param a Another Process object.
          * @return True if this process is less than a; otherwise false.
         */
         bool operator<(Process const& a) const;
 
         /**
-         * Overloads the greater operator according to cpu utilisation
+         * Overloads the greater operator according to cpu utilisation.
          * @param a Another Process object.
          * @return True if this process is greater than a; otherwise false.
         */
@@ -102,8 +106,8 @@ class Process {
 
         // Record previous cpu active/total jiffies to calculate
 		// the live utilisation of each process in a short period
-        long prev_active_jiffies{0};
-        long prev_total_jiffies{0};
+        long prev_active_jiffies = 0;
+        long prev_total_jiffies = 0;
 };
 
 #endif // PROCESS_H

@@ -8,9 +8,11 @@
 class Memory {
 
     public:
+        Memory();
+
         /**
-         * Getter method for total_memory.
-         * @return The amount of used memory in Kb.
+         * Getter method for total memory.
+         * @return The amount of total memory in Kb.
         */
         float TotalMemory();
 
@@ -30,8 +32,6 @@ class Memory {
          * Update the amount of used memory.
         */
         void UpdateUsedMemory();
-
-        Memory();
 
     private:
         float total_memory;

@@ -3,6 +3,20 @@
 #include "system_parser.h"
 #include "command.h"
 
+Processor::Processor() {
+    // Initialise cpu cores number of the following types
+    physical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l").output);
+	logical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l").output);
+	hyperthreaded_cores = (logical_cores - physical_cores) * 2;
+	e_cores = logical_cores - hyperthreaded_cores;
+    p_cores = hyperthreaded_cores / 2;
+
+    // Initialise utilisations with all 0 in length of the number of logical cores + 1
+    for (int i = 0 ; i < logical_cores + 1 ; i++) {
+        utilisations.push_back(0);
+    }
+}
+
 int Processor::PhysicalCores() {
     return physical_cores;
 }
@@ -56,18 +70,4 @@ void Processor::UpdateUtilisations() {
 void Processor::UpdateTemperature() {
     std::string cmd = "cat /sys/class/thermal/thermal_zone0/temp";
     temperature = stoi(raymii::Command::exec(cmd).output) / 1000;
-}
-
-Processor::Processor() {
-    // Initialise cpu cores number of the following types
-    physical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l").output);
-	logical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l").output);
-	hyperthreaded_cores = (logical_cores - physical_cores) * 2;
-	e_cores = logical_cores - hyperthreaded_cores;
-    p_cores = hyperthreaded_cores / 2;
-
-    // Initialise utilisations with all 0 in length of the number of logical cores + 1
-    for (int i = 0 ; i < logical_cores + 1 ; i++) {
-        utilisations.push_back(0);
-    }
 }

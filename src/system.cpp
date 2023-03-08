@@ -6,8 +6,6 @@
 #include "system_parser.h"
 #include "command.h"
 
-using std::string;
-
 // Hungry singleton pattern (thread-safe)
 System* System::instance = new System();
 
@@ -19,17 +17,16 @@ System::System() {
     // Initialisation
     cpu = Processor();
     memory = Memory();
+    power = Power();
     operating_system = SystemParser::OperatingSystem(); 
     kernel = SystemParser::Kernel();
-
-    power = Power();
 }
 
-std::string System::OperatingSystem() { 
+string System::OperatingSystem() { 
     return operating_system;
 }
 
-std::string System::Kernel() { 
+string System::Kernel() { 
     return kernel;
 }
 
@@ -61,7 +58,7 @@ int System::CpuTemperature() {
     return cpu.Temperature();
 }
 
-std::vector<float> System::CpuUtilisations() {
+vector<float> System::CpuUtilisations() {
     return cpu.Utilisations();
 }
 
@@ -74,12 +71,12 @@ void System::UpdateCpuAndMemory() {
     }
 }
 
-std::vector<Process> System::SortedProcesses() {
+vector<Process> System::SortedProcesses() {
     UpdateProcesses();
 
     // Sorting in descending order on cpu utilisation
-    std::vector<Process> sorted_processes;
-    std::map<int, Process> :: iterator it;
+    vector<Process> sorted_processes;
+    map<int, Process> :: iterator it;
     for (it = processes.begin() ; it != processes.end() ; it++) {
         sorted_processes.push_back(it->second);
     }
@@ -89,7 +86,7 @@ std::vector<Process> System::SortedProcesses() {
 }
 
 void System::UpdateProcesses() {
-    std::vector<int> pids = SystemParser::Pids();
+    vector<int> pids = SystemParser::Pids();
     for (int pid : pids) {
         Process p;
         p.SetPid(pid);
@@ -107,18 +104,18 @@ void System::UpdateProcesses() {
 
 }
 
-void System::BindProcesses(std::vector<int> pids, int low, int high) {
-    std::string taskset_cmd = "taskset -cp";
+void System::BindProcesses(vector<int> pids, int low, int high) {
+    string taskset_cmd = "taskset -cp";
     for (auto &id: pids) {
-        std::string full_cmd = taskset_cmd + " " + std::to_string(low) + "-" + \
+        string full_cmd = taskset_cmd + " " + std::to_string(low) + "-" + \
                               std::to_string(high) + " " + std::to_string(id);
         raymii::Command::exec(full_cmd);
     }
 }
 
-std::vector<int> System::CpuConsumingProcesses() {
-    std::vector<Process> processes = SortedProcesses();
-    std::vector<int> pids;
+vector<int> System::CpuConsumingProcesses() {
+    vector<Process> processes = SortedProcesses();
+    vector<int> pids;
     for (Process p : processes) {
         if (p.CpuUtilisation() * 100 > 1) {
             pids.push_back(p.Pid());
@@ -129,17 +126,17 @@ std::vector<int> System::CpuConsumingProcesses() {
 }
 
 void System::BindToPCores() {
-    std::vector<int> pids = CpuConsumingProcesses();
+    vector<int> pids = CpuConsumingProcesses();
     BindProcesses(pids, 0, cpu.HyperThreadedCores() - 1);
 }
 
 void System::BindToAllCores() {
-    std::vector<int> pids = CpuConsumingProcesses();
+    vector<int> pids = CpuConsumingProcesses();
     BindProcesses(pids, 0, cpu.LogicalCores() - 1);
 }
 
 void System::BindToECores() {
-    std::vector<int> pids = CpuConsumingProcesses();
+    vector<int> pids = CpuConsumingProcesses();
     BindProcesses(pids, cpu.HyperThreadedCores(), cpu.LogicalCores() - 1);
 }
 
@@ -164,7 +161,7 @@ void System::UpdateEnergy() {
     struct tm *tmp = gmtime(&now);
     hour = tmp->tm_hour;
     curr_date = FormatDate(tmp->tm_year + 1900, tmp->tm_mon + 1, tmp->tm_mday);
-    std::string last_logged_date = LastLoggedDate();
+    string last_logged_date = LastLoggedDate();
 
     power.SetLogVector(ReadHoursFile());
     if (curr_date != last_logged_date) {
@@ -218,13 +215,13 @@ string System::LastLoggedDate() {
 }
 
 void System::UpdateDaysLogFile(string last_logged_date, double total_usage) {
-    ofstream out(days_log_file, std::ios::app);
+    std::ofstream out(days_log_file, std::ios::app);
     out << last_logged_date << ',' << total_usage << '\n';
     out.close();
 }
 
 void System::UpdateHoursLogFile(string curr_date, vector<double> usages) {
-    ofstream out(hours_log_file);
+    std::ofstream out(hours_log_file);
     out << curr_date << '\n';
     int h = 0;
     double usage = 0;
@@ -236,7 +233,7 @@ void System::UpdateHoursLogFile(string curr_date, vector<double> usages) {
 }
 
 vector<double> System::ReadHoursFile() {
-    ifstream in(hours_log_file);
+    std::ifstream in(hours_log_file);
     vector<double> datas;
     string row;
     if (in.is_open()) {
@@ -253,7 +250,7 @@ vector<double> System::ReadHoursFile() {
 
 vector<string> System::ReadDaysFile() {
     vector<string> rows;
-    ifstream in(days_log_file);
+    std::ifstream in(days_log_file);
     string row;
     while (getline(in, row)) {
         rows.push_back(row);

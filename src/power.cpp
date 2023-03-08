@@ -1,17 +1,6 @@
 #include "power.h"
 
-#include <unistd.h>
-
-#include <fstream>
-#include <thread>
-
 #include "command.h"
-
-using std::string;
-using std::vector;
-using std::map;
-using std::ifstream;
-using std::ofstream;
 
 Power::Power() {
     //Initialise the logging vector and max energy
@@ -21,22 +10,6 @@ Power::Power() {
 
     string cmd = "cat " + mex_energy_path;
     max_energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
-}
-
-void Power::UpdatePowerAndEnergyUsage() {
-
-    energy = EnergyUsageInUj();
-    if (energy < prev_energy) {
-        capped_times += 1;
-        curr_power_usage = (energy - prev_energy + max_energy) / 1000000.0;
-    } else {
-        curr_power_usage = (energy - prev_energy) / 1000000.0;
-    }
-                                        
-    prev_energy = energy;
-    accum_energy_usage = energy + capped_times * max_energy;
-    curr_hour_energy_usage = (accum_energy_usage - prev_hours_energy) / 1000000 / 3600.0 + extra;
-    
 }
 
 double Power::CurrHourEnergyUsage() {
@@ -102,16 +75,32 @@ map<string, double> Power::LastNDaysEnergyUsage(vector<string> rows, int n) {
     return last_n_days_energy;
 }
 
-long long Power::EnergyUsageInUj() {
-    string cmd = "cat " + energy_usage_path;
-    long long energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
-    return energy;
-}
-
 void Power::UpdatePrevHoursEnergy() {
     prev_hours_energy = accum_energy_usage;
 }
 
 void Power::SetExtra(double value) {
     extra = value;
+}
+
+void Power::UpdatePowerAndEnergyUsage() {
+
+    energy = EnergyUsageInUj();
+    if (energy < prev_energy) {
+        capped_times += 1;
+        curr_power_usage = (energy - prev_energy + max_energy) / 1000000.0;
+    } else {
+        curr_power_usage = (energy - prev_energy) / 1000000.0;
+    }
+                                        
+    prev_energy = energy;
+    accum_energy_usage = energy + capped_times * max_energy;
+    curr_hour_energy_usage = (accum_energy_usage - prev_hours_energy) / 1000000 / 3600.0 + extra;
+    
+}
+
+long long Power::EnergyUsageInUj() {
+    string cmd = "cat " + energy_usage_path;
+    long long energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
+    return energy;
 }

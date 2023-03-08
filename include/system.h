@@ -2,8 +2,6 @@
 #define STSTEM_H
 
 #include <unistd.h>
-#include <fstream>
-#include <iostream>
 
 #include <string>
 #include <vector>
@@ -13,10 +11,16 @@
 #include "memory.h"
 #include "process.h"
 #include "power.h"
-#include "command.h"
 
-using namespace std;
+using std::string;
+using std::vector;
+using std::map;
 
+/**
+ * This class represents a computer system, integrated with essential
+ * components such as processor, memory and power. It also provides 
+ * methods for retrieving essential information about the system.
+*/
 class System {
 
     public:
@@ -31,17 +35,17 @@ class System {
          * Getter method for operating system.
          * @return The type of the operating system.
         */
-        std::string OperatingSystem();
+        string OperatingSystem();
 
         /**
          * Getter method for kernel.
          * @return The kernel of the operating system.
         */
-        std::string Kernel();
+        string Kernel();
 
         /**
-         * Getter method for uptime.
-         * @return The uptime of the system.
+         * Getter method for up time.
+         * @return The up time of the system.
         */
         long UpTime();
 
@@ -70,7 +74,7 @@ class System {
         float UsedMemory();
 
         /**
-         * Getter method for memory utilisation as a percentage.
+         * Getter method for memory utilisation.
          * @return The live memory utilisation as a percentage.
         */
         float MemoryUtilisation();
@@ -85,7 +89,7 @@ class System {
          * Getter method for cpu utilisations.
          * @return The vector containing the utilisation of each cpu core.
         */
-        std::vector<float> CpuUtilisations();
+        vector<float> CpuUtilisations();
 
         /**
          * Update cpu utilisations & temperature and memory usage.
@@ -96,7 +100,7 @@ class System {
          * Getter method for processes in descending order on cpu usage.
          * @return The sorted vector containing all processes.
         */
-        std::vector<Process> SortedProcesses();
+        vector<Process> SortedProcesses();
 
         /**
          * Update the processes.
@@ -118,14 +122,33 @@ class System {
         */
         void BindToECores();
 
+        /**
+         * Getter method for live power usage.
+         * @return The real-time power usage in watts.
+        */
         double PowerUsage();
 
+        /**
+         * Getter method for hourly energy usages in a day.
+         * @return The vector containing energy usage in Wh in every hour.
+        */
         vector<double> HoursEnergyUsages();
 
+        /**
+         * Getter method for today's total energy usage.
+         * @return The total energy usage in Wh drawn today.
+        */
         double TotalEnergyUsage();
 
+        /**
+         * Getter method for energy usage drawn in last week.
+         * @return The pairs of date and corresponding energy usage in Wh during last week.
+        */
         map<string, double> LastWeekEnergyUsage();
 
+        /**
+         * Keep updating and logging energy and power usage.
+        */
         void UpdateEnergy();
 
     private:
@@ -135,7 +158,7 @@ class System {
          * Get processes whose cpu utilisation is greater than 1%.
          * @return The ids of eligible processes.
         */
-        std::vector<int> CpuConsumingProcesses();
+        vector<int> CpuConsumingProcesses();
 
         /**
          * Bind the given processes to some cpu cores.
@@ -143,32 +166,60 @@ class System {
          * @param low The lower bound of binded cores.
          * @param high The upper bound of binded cores.
         */
-        void BindProcesses(std::vector<int> pids, int low, int high);
+        void BindProcesses(vector<int> pids, int low, int high);
 
-        std::string FormatDate(int year, int mon, int day);
+        /**
+         * Format the given date as YYYY/MM/DD.
+         * @param year The year of a specific date.
+         * @param mon The month of a specific date.
+         * @param day The day of a specific date.
+         * @return The formatted date in string.
+        */
+        string FormatDate(int year, int mon, int day);
 
-        std::string LastLoggedDate();
+        /**
+         * Get the last date that has been logged in the file.
+         * @return The last logged date.
+        */
+        string LastLoggedDate();
 
+        /**
+         * Append the total energy usage drawn in last day to the logging file.
+         * @param last_logged_date The last logged date.
+         * @param total_usage The total energy usage in Wh drawn in last day.
+        */
         void UpdateDaysLogFile(string last_logged_date, double total_usage);
 
+        /**
+         * Update the hours logging file.
+         * @param curr_date The current date.
+         * @param usages The current status of energy usages in the given day.
+        */
         void UpdateHoursLogFile(string curr_date, vector<double> usages);
-    
-        vector<double> ReadHoursFile();
 
-        vector<string> ReadDaysFile();
-        
-        string hours_log_file = "../data/hours_power_usage.csv";
-        string days_log_file = "../data/days_power_usage.csv";
-        Power power;
-        int hour;
-        std::string curr_date;
+        /**
+         * Read datas from the hours logging file.
+         * @return The hourly energy usages read from the logging file.
+        */
+        std::vector<double> ReadHoursFile();
+
+        /**
+         * Read datas from the days logging file.
+         * @return The energy usages read from the logging file.
+        */
+        std::vector<string> ReadDaysFile();
 
         static System* instance;
-        std::string operating_system;
-        std::string kernel;
+        string hours_log_file = "../data/hours_power_usage.csv";
+        string days_log_file = "../data/days_power_usage.csv";
         Processor cpu;
         Memory memory;
-        std::map<int, Process> processes;
+        map<int, Process> processes;
+        Power power;
+        string operating_system;
+        string kernel;
+        int hour;
+        string curr_date;
 };
 
 #endif // SYSTEM_H

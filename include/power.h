@@ -1,65 +1,93 @@
 #ifndef POWER_H
 #define POWER_H
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include <map>
 
+using std::string;
+using std::vector;
+using std::map;
+
+/**
+ * This class represents a computer power monitor and provides methods 
+ * to retrieve and update information about power and energy usage.
+*/
 class Power {
     public:
         Power();
 
         /**
-         * Keep updating and logging power and energy usage.
-        */
-        void UpdatePowerAndEnergyUsage();
-
-        /**
-         * Getter method for curr_hour_energy_usage.
+         * Getter method for current hour energy usage.
          * @return The energy usage in Wh in current hour.
         */
         double CurrHourEnergyUsage();
 
         /**
-         * Getter method for curr_power_usage.
+         * Getter method for current power usage.
          * @return The real-time power usage in watts.
         */
         double CurrPowerUsage();
 
         /**
-         * Get the total energy usage that is drawn in the current date.
+         * Get the total energy usage drawn in the current date.
          * @return The total energy usage in Wh.
         */
         double TotalEnergyUsage();
 
         /**
-         * Getter method for hours_energy_usages.
+         * Getter method for hourly energy usages in the current day.
          * @return The vector containing energy usage in Wh in every hour.
         */
-        std::vector<double> HoursEnergyUsages();
+        vector<double> HoursEnergyUsages();
 
+        /**
+         * Getter method for energy usage in particular hour.
+         * @param hour The given hour.
+         * @return The amount of energy usage in Wh in the given hour.
+        */
         double HoursEnergyUsages(int hour);
 
         /**
-         * Reset vector for logging hourly power usage.
+         * Reset vector for logging hourly energy usage.
         */
         void ResetLogVector();
 
-        void SetLogVector(std::vector<double> datas);
+        /**
+         * Setter method for hourly energy usages.
+         * @param datas The vector that will be assigned to log vector.
+        */
+        void SetLogVector(vector<double> datas);
 
+        /**
+         * Update energy usage in a particular hour.
+         * @param hour The given hour.
+        */
         void UpdateLogVector(int hour);
 
         /**
          * Get the energy usage drawn in the last n days.
+         * @param rows The unparsed rows read from logging files.
          * @param n The last n days.
          * @return The date and corresponding energy usage.
         */
-        std::map<std::string, double> LastNDaysEnergyUsage(std::vector<std::string> rows, int n);
+        map<string, double> LastNDaysEnergyUsage(vector<string> rows, int n);
 
+        /**
+         * Update the energy used in previous hours.
+        */
         void UpdatePrevHoursEnergy();
 
+        /**
+         * Setter method for extra.
+         * @param value The value will be assigned to extra.
+        */
         void SetExtra(double value);
+
+        /**
+         * Update power and energy usage by reading from the system.
+        */
+        void UpdatePowerAndEnergyUsage();
 
 
     private:
@@ -70,15 +98,15 @@ class Power {
         */
         long long EnergyUsageInUj();
         
-        std::string energy_usage_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj";
-        std::string mex_energy_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj";
+        string energy_usage_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj";
+        string mex_energy_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj";
 
         // The energy amount got from the system will
         // reset to zero when it exceeds this bound
         long long max_energy;
 
         // Record energy usages in every hour in a day
-        std::vector<double> hours_energy_usages;
+        vector<double> hours_energy_usages;
 
         double curr_hour_energy_usage = 0;
         double total_energy_usage;
@@ -99,7 +127,6 @@ class Power {
         // The extra energy usage in the current hour 
         // (in case the pc reboots)
         double extra = 0;
-
 };
 
 #endif

@@ -3,41 +3,47 @@
 
 #include <vector>
 
+/**
+ * This class represents a computer processor and provides methods
+ * to retrieve information about its cores and utilisation.
+*/
 class Processor {
 
   	public:
+		Processor();
+
 		/**
-         * Getter method for physical_cores.
+         * Getter method for physical cores.
          * @return The number of physical cores of the processor.
         */
 		int PhysicalCores();
 
 		/**
-         * Getter method for logical_cores.
+         * Getter method for logical cores.
          * @return The number of logical cores of the processor.
         */
 		int LogicalCores();
 
 		/**
-         * Getter method for hyperthreaded_cores.
+         * Getter method for hyperthreaded cores.
          * @return The number of hyperthreaded cores of the processor.
         */
 		int HyperThreadedCores();
 
 		/**
-         * Getter method for e_cores.
+         * Getter method for e cores.
          * @return The number of efficiency cores of the processor.
         */
 		int ECores();
 
 		/**
-         * Getter method for e_cores.
+         * Getter method for p cores.
          * @return The number of performance cores of the processor.
         */
 		int PCores();
 		
 		/**
-         * Getter method for cpu_utilisations.
+         * Getter method for cpu utilisations.
          * @return The vector containing the utilisation in percentage of each cpu core.
         */
 		std::vector<float> Utilisations();
@@ -49,7 +55,7 @@ class Processor {
 		int Temperature();
 		
 		/**
-		 * Update the utilisation of each cpu core and overall usage in percentage.
+		 * Update the utilisation of each cpu core and overall usage.
 		*/
 		void UpdateUtilisations();
 
@@ -57,8 +63,6 @@ class Processor {
 		 * Update the cpu temperature.
 		*/
 		void UpdateTemperature();
-
-		Processor();
     
   	private:
 		int physical_cores;
