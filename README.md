@@ -8,7 +8,7 @@ See the project report website for more details:______
 .
 ├── src/        # The project source code
 ├── include/    # Headers
-├── data/       # Date storage csv files
+├── data/       # Data logging files
 ├── docs/       # Documentation files
 └──...
 ```
