@@ -1,6 +1,10 @@
 #ifndef SYSTEM_H
 #define STSTEM_H
 
+#include <unistd.h>
+#include <fstream>
+#include <iostream>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -8,6 +12,10 @@
 #include "processor.h"
 #include "memory.h"
 #include "process.h"
+#include "power.h"
+#include "command.h"
+
+using namespace std;
 
 class System {
 
@@ -80,15 +88,15 @@ class System {
         std::vector<float> CpuUtilisations();
 
         /**
+         * Update cpu utilisations & temperature and memory usage.
+        */
+        void UpdateCpuAndMemory();
+
+        /**
          * Getter method for processes in descending order on cpu usage.
          * @return The sorted vector containing all processes.
         */
         std::vector<Process> SortedProcesses();
-
-        /**
-         * Update cpu utilisations & temperature and memory usage.
-        */
-        void UpdateCpuAndMemory();
 
         /**
          * Update the processes.
@@ -110,6 +118,16 @@ class System {
         */
         void BindToECores();
 
+        double PowerUsage();
+
+        vector<double> HoursEnergyUsages();
+
+        double TotalEnergyUsage();
+
+        map<string, double> LastWeekEnergyUsage();
+
+        void UpdateEnergy();
+
     private:
         System();
 
@@ -126,7 +144,25 @@ class System {
          * @param high The upper bound of binded cores.
         */
         void BindProcesses(std::vector<int> pids, int low, int high);
+
+        std::string FormatDate(int year, int mon, int day);
+
+        std::string LastLoggedDate();
+
+        void UpdateDaysLogFile(string last_logged_date, double total_usage);
+
+        void UpdateHoursLogFile(string curr_date, vector<double> usages);
     
+        vector<double> ReadHoursFile();
+
+        vector<string> ReadDaysFile();
+        
+        string hours_log_file = "../data/hours_power_usage.csv";
+        string days_log_file = "../data/days_power_usage.csv";
+        Power power;
+        int hour;
+        std::string curr_date;
+
         static System* instance;
         std::string operating_system;
         std::string kernel;

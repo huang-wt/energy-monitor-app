@@ -7,16 +7,13 @@
 using std::thread;
 
 void UpdatePowerAndEnergyUsage() {
-    Power* power_ = Power::Instance();
-    power_->UpdatePowerAndEnergyUsage();
+    System* system_ = System::Instance();
+    system_->UpdateEnergy();
 }
 
 void UpdateCpuAndMemoryUsage() {
     System* system_ = System::Instance();
-    while (true) {
-        sleep(1);
-        system_->UpdateCpuAndMemory();
-    } 
+    system_->UpdateCpuAndMemory();
 }
 
 // void UpdateProcesses() {

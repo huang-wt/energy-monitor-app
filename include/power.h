@@ -1,18 +1,14 @@
 #ifndef POWER_H
 #define POWER_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <map>
 
 class Power {
     public:
-        /**
-         * Static method that thread-safely provides a single
-         * instance of the class.
-         * @return The single instance of Power class.
-        */
-        static Power* Instance();
+        Power();
 
         /**
          * Keep updating and logging power and energy usage.
@@ -35,7 +31,7 @@ class Power {
          * Get the total energy usage that is drawn in the current date.
          * @return The total energy usage in Wh.
         */
-        double TodaysTotalEnergyUsage();
+        double TotalEnergyUsage();
 
         /**
          * Getter method for hours_energy_usages.
@@ -43,73 +39,66 @@ class Power {
         */
         std::vector<double> HoursEnergyUsages();
 
-        /**
-         * Get the energy usage drawn in the last n days.
-         * @param n The last n days.
-         * @return The date and corresponding energy usage.
-        */
-        std::map<std::string, double> LastNDaysEnergyUsage(int n);
+        double HoursEnergyUsages(int hour);
 
-    private:
-        Power();
-        
         /**
          * Reset vector for logging hourly power usage.
         */
         void ResetLogVector();
 
-        /**
-         * Format the given date as YYYY/MM/DD.
-         * @param year The year of a specific date.
-         * @param mon The month of a specific date.
-         * @param day The day of a specific date.
-         * @return The formatted date in string.
-        */
-        std::string FormatDate(int year, int mon, int day);
+        void SetLogVector(std::vector<double> datas);
+
+        void UpdateLogVector(int hour);
 
         /**
-         * Get the last date that has been logged in the file.
-         * @return The last logged date.
+         * Get the energy usage drawn in the last n days.
+         * @param n The last n days.
+         * @return The date and corresponding energy usage.
         */
-        std::string LastLoggedDate();
+        std::map<std::string, double> LastNDaysEnergyUsage(std::vector<std::string> rows, int n);
 
-        /**
-         * Append the total energy used in last day to the days logging file.
-         * @param date The last logged date.
-        */
-        void UpdateDaysLogFile(std::string date);
+        void UpdatePrevHoursEnergy();
+
+        void SetExtra(double value);
+
+
+    private:
 
         /**
          * Get the current accumulated energy usage from system.
          * @return The current accumulated energy usage in micro joules.
         */
         long long EnergyUsageInUj();
-
-        /**
-         * Update the hours logging file.
-         * @param date The current date.
-        */
-        void UpdateHoursLogFile(std::string date);
-
-        /**
-         * Update the hours logging vector.
-        */
-        void UpdateLogVector();
-
-        static Power* instance;
-        std::string hours_log_file = "../data/hours_power_usage.csv";
-        std::string days_log_file = "../data/days_power_usage.csv";
+        
         std::string energy_usage_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj";
         std::string mex_energy_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj";
-
-        // Record energy usages in every hour in a day
-        std::vector<double> hours_energy_usages;
 
         // The energy amount got from the system will
         // reset to zero when it exceeds this bound
         long long max_energy;
-        double curr_hour_energy_usage;
-        double curr_power_usage;
+
+        // Record energy usages in every hour in a day
+        std::vector<double> hours_energy_usages;
+
+        double curr_hour_energy_usage = 0;
+        double total_energy_usage;
+        double curr_power_usage = 0;
+
+        // The total energy usage (in uj) in the previous hours 
+        // since the pc boots
+        long long prev_hours_energy = 0;
+        // The total energy usage since the pc boots
+        long long accum_energy_usage = 0;
+        // The current energy amount extracted from the system
+        long long energy = 0;
+        // The energy amount extracted in the last logging time
+        long long prev_energy = 0;
+        // The number of times when the capped energy amount 
+        // is reached
+        long long capped_times = 0;
+        // The extra energy usage in the current hour 
+        // (in case the pc reboots)
+        double extra = 0;
 
 };
 

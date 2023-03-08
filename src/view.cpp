@@ -68,10 +68,11 @@ void View::DisplayTodaysEnergyUsage() {
         cout << "\n";
         cout << "\t\t\t -- Hourly Energy Usage --\n\n";
         cout << "Hour\tEnergy (in Wh)\n";
-        std::vector<double> hours_energy_usage = power_->HoursEnergyUsages();
+        std::vector<double> hours_energy_usage = system_->HoursEnergyUsages();
         for (int h = 0 ; h < 24 ; h++) {
             cout << h << "\t" << hours_energy_usage[h] << endl;
         }
+        cout << "Total: " << system_->TotalEnergyUsage() << endl;
     }
 
     cin.get();
@@ -83,7 +84,7 @@ void View::DisplayLastWeekEnergyUsage() {
     cout << "\n";
     cout << "\t\t\t -- Last Week Energy Usage --\n\n";
     cout << "Date\t\tEnergy (in Wh)\n";
-    map<string, double> last_seven_days_energy_usage = power_->LastNDaysEnergyUsage(7);
+    map<string, double> last_seven_days_energy_usage = system_->LastWeekEnergyUsage();
     for (auto const& [key, val] : last_seven_days_energy_usage) {
         cout << key << ": " << val << "Wh" << endl;
     }
@@ -98,7 +99,7 @@ void View::DisplayLivePowerUsage() {
         cout << fixed << setprecision(1);
         cout << "\n";
         cout << "\t\t\t -- Live Power Usage --\n\n";
-        cout << power_->CurrPowerUsage() << " watts" << endl;
+        cout << system_->PowerUsage() << " watts" << endl;
     }
 
     cin.get();

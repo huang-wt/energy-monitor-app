@@ -13,7 +13,7 @@ class View {
 
     private:
         System* system_ = System::Instance();
-        Power* power_ = Power::Instance();
+        // Power* power_ = Power::Instance();
 
         void DisplaySystemInfo();
         void DisplayProcesses();
