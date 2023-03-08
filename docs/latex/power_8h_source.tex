@@ -9,56 +9,74 @@
 \DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <map>}}
 \DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPower}{Power}}\ \{}
-\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPower}{Power}}*\ \mbox{\hyperlink{classPower_a1af979254859dec73c92c8f0cb012432}{Instance}}();}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_a82971c5a5461a57e5d58b5664de66d7d}{UpdatePowerAndEnergyUsage}}();}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_a04553d70a7de54e2e578d78951840fb9}{CurrHourEnergyUsage}}();}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_ad617abfa1ba104294f1684d63fdcef31}{CurrPowerUsage}}();}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_a588b2ed84e3dd99ceaeadfae07820581}{TodaysTotalEnergyUsage}}();}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::vector<double>\ \mbox{\hyperlink{classPower_af2795e0554b26deff9492d89bb9c080d}{HoursEnergyUsages}}();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::map<std::string,\ double>\ \mbox{\hyperlink{classPower_a523069b2125b815361fd3487ed17a360}{LastNDaysEnergyUsage}}(\textcolor{keywordtype}{int}\ n);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classPower}{Power}}();}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ResetLogVector();}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ std::string\ FormatDate(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ mon,\ \textcolor{keywordtype}{int}\ day);}
-\DoxyCodeLine{00069\ }
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ std::string\ LastLoggedDate();}
+\DoxyCodeLine{00008\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{using\ }std::map;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPower}{Power}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classPower}{Power}}();}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_a04553d70a7de54e2e578d78951840fb9}{CurrHourEnergyUsage}}();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_ad617abfa1ba104294f1684d63fdcef31}{CurrPowerUsage}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_a871246e16dff227b9d8a0a00729fd7e2}{TotalEnergyUsage}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ vector<double>\ \mbox{\hyperlink{classPower_af2795e0554b26deff9492d89bb9c080d}{HoursEnergyUsages}}();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classPower_af2795e0554b26deff9492d89bb9c080d}{HoursEnergyUsages}}(\textcolor{keywordtype}{int}\ hour);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_afd7be51c2bbb29b0d9d2bf407beacb0b}{ResetLogVector}}();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_aabb5e8d2b1872b8d91e435a6b3defbb8}{SetLogVector}}(vector<double>\ datas);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_af2efc1d7ddd876c87102ca6b37509d46}{UpdateLogVector}}(\textcolor{keywordtype}{int}\ hour);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ map<string,\ double>\ \mbox{\hyperlink{classPower_a8d6c0c77848b563b171578fece31b5b3}{LastNDaysEnergyUsage}}(vector<string>\ rows,\ \textcolor{keywordtype}{int}\ n);}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateDaysLogFile(std::string\ date);}
-\DoxyCodeLine{00081\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ EnergyUsageInUj();}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateHoursLogFile(std::string\ date);}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateLogVector();}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classPower}{Power}}*\ instance;}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ std::string\ hours\_log\_file\ =\ \textcolor{stringliteral}{"{}../data/hours\_power\_usage.csv"{}};}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ std::string\ days\_log\_file\ =\ \textcolor{stringliteral}{"{}../data/days\_power\_usage.csv"{}};}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::string\ energy\_usage\_path\ =\ \textcolor{stringliteral}{"{}/sys/class/powercap/intel-\/rapl/intel-\/rapl:1/energy\_uj"{}};}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::string\ mex\_energy\_path\ =\ \textcolor{stringliteral}{"{}/sys/class/powercap/intel-\/rapl/intel-\/rapl:1/max\_energy\_range\_uj"{}};}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Record\ energy\ usages\ in\ every\ hour\ in\ a\ day}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::vector<double>\ hours\_energy\_usages;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_a53e52a6ad4204328e5652baf4f7fea7a}{UpdatePrevHoursEnergy}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_aab5aca5a26a1fe53cdc739d5c152fbd5}{SetExtra}}(\textcolor{keywordtype}{double}\ value);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classPower_a82971c5a5461a57e5d58b5664de66d7d}{UpdatePowerAndEnergyUsage}}();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ EnergyUsageInUj();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ energy\_usage\_path\ =\ \textcolor{stringliteral}{"{}/sys/class/powercap/intel-\/rapl/intel-\/rapl:1/energy\_uj"{}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ mex\_energy\_path\ =\ \textcolor{stringliteral}{"{}/sys/class/powercap/intel-\/rapl/intel-\/rapl:1/max\_energy\_range\_uj"{}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ energy\ amount\ got\ from\ the\ system\ will}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ to\ zero\ when\ it\ exceeds\ this\ bound}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ max\_energy;}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ energy\ amount\ got\ from\ the\ system\ will}}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ to\ zero\ when\ it\ exceeds\ this\ bound}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ max\_energy;}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ curr\_hour\_energy\_usage;}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ curr\_power\_usage;}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00114\ \};}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Record\ energy\ usages\ in\ every\ hour\ in\ a\ day}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ vector<double>\ hours\_energy\_usages;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ curr\_hour\_energy\_usage\ =\ 0;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ total\_energy\_usage;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ curr\_power\_usage\ =\ 0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ total\ energy\ usage\ (in\ uj)\ in\ the\ previous\ hours\ }}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ since\ the\ pc\ boots}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ prev\_hours\_energy\ =\ 0;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ total\ energy\ usage\ since\ the\ pc\ boots}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ accum\_energy\_usage\ =\ 0;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ current\ energy\ amount\ extracted\ from\ the\ system}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ energy\ =\ 0;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ energy\ amount\ extracted\ in\ the\ last\ logging\ time}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ prev\_energy\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ number\ of\ times\ when\ the\ capped\ energy\ amount\ }}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ is\ reached}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ capped\_times\ =\ 0;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ extra\ energy\ usage\ in\ the\ current\ hour\ }}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (in\ case\ the\ pc\ reboots)}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ extra\ =\ 0;}
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

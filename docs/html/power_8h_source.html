@@ -83,65 +83,87 @@ $(function() {
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classPower.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classPower.html">Power</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">static</span> <a class="code hl_class" href="classPower.html">Power</a>* <a class="code hl_function" href="classPower.html#a1af979254859dec73c92c8f0cb012432">Instance</a>();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#a82971c5a5461a57e5d58b5664de66d7d">UpdatePowerAndEnergyUsage</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#a04553d70a7de54e2e578d78951840fb9">CurrHourEnergyUsage</a>();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#ad617abfa1ba104294f1684d63fdcef31">CurrPowerUsage</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#a588b2ed84e3dd99ceaeadfae07820581">TodaysTotalEnergyUsage</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        std::vector&lt;double&gt; <a class="code hl_function" href="classPower.html#af2795e0554b26deff9492d89bb9c080d">HoursEnergyUsages</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        std::map&lt;std::string, double&gt; <a class="code hl_function" href="classPower.html#a523069b2125b815361fd3487ed17a360">LastNDaysEnergyUsage</a>(<span class="keywordtype">int</span> n);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_class" href="classPower.html">Power</a>();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> ResetLogVector();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        std::string FormatDate(<span class="keywordtype">int</span> year, <span class="keywordtype">int</span> mon, <span class="keywordtype">int</span> day);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        std::string LastLoggedDate();</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using </span>std::string;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using </span>std::vector;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using </span>std::map;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classPower.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="classPower.html">Power</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_class" href="classPower.html">Power</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#a04553d70a7de54e2e578d78951840fb9">CurrHourEnergyUsage</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#ad617abfa1ba104294f1684d63fdcef31">CurrPowerUsage</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#a871246e16dff227b9d8a0a00729fd7e2">TotalEnergyUsage</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        vector&lt;double&gt; <a class="code hl_function" href="classPower.html#af2795e0554b26deff9492d89bb9c080d">HoursEnergyUsages</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">double</span> <a class="code hl_function" href="classPower.html#af2795e0554b26deff9492d89bb9c080d">HoursEnergyUsages</a>(<span class="keywordtype">int</span> hour);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#afd7be51c2bbb29b0d9d2bf407beacb0b">ResetLogVector</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#aabb5e8d2b1872b8d91e435a6b3defbb8">SetLogVector</a>(vector&lt;double&gt; datas);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#af2efc1d7ddd876c87102ca6b37509d46">UpdateLogVector</a>(<span class="keywordtype">int</span> hour);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        map&lt;string, double&gt; <a class="code hl_function" href="classPower.html#a8d6c0c77848b563b171578fece31b5b3">LastNDaysEnergyUsage</a>(vector&lt;string&gt; rows, <span class="keywordtype">int</span> n);</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">void</span> UpdateDaysLogFile(std::string date);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> EnergyUsageInUj();</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> UpdateHoursLogFile(std::string date);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordtype">void</span> UpdateLogVector();</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keyword">static</span> <a class="code hl_class" href="classPower.html">Power</a>* instance;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        std::string hours_log_file = <span class="stringliteral">&quot;../data/hours_power_usage.csv&quot;</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        std::string days_log_file = <span class="stringliteral">&quot;../data/days_power_usage.csv&quot;</span>;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        std::string energy_usage_path = <span class="stringliteral">&quot;/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj&quot;</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::string mex_energy_path = <span class="stringliteral">&quot;/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj&quot;</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">// Record energy usages in every hour in a day</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        std::vector&lt;double&gt; hours_energy_usages;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#a53e52a6ad4204328e5652baf4f7fea7a">UpdatePrevHoursEnergy</a>();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#aab5aca5a26a1fe53cdc739d5c152fbd5">SetExtra</a>(<span class="keywordtype">double</span> value);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classPower.html#a82971c5a5461a57e5d58b5664de66d7d">UpdatePowerAndEnergyUsage</a>();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> EnergyUsageInUj();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordtype">string</span> energy_usage_path = <span class="stringliteral">&quot;/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj&quot;</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordtype">string</span> mex_energy_path = <span class="stringliteral">&quot;/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj&quot;</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="comment">// The energy amount got from the system will</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">// reset to zero when it exceeds this bound</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> max_energy;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">// The energy amount got from the system will</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// reset to zero when it exceeds this bound</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> max_energy;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordtype">double</span> curr_hour_energy_usage;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">double</span> curr_power_usage;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassPower_html"><div class="ttname"><a href="classPower.html">Power</a></div><div class="ttdef"><b>Definition:</b> power.h:8</div></div>
-<div class="ttc" id="aclassPower_html_a04553d70a7de54e2e578d78951840fb9"><div class="ttname"><a href="classPower.html#a04553d70a7de54e2e578d78951840fb9">Power::CurrHourEnergyUsage</a></div><div class="ttdeci">double CurrHourEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:101</div></div>
-<div class="ttc" id="aclassPower_html_a1af979254859dec73c92c8f0cb012432"><div class="ttname"><a href="classPower.html#a1af979254859dec73c92c8f0cb012432">Power::Instance</a></div><div class="ttdeci">static Power * Instance()</div><div class="ttdef"><b>Definition:</b> power.cpp:18</div></div>
-<div class="ttc" id="aclassPower_html_a523069b2125b815361fd3487ed17a360"><div class="ttname"><a href="classPower.html#a523069b2125b815361fd3487ed17a360">Power::LastNDaysEnergyUsage</a></div><div class="ttdeci">std::map&lt; std::string, double &gt; LastNDaysEnergyUsage(int n)</div><div class="ttdef"><b>Definition:</b> power.cpp:119</div></div>
-<div class="ttc" id="aclassPower_html_a588b2ed84e3dd99ceaeadfae07820581"><div class="ttname"><a href="classPower.html#a588b2ed84e3dd99ceaeadfae07820581">Power::TodaysTotalEnergyUsage</a></div><div class="ttdeci">double TodaysTotalEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:109</div></div>
-<div class="ttc" id="aclassPower_html_a82971c5a5461a57e5d58b5664de66d7d"><div class="ttname"><a href="classPower.html#a82971c5a5461a57e5d58b5664de66d7d">Power::UpdatePowerAndEnergyUsage</a></div><div class="ttdeci">void UpdatePowerAndEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:32</div></div>
-<div class="ttc" id="aclassPower_html_ad617abfa1ba104294f1684d63fdcef31"><div class="ttname"><a href="classPower.html#ad617abfa1ba104294f1684d63fdcef31">Power::CurrPowerUsage</a></div><div class="ttdeci">double CurrPowerUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:105</div></div>
-<div class="ttc" id="aclassPower_html_af2795e0554b26deff9492d89bb9c080d"><div class="ttname"><a href="classPower.html#af2795e0554b26deff9492d89bb9c080d">Power::HoursEnergyUsages</a></div><div class="ttdeci">std::vector&lt; double &gt; HoursEnergyUsages()</div><div class="ttdef"><b>Definition:</b> power.cpp:115</div></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">// Record energy usages in every hour in a day</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        vector&lt;double&gt; hours_energy_usages;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordtype">double</span> curr_hour_energy_usage = 0;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">double</span> total_energy_usage;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">double</span> curr_power_usage = 0;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="comment">// The total energy usage (in uj) in the previous hours </span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">// since the pc boots</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> prev_hours_energy = 0;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// The total energy usage since the pc boots</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> accum_energy_usage = 0;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// The current energy amount extracted from the system</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> energy = 0;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="comment">// The energy amount extracted in the last logging time</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> prev_energy = 0;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="comment">// The number of times when the capped energy amount </span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="comment">// is reached</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> capped_times = 0;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// The extra energy usage in the current hour </span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="comment">// (in case the pc reboots)</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordtype">double</span> extra = 0;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>};</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassPower_html"><div class="ttname"><a href="classPower.html">Power</a></div><div class="ttdef"><b>Definition:</b> power.h:16</div></div>
+<div class="ttc" id="aclassPower_html_a04553d70a7de54e2e578d78951840fb9"><div class="ttname"><a href="classPower.html#a04553d70a7de54e2e578d78951840fb9">Power::CurrHourEnergyUsage</a></div><div class="ttdeci">double CurrHourEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:15</div></div>
+<div class="ttc" id="aclassPower_html_a53e52a6ad4204328e5652baf4f7fea7a"><div class="ttname"><a href="classPower.html#a53e52a6ad4204328e5652baf4f7fea7a">Power::UpdatePrevHoursEnergy</a></div><div class="ttdeci">void UpdatePrevHoursEnergy()</div><div class="ttdef"><b>Definition:</b> power.cpp:78</div></div>
+<div class="ttc" id="aclassPower_html_a82971c5a5461a57e5d58b5664de66d7d"><div class="ttname"><a href="classPower.html#a82971c5a5461a57e5d58b5664de66d7d">Power::UpdatePowerAndEnergyUsage</a></div><div class="ttdeci">void UpdatePowerAndEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:86</div></div>
+<div class="ttc" id="aclassPower_html_a871246e16dff227b9d8a0a00729fd7e2"><div class="ttname"><a href="classPower.html#a871246e16dff227b9d8a0a00729fd7e2">Power::TotalEnergyUsage</a></div><div class="ttdeci">double TotalEnergyUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:23</div></div>
+<div class="ttc" id="aclassPower_html_a8d6c0c77848b563b171578fece31b5b3"><div class="ttname"><a href="classPower.html#a8d6c0c77848b563b171578fece31b5b3">Power::LastNDaysEnergyUsage</a></div><div class="ttdeci">map&lt; string, double &gt; LastNDaysEnergyUsage(vector&lt; string &gt; rows, int n)</div><div class="ttdef"><b>Definition:</b> power.cpp:60</div></div>
+<div class="ttc" id="aclassPower_html_aab5aca5a26a1fe53cdc739d5c152fbd5"><div class="ttname"><a href="classPower.html#aab5aca5a26a1fe53cdc739d5c152fbd5">Power::SetExtra</a></div><div class="ttdeci">void SetExtra(double value)</div><div class="ttdef"><b>Definition:</b> power.cpp:82</div></div>
+<div class="ttc" id="aclassPower_html_aabb5e8d2b1872b8d91e435a6b3defbb8"><div class="ttname"><a href="classPower.html#aabb5e8d2b1872b8d91e435a6b3defbb8">Power::SetLogVector</a></div><div class="ttdeci">void SetLogVector(vector&lt; double &gt; datas)</div><div class="ttdef"><b>Definition:</b> power.cpp:50</div></div>
+<div class="ttc" id="aclassPower_html_ad617abfa1ba104294f1684d63fdcef31"><div class="ttname"><a href="classPower.html#ad617abfa1ba104294f1684d63fdcef31">Power::CurrPowerUsage</a></div><div class="ttdeci">double CurrPowerUsage()</div><div class="ttdef"><b>Definition:</b> power.cpp:19</div></div>
+<div class="ttc" id="aclassPower_html_af2795e0554b26deff9492d89bb9c080d"><div class="ttname"><a href="classPower.html#af2795e0554b26deff9492d89bb9c080d">Power::HoursEnergyUsages</a></div><div class="ttdeci">vector&lt; double &gt; HoursEnergyUsages()</div><div class="ttdef"><b>Definition:</b> power.cpp:32</div></div>
+<div class="ttc" id="aclassPower_html_af2efc1d7ddd876c87102ca6b37509d46"><div class="ttname"><a href="classPower.html#af2efc1d7ddd876c87102ca6b37509d46">Power::UpdateLogVector</a></div><div class="ttdeci">void UpdateLogVector(int hour)</div><div class="ttdef"><b>Definition:</b> power.cpp:56</div></div>
+<div class="ttc" id="aclassPower_html_afd7be51c2bbb29b0d9d2bf407beacb0b"><div class="ttname"><a href="classPower.html#afd7be51c2bbb29b0d9d2bf407beacb0b">Power::ResetLogVector</a></div><div class="ttdeci">void ResetLogVector()</div><div class="ttdef"><b>Definition:</b> power.cpp:40</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

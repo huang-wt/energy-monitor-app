@@ -5,66 +5,100 @@
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_H}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ STSTEM\_H}}
 \DoxyCodeLine{00003\ }
-\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
-\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
-\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <map>}}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}processor.h"{}}}
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}process.h"{}}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSystem}{System}}\ \{}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classSystem}{System}}*\ \mbox{\hyperlink{classSystem_a15330812fb77950d0b01cef031e75073}{Instance}}();}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classSystem_a3d29c16389a307c17c6d9b2d5321c120}{OperatingSystem}}();}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classSystem_a652a528eda3dcd2e1362f2db39ae8543}{Kernel}}();}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}processor.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}memory.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}process.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}power.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }std::map;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSystem}{System}}\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classSystem}{System}}*\ \mbox{\hyperlink{classSystem_a15330812fb77950d0b01cef031e75073}{Instance}}();}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classSystem_adeadd1621ef32760eb5ce0eddb501e51}{UpTime}}();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classSystem_a4d40daff6729e00872e2346af01d3d2d}{OperatingSystem}}();}
 \DoxyCodeLine{00039\ }
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_a4a23e44e1a36f1741cc90189bd20bd25}{TotalProcesses}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{classSystem_a18c68ad64aa7c6d28346e4823f5ccd3b}{Kernel}}();}
 \DoxyCodeLine{00045\ }
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_a313e5d0cf634f79d9a77a66f74a6c80f}{RunningProcesses}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{classSystem_adeadd1621ef32760eb5ce0eddb501e51}{UpTime}}();}
 \DoxyCodeLine{00051\ }
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_a8304a887929ad9a53723b83c1c087915}{TotalMemory}}();}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_a4a23e44e1a36f1741cc90189bd20bd25}{TotalProcesses}}();}
 \DoxyCodeLine{00057\ }
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_aec82740cd2714879fbd400caef356204}{UsedMemory}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_a313e5d0cf634f79d9a77a66f74a6c80f}{RunningProcesses}}();}
 \DoxyCodeLine{00063\ }
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_a6935af095b93c6f1c32c627ffc0c6312}{MemoryUtilisation}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_a8304a887929ad9a53723b83c1c087915}{TotalMemory}}();}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_adb6e1f58789cdf0a33ee8a0d0697d492}{CpuTemperature}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_aec82740cd2714879fbd400caef356204}{UsedMemory}}();}
 \DoxyCodeLine{00075\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{classSystem_a459bb4897323a395f6464d16901bbeab}{CpuUtilisations}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classSystem_a6935af095b93c6f1c32c627ffc0c6312}{MemoryUtilisation}}();}
 \DoxyCodeLine{00081\ }
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ std::vector<Process>\ \mbox{\hyperlink{classSystem_ae0fc156eff47626089eee8f3e1769818}{SortedProcesses}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSystem_adb6e1f58789cdf0a33ee8a0d0697d492}{CpuTemperature}}();}
 \DoxyCodeLine{00087\ }
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_ab7b8c844c4e64762819cf0de67e36ef8}{UpdateCpuAndMemory}}();}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_ae36a87028e6b8a582873618ce2145029}{UpdateProcesses}}();}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_a5313f8ded49448e40aafce092235b609}{BindToPCores}}();}
-\DoxyCodeLine{00102\ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_aee4a3c1030995a9fd18a035302db65c2}{BindToAllCores}}();}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_a862835bc6e88e8373784c8e29a09672c}{BindToECores}}();}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSystem}{System}}();}
-\DoxyCodeLine{00115\ }
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ std::vector<int>\ CpuConsumingProcesses();}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ BindProcesses(std::vector<int>\ pids,\ \textcolor{keywordtype}{int}\ low,\ \textcolor{keywordtype}{int}\ high);}
-\DoxyCodeLine{00129\ \ \ \ \ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classSystem}{System}}*\ instance;}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ std::string\ operating\_system;}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ std::string\ kernel;}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProcessor}{Processor}}\ cpu;}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classMemory}{Memory}}\ memory;}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ std::map<int,\ Process>\ processes;}
-\DoxyCodeLine{00136\ \};}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SYSTEM\_H}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ vector<float>\ \mbox{\hyperlink{classSystem_ade94fe82096463c8ce6311fbe79dee01}{CpuUtilisations}}();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_ab7b8c844c4e64762819cf0de67e36ef8}{UpdateCpuAndMemory}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ vector<Process>\ \mbox{\hyperlink{classSystem_ad16af5601b397950b4483835158da1cd}{SortedProcesses}}();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_ae36a87028e6b8a582873618ce2145029}{UpdateProcesses}}();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_a5313f8ded49448e40aafce092235b609}{BindToPCores}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_aee4a3c1030995a9fd18a035302db65c2}{BindToAllCores}}();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_a862835bc6e88e8373784c8e29a09672c}{BindToECores}}();}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classSystem_a37ca8c2be53096bea1b10148168a795f}{PowerUsage}}();}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ vector<double>\ \mbox{\hyperlink{classSystem_a09c0b83723491ee7ff126b2d01d2e78c}{HoursEnergyUsages}}();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classSystem_a2884ea5f82fda63f37d43742c45950ab}{TotalEnergyUsage}}();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ map<string,\ double>\ \mbox{\hyperlink{classSystem_a41a61ef5dc30eeb93fcb5438f693c098}{LastWeekEnergyUsage}}();}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classSystem_a8476dbd4e760b548b9a5b4c97b4f23e6}{UpdateEnergy}}();}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classSystem}{System}}();}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ vector<int>\ CpuConsumingProcesses();}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ BindProcesses(vector<int>\ pids,\ \textcolor{keywordtype}{int}\ low,\ \textcolor{keywordtype}{int}\ high);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ FormatDate(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ mon,\ \textcolor{keywordtype}{int}\ day);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ LastLoggedDate();}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateDaysLogFile(\textcolor{keywordtype}{string}\ last\_logged\_date,\ \textcolor{keywordtype}{double}\ total\_usage);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateHoursLogFile(\textcolor{keywordtype}{string}\ curr\_date,\ vector<double>\ usages);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ std::vector<double>\ ReadHoursFile();}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ std::vector<string>\ ReadDaysFile();}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classSystem}{System}}*\ instance;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ hours\_log\_file\ =\ \textcolor{stringliteral}{"{}../data/hours\_power\_usage.csv"{}};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ days\_log\_file\ =\ \textcolor{stringliteral}{"{}../data/days\_power\_usage.csv"{}};}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classProcessor}{Processor}}\ cpu;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classMemory}{Memory}}\ memory;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ map<int,\ Process>\ processes;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classPower}{Power}}\ power;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ operating\_system;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ kernel;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hour;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ curr\_date;}
+\DoxyCodeLine{00223\ \};}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SYSTEM\_H}}
 
 \end{DoxyCode}

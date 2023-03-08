@@ -1,5 +1,9 @@
 \hypertarget{classProcess}{}\doxysection{Process Class Reference}
 \label{classProcess}\index{Process@{Process}}
+
+
+{\ttfamily \#include $<$process.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,6 +37,9 @@ void \mbox{\hyperlink{classProcess_a36041648659a41bb1cbfa82381c974ca}{Set\+Up\+T
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+This class represents a computer process with attrbutes of ID, user name, command, cpu utilisation, memory usage and up time. 
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classProcess_aa1e0d81d6787f69a81219714a0007fbf}\label{classProcess_aa1e0d81d6787f69a81219714a0007fbf}} 
 \index{Process@{Process}!Command@{Command}}
@@ -58,7 +65,7 @@ The cpu utilisation of the process as a percentage.
 \doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
 {\footnotesize\ttfamily bool Process\+::operator$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classProcess}{Process}} const \&}]{a }\end{DoxyParamCaption}) const}
 
-Overloads the less operator according to cpu utilisation 
+Overloads the less operator according to cpu utilisation. 
 \begin{DoxyParams}{Parameters}
 {\em a} & Another \doxylink{classProcess}{Process} object. \\
 \hline
@@ -72,7 +79,7 @@ True if this process is less than a; otherwise false.
 \doxysubsubsection{\texorpdfstring{operator$>$()}{operator>()}}
 {\footnotesize\ttfamily bool Process\+::operator$>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classProcess}{Process}} const \&}]{a }\end{DoxyParamCaption}) const}
 
-Overloads the greater operator according to cpu utilisation 
+Overloads the greater operator according to cpu utilisation. 
 \begin{DoxyParams}{Parameters}
 {\em a} & Another \doxylink{classProcess}{Process} object. \\
 \hline

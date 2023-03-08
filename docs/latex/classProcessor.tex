@@ -1,5 +1,9 @@
 \hypertarget{classProcessor}{}\doxysection{Processor Class Reference}
 \label{classProcessor}\index{Processor@{Processor}}
+
+
+{\ttfamily \#include $<$processor.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,6 +27,9 @@ void \mbox{\hyperlink{classProcessor_ad588c3919c2e0f382a25c425409394f5}{Update\+
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+This class represents a computer processor and provides methods to retrieve information about its cores and utilisation. 
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classProcessor_a8c3db30c54b8ed14c32623773f0d8839}\label{classProcessor_a8c3db30c54b8ed14c32623773f0d8839}} 
 \index{Processor@{Processor}!ECores@{ECores}}
@@ -30,7 +37,7 @@ void \mbox{\hyperlink{classProcessor_ad588c3919c2e0f382a25c425409394f5}{Update\+
 \doxysubsubsection{\texorpdfstring{ECores()}{ECores()}}
 {\footnotesize\ttfamily int Processor\+::\+ECores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for e\+\_\+cores. \begin{DoxyReturn}{Returns}
+Getter method for e cores. \begin{DoxyReturn}{Returns}
 The number of efficiency cores of the processor. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classProcessor_a2bc4946bfcd2c0c827615ccdb8a64b24}\label{classProcessor_a2bc4946bfcd2c0c827615ccdb8a64b24}} 
@@ -39,7 +46,7 @@ The number of efficiency cores of the processor.
 \doxysubsubsection{\texorpdfstring{HyperThreadedCores()}{HyperThreadedCores()}}
 {\footnotesize\ttfamily int Processor\+::\+Hyper\+Threaded\+Cores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for hyperthreaded\+\_\+cores. \begin{DoxyReturn}{Returns}
+Getter method for hyperthreaded cores. \begin{DoxyReturn}{Returns}
 The number of hyperthreaded cores of the processor. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classProcessor_a4cec81dcb65a7c5b900318293c016cd3}\label{classProcessor_a4cec81dcb65a7c5b900318293c016cd3}} 
@@ -48,7 +55,7 @@ The number of hyperthreaded cores of the processor.
 \doxysubsubsection{\texorpdfstring{LogicalCores()}{LogicalCores()}}
 {\footnotesize\ttfamily int Processor\+::\+Logical\+Cores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for logical\+\_\+cores. \begin{DoxyReturn}{Returns}
+Getter method for logical cores. \begin{DoxyReturn}{Returns}
 The number of logical cores of the processor. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classProcessor_aae6fe07365789df11b73c3d98be0c885}\label{classProcessor_aae6fe07365789df11b73c3d98be0c885}} 
@@ -57,7 +64,7 @@ The number of logical cores of the processor.
 \doxysubsubsection{\texorpdfstring{PCores()}{PCores()}}
 {\footnotesize\ttfamily int Processor\+::\+PCores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for e\+\_\+cores. \begin{DoxyReturn}{Returns}
+Getter method for p cores. \begin{DoxyReturn}{Returns}
 The number of performance cores of the processor. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classProcessor_aeb84c36349196cff011bf3cb80aa4579}\label{classProcessor_aeb84c36349196cff011bf3cb80aa4579}} 
@@ -66,7 +73,7 @@ The number of performance cores of the processor.
 \doxysubsubsection{\texorpdfstring{PhysicalCores()}{PhysicalCores()}}
 {\footnotesize\ttfamily int Processor\+::\+Physical\+Cores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for physical\+\_\+cores. \begin{DoxyReturn}{Returns}
+Getter method for physical cores. \begin{DoxyReturn}{Returns}
 The number of physical cores of the processor. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classProcessor_a854d67bfb20bc4acef29df335d589839}\label{classProcessor_a854d67bfb20bc4acef29df335d589839}} 
@@ -90,13 +97,13 @@ Update the cpu temperature. \mbox{\Hypertarget{classProcessor_a38f3e1e9be26dd069
 \doxysubsubsection{\texorpdfstring{UpdateUtilisations()}{UpdateUtilisations()}}
 {\footnotesize\ttfamily void Processor\+::\+Update\+Utilisations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Update the utilisation of each cpu core and overall usage in percentage. \mbox{\Hypertarget{classProcessor_a3387532dea94f1f5c1937edaeacd241f}\label{classProcessor_a3387532dea94f1f5c1937edaeacd241f}} 
+Update the utilisation of each cpu core and overall usage. \mbox{\Hypertarget{classProcessor_a3387532dea94f1f5c1937edaeacd241f}\label{classProcessor_a3387532dea94f1f5c1937edaeacd241f}} 
 \index{Processor@{Processor}!Utilisations@{Utilisations}}
 \index{Utilisations@{Utilisations}!Processor@{Processor}}
 \doxysubsubsection{\texorpdfstring{Utilisations()}{Utilisations()}}
 {\footnotesize\ttfamily std\+::vector$<$ float $>$ Processor\+::\+Utilisations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for cpu\+\_\+utilisations. \begin{DoxyReturn}{Returns}
+Getter method for cpu utilisations. \begin{DoxyReturn}{Returns}
 The vector containing the utilisation in percentage of each cpu core. 
 \end{DoxyReturn}
 

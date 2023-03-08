@@ -1,11 +1,15 @@
 \hypertarget{classSystem}{}\doxysection{System Class Reference}
 \label{classSystem}\index{System@{System}}
+
+
+{\ttfamily \#include $<$system.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string \mbox{\hyperlink{classSystem_a3d29c16389a307c17c6d9b2d5321c120}{Operating\+System}} ()
+string \mbox{\hyperlink{classSystem_a4d40daff6729e00872e2346af01d3d2d}{Operating\+System}} ()
 \item 
-std\+::string \mbox{\hyperlink{classSystem_a652a528eda3dcd2e1362f2db39ae8543}{Kernel}} ()
+string \mbox{\hyperlink{classSystem_a18c68ad64aa7c6d28346e4823f5ccd3b}{Kernel}} ()
 \item 
 long \mbox{\hyperlink{classSystem_adeadd1621ef32760eb5ce0eddb501e51}{Up\+Time}} ()
 \item 
@@ -21,11 +25,11 @@ float \mbox{\hyperlink{classSystem_a6935af095b93c6f1c32c627ffc0c6312}{Memory\+Ut
 \item 
 int \mbox{\hyperlink{classSystem_adb6e1f58789cdf0a33ee8a0d0697d492}{Cpu\+Temperature}} ()
 \item 
-std\+::vector$<$ float $>$ \mbox{\hyperlink{classSystem_a459bb4897323a395f6464d16901bbeab}{Cpu\+Utilisations}} ()
-\item 
-std\+::vector$<$ \mbox{\hyperlink{classProcess}{Process}} $>$ \mbox{\hyperlink{classSystem_ae0fc156eff47626089eee8f3e1769818}{Sorted\+Processes}} ()
+vector$<$ float $>$ \mbox{\hyperlink{classSystem_ade94fe82096463c8ce6311fbe79dee01}{Cpu\+Utilisations}} ()
 \item 
 void \mbox{\hyperlink{classSystem_ab7b8c844c4e64762819cf0de67e36ef8}{Update\+Cpu\+And\+Memory}} ()
+\item 
+vector$<$ \mbox{\hyperlink{classProcess}{Process}} $>$ \mbox{\hyperlink{classSystem_ad16af5601b397950b4483835158da1cd}{Sorted\+Processes}} ()
 \item 
 void \mbox{\hyperlink{classSystem_ae36a87028e6b8a582873618ce2145029}{Update\+Processes}} ()
 \item 
@@ -34,6 +38,16 @@ void \mbox{\hyperlink{classSystem_a5313f8ded49448e40aafce092235b609}{Bind\+To\+P
 void \mbox{\hyperlink{classSystem_aee4a3c1030995a9fd18a035302db65c2}{Bind\+To\+All\+Cores}} ()
 \item 
 void \mbox{\hyperlink{classSystem_a862835bc6e88e8373784c8e29a09672c}{Bind\+To\+ECores}} ()
+\item 
+double \mbox{\hyperlink{classSystem_a37ca8c2be53096bea1b10148168a795f}{Power\+Usage}} ()
+\item 
+vector$<$ double $>$ \mbox{\hyperlink{classSystem_a09c0b83723491ee7ff126b2d01d2e78c}{Hours\+Energy\+Usages}} ()
+\item 
+double \mbox{\hyperlink{classSystem_a2884ea5f82fda63f37d43742c45950ab}{Total\+Energy\+Usage}} ()
+\item 
+map$<$ string, double $>$ \mbox{\hyperlink{classSystem_a41a61ef5dc30eeb93fcb5438f693c098}{Last\+Week\+Energy\+Usage}} ()
+\item 
+void \mbox{\hyperlink{classSystem_a8476dbd4e760b548b9a5b4c97b4f23e6}{Update\+Energy}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -41,6 +55,9 @@ void \mbox{\hyperlink{classSystem_a862835bc6e88e8373784c8e29a09672c}{Bind\+To\+E
 static \mbox{\hyperlink{classSystem}{System}} $\ast$ \mbox{\hyperlink{classSystem_a15330812fb77950d0b01cef031e75073}{Instance}} ()
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+This class represents a computer system, integrated with essential components such as processor, memory and power. It also provides methods for retrieving essential information about the system. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classSystem_aee4a3c1030995a9fd18a035302db65c2}\label{classSystem_aee4a3c1030995a9fd18a035302db65c2}} 
@@ -70,14 +87,23 @@ Bind the most cpu consuming processes to performance cores. \mbox{\Hypertarget{c
 Getter method for cpu temperature. \begin{DoxyReturn}{Returns}
 The cpu temperature in degree Celsius. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classSystem_a459bb4897323a395f6464d16901bbeab}\label{classSystem_a459bb4897323a395f6464d16901bbeab}} 
+\mbox{\Hypertarget{classSystem_ade94fe82096463c8ce6311fbe79dee01}\label{classSystem_ade94fe82096463c8ce6311fbe79dee01}} 
 \index{System@{System}!CpuUtilisations@{CpuUtilisations}}
 \index{CpuUtilisations@{CpuUtilisations}!System@{System}}
 \doxysubsubsection{\texorpdfstring{CpuUtilisations()}{CpuUtilisations()}}
-{\footnotesize\ttfamily std\+::vector$<$ float $>$ System\+::\+Cpu\+Utilisations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily vector$<$ float $>$ System\+::\+Cpu\+Utilisations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Getter method for cpu utilisations. \begin{DoxyReturn}{Returns}
 The vector containing the utilisation of each cpu core. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSystem_a09c0b83723491ee7ff126b2d01d2e78c}\label{classSystem_a09c0b83723491ee7ff126b2d01d2e78c}} 
+\index{System@{System}!HoursEnergyUsages@{HoursEnergyUsages}}
+\index{HoursEnergyUsages@{HoursEnergyUsages}!System@{System}}
+\doxysubsubsection{\texorpdfstring{HoursEnergyUsages()}{HoursEnergyUsages()}}
+{\footnotesize\ttfamily vector$<$ double $>$ System\+::\+Hours\+Energy\+Usages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for hourly energy usages in a day. \begin{DoxyReturn}{Returns}
+The vector containing energy usage in Wh in every hour. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classSystem_a15330812fb77950d0b01cef031e75073}\label{classSystem_a15330812fb77950d0b01cef031e75073}} 
 \index{System@{System}!Instance@{Instance}}
@@ -88,14 +114,23 @@ The vector containing the utilisation of each cpu core.
 Static method that thread-\/safely provides a single instance of the class. \begin{DoxyReturn}{Returns}
 The single instance of \doxylink{classSystem}{System} class. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classSystem_a652a528eda3dcd2e1362f2db39ae8543}\label{classSystem_a652a528eda3dcd2e1362f2db39ae8543}} 
+\mbox{\Hypertarget{classSystem_a18c68ad64aa7c6d28346e4823f5ccd3b}\label{classSystem_a18c68ad64aa7c6d28346e4823f5ccd3b}} 
 \index{System@{System}!Kernel@{Kernel}}
 \index{Kernel@{Kernel}!System@{System}}
 \doxysubsubsection{\texorpdfstring{Kernel()}{Kernel()}}
-{\footnotesize\ttfamily std\+::string System\+::\+Kernel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily string System\+::\+Kernel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Getter method for kernel. \begin{DoxyReturn}{Returns}
 The kernel of the operating system. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSystem_a41a61ef5dc30eeb93fcb5438f693c098}\label{classSystem_a41a61ef5dc30eeb93fcb5438f693c098}} 
+\index{System@{System}!LastWeekEnergyUsage@{LastWeekEnergyUsage}}
+\index{LastWeekEnergyUsage@{LastWeekEnergyUsage}!System@{System}}
+\doxysubsubsection{\texorpdfstring{LastWeekEnergyUsage()}{LastWeekEnergyUsage()}}
+{\footnotesize\ttfamily map$<$ string, double $>$ System\+::\+Last\+Week\+Energy\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for energy usage drawn in last week. \begin{DoxyReturn}{Returns}
+The pairs of date and corresponding energy usage in Wh during last week. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classSystem_a6935af095b93c6f1c32c627ffc0c6312}\label{classSystem_a6935af095b93c6f1c32c627ffc0c6312}} 
 \index{System@{System}!MemoryUtilisation@{MemoryUtilisation}}
@@ -103,17 +138,26 @@ The kernel of the operating system.
 \doxysubsubsection{\texorpdfstring{MemoryUtilisation()}{MemoryUtilisation()}}
 {\footnotesize\ttfamily float System\+::\+Memory\+Utilisation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for memory utilisation as a percentage. \begin{DoxyReturn}{Returns}
+Getter method for memory utilisation. \begin{DoxyReturn}{Returns}
 The live memory utilisation as a percentage. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classSystem_a3d29c16389a307c17c6d9b2d5321c120}\label{classSystem_a3d29c16389a307c17c6d9b2d5321c120}} 
+\mbox{\Hypertarget{classSystem_a4d40daff6729e00872e2346af01d3d2d}\label{classSystem_a4d40daff6729e00872e2346af01d3d2d}} 
 \index{System@{System}!OperatingSystem@{OperatingSystem}}
 \index{OperatingSystem@{OperatingSystem}!System@{System}}
 \doxysubsubsection{\texorpdfstring{OperatingSystem()}{OperatingSystem()}}
-{\footnotesize\ttfamily std\+::string System\+::\+Operating\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily string System\+::\+Operating\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Getter method for operating system. \begin{DoxyReturn}{Returns}
 The type of the operating system. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSystem_a37ca8c2be53096bea1b10148168a795f}\label{classSystem_a37ca8c2be53096bea1b10148168a795f}} 
+\index{System@{System}!PowerUsage@{PowerUsage}}
+\index{PowerUsage@{PowerUsage}!System@{System}}
+\doxysubsubsection{\texorpdfstring{PowerUsage()}{PowerUsage()}}
+{\footnotesize\ttfamily double System\+::\+Power\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for live power usage. \begin{DoxyReturn}{Returns}
+The real-\/time power usage in watts. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classSystem_a313e5d0cf634f79d9a77a66f74a6c80f}\label{classSystem_a313e5d0cf634f79d9a77a66f74a6c80f}} 
 \index{System@{System}!RunningProcesses@{RunningProcesses}}
@@ -124,14 +168,23 @@ The type of the operating system.
 Getter method for running processes. \begin{DoxyReturn}{Returns}
 The number of running processes. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classSystem_ae0fc156eff47626089eee8f3e1769818}\label{classSystem_ae0fc156eff47626089eee8f3e1769818}} 
+\mbox{\Hypertarget{classSystem_ad16af5601b397950b4483835158da1cd}\label{classSystem_ad16af5601b397950b4483835158da1cd}} 
 \index{System@{System}!SortedProcesses@{SortedProcesses}}
 \index{SortedProcesses@{SortedProcesses}!System@{System}}
 \doxysubsubsection{\texorpdfstring{SortedProcesses()}{SortedProcesses()}}
-{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classProcess}{Process}} $>$ System\+::\+Sorted\+Processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{classProcess}{Process}} $>$ System\+::\+Sorted\+Processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Getter method for processes in descending order on cpu usage. \begin{DoxyReturn}{Returns}
 The sorted vector containing all processes. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSystem_a2884ea5f82fda63f37d43742c45950ab}\label{classSystem_a2884ea5f82fda63f37d43742c45950ab}} 
+\index{System@{System}!TotalEnergyUsage@{TotalEnergyUsage}}
+\index{TotalEnergyUsage@{TotalEnergyUsage}!System@{System}}
+\doxysubsubsection{\texorpdfstring{TotalEnergyUsage()}{TotalEnergyUsage()}}
+{\footnotesize\ttfamily double System\+::\+Total\+Energy\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Getter method for today\textquotesingle{}s total energy usage. \begin{DoxyReturn}{Returns}
+The total energy usage in Wh drawn today. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classSystem_a8304a887929ad9a53723b83c1c087915}\label{classSystem_a8304a887929ad9a53723b83c1c087915}} 
 \index{System@{System}!TotalMemory@{TotalMemory}}
@@ -157,7 +210,13 @@ The number of total processes.
 \doxysubsubsection{\texorpdfstring{UpdateCpuAndMemory()}{UpdateCpuAndMemory()}}
 {\footnotesize\ttfamily void System\+::\+Update\+Cpu\+And\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Update cpu utilisations \& temperature and memory usage. \mbox{\Hypertarget{classSystem_ae36a87028e6b8a582873618ce2145029}\label{classSystem_ae36a87028e6b8a582873618ce2145029}} 
+Update cpu utilisations \& temperature and memory usage. \mbox{\Hypertarget{classSystem_a8476dbd4e760b548b9a5b4c97b4f23e6}\label{classSystem_a8476dbd4e760b548b9a5b4c97b4f23e6}} 
+\index{System@{System}!UpdateEnergy@{UpdateEnergy}}
+\index{UpdateEnergy@{UpdateEnergy}!System@{System}}
+\doxysubsubsection{\texorpdfstring{UpdateEnergy()}{UpdateEnergy()}}
+{\footnotesize\ttfamily void System\+::\+Update\+Energy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Keep updating and logging energy and power usage. \mbox{\Hypertarget{classSystem_ae36a87028e6b8a582873618ce2145029}\label{classSystem_ae36a87028e6b8a582873618ce2145029}} 
 \index{System@{System}!UpdateProcesses@{UpdateProcesses}}
 \index{UpdateProcesses@{UpdateProcesses}!System@{System}}
 \doxysubsubsection{\texorpdfstring{UpdateProcesses()}{UpdateProcesses()}}
@@ -169,8 +228,8 @@ Update the processes. \mbox{\Hypertarget{classSystem_adeadd1621ef32760eb5ce0eddb
 \doxysubsubsection{\texorpdfstring{UpTime()}{UpTime()}}
 {\footnotesize\ttfamily long int System\+::\+Up\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Getter method for uptime. \begin{DoxyReturn}{Returns}
-The uptime of the system. 
+Getter method for up time. \begin{DoxyReturn}{Returns}
+The up time of the system. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classSystem_aec82740cd2714879fbd400caef356204}\label{classSystem_aec82740cd2714879fbd400caef356204}} 
 \index{System@{System}!UsedMemory@{UsedMemory}}
