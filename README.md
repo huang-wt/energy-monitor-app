@@ -15,11 +15,20 @@ See the project report website for more details:______
 
 ## Deployment Manual
 ### Prerequisites
+#### Technologies
 - Git
 - Linux
 - C++ 17 (and onwards)
 - Qt
 - CMake
+- 12th Gen Intel Processor
+#### System Permission
+```shell
+# Unlock permissions for reading and writing the following files
+sudo chmod 777 /sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj
+sudo chmod 777 /sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj
+```
+
 ### Installation
 ```shell
 git clone https://github.com/huang-wt/energy-monitor-app.git
