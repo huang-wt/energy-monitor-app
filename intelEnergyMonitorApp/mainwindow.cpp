@@ -23,6 +23,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()), this, SLOT(updateCpuTemperature()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updatePowerUsage()));
 
+    // Connect the clicked signals of the bindAllCore, bindPCore and bindEcore to corresponding slots
+    connect(ui->bindAllCorePushButton, &QPushButton::clicked, this, &MainWindow::bindToAllCores);
+    connect(ui->bindPCorePushButton, &QPushButton::clicked, this, &MainWindow::bindToPCores);
+    connect(ui->bindECorePushButton, &QPushButton::clicked, this, &MainWindow::bindToECores);
+    connect(ui->applyButton, &QPushButton::clicked, this, &MainWindow::applySettings);
+
+
+
+
     // Start timer with interval of 1 second (1000 ms)
     timer->start(1000);
 
@@ -209,6 +218,54 @@ void MainWindow::on_reportsButton_clicked()
 
 //    QLabel* currentUsageLabel2 = findChild<QLabel*>("currentUsageLabel2");
 //    currentUsageLabel2->setText(QString("%1").arg(powerUsage, 0, 'f', 2));
+//}
+
+
+//***To handle Core Binding[ALL, P, E] on power page
+//void MyMainWindow::bindToAllCores() {
+//    system.BindToAllCores();
+
+//    // Set the text color of the bindAllCorePushButton to black.
+//    ui->bindAllCorePushButton->setStyleSheet("color: black; font-weight: bold;");
+
+//    // Reset the text color of the other buttons to their original state.
+//    ui->bindPCorePushButton->setStyleSheet("");
+//    ui->bindECorePushButton->setStyleSheet("");
+//}
+
+//void MyMainWindow::bindToPCores() {
+//    system.BindToPCores();
+
+//    // Set the text color of the bindAllCorePushButton to black.
+//    ui->bindPCorePushButton->setStyleSheet("color: black; font-weight: bold;");
+
+
+//    // Reset the text color of the other buttons to their original state.
+//    ui->bindAllCorePushButton->setStyleSheet("");
+//    ui->bindECorePushButton->setStyleSheet("");
+//}
+
+//void MyMainWindow::bindToECores() {
+//    system.BindToECores();
+
+//    // Set the text color of the bindAllCorePushButton to black.
+//    ui->bindECorePushButton->setStyleSheet("color: black; font-weight: bold;");
+
+
+
+//    // Reset the text color of the other buttons to their original state.
+//    ui->bindAllCorePushButton->setStyleSheet("");
+//    ui->bindPCorePushButton->setStyleSheet("");
+//}
+
+//void MyMainWindow::applySettings() {
+//    if (ui->bindAllCorePushButton->isChecked()) {
+//        system.BindToAllCores();
+//    } else if (ui->bindPCorePushButton->isChecked()) {
+//        system.BindToPCores();
+//    } else if (ui->bindECorePushButton->isChecked()) {
+//        system.BindToECores();
+//    }
 //}
 
 

@@ -745,7 +745,7 @@
                 </sizepolicy>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="page_3">
                 <widget class="QLabel" name="label_6">
@@ -1070,7 +1070,7 @@
                      <property name="geometry">
                       <rect>
                        <x>40</x>
-                       <y>10</y>
+                       <y>60</y>
                        <width>131</width>
                        <height>41</height>
                       </rect>
@@ -1083,7 +1083,7 @@
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_11">
                       <item>
-                       <widget class="QPushButton" name="autoPushButton">
+                       <widget class="QPushButton" name="bindAllCorePushButton">
                         <property name="font">
                          <font>
                           <bold>true</bold>
@@ -1095,7 +1095,7 @@ color: white
 ;</string>
                         </property>
                         <property name="text">
-                         <string>Auto</string>
+                         <string>Bind all cores</string>
                         </property>
                        </widget>
                       </item>
@@ -1105,7 +1105,7 @@ color: white
                      <property name="geometry">
                       <rect>
                        <x>40</x>
-                       <y>100</y>
+                       <y>160</y>
                        <width>131</width>
                        <height>41</height>
                       </rect>
@@ -1118,7 +1118,7 @@ color: white
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_12">
                       <item>
-                       <widget class="QPushButton" name="powerSaverPushButton">
+                       <widget class="QPushButton" name="bindPCorePushButton">
                         <property name="font">
                          <font>
                           <bold>true</bold>
@@ -1129,7 +1129,7 @@ color: white
 </string>
                         </property>
                         <property name="text">
-                         <string>Power Saver</string>
+                         <string>Bind P core</string>
                         </property>
                        </widget>
                       </item>
@@ -1139,7 +1139,7 @@ color: white
                      <property name="geometry">
                       <rect>
                        <x>40</x>
-                       <y>200</y>
+                       <y>260</y>
                        <width>131</width>
                        <height>41</height>
                       </rect>
@@ -1152,7 +1152,7 @@ color: white
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_13">
                       <item>
-                       <widget class="QPushButton" name="balancedPushButton">
+                       <widget class="QPushButton" name="bindECorePushButton">
                         <property name="font">
                          <font>
                           <bold>true</bold>
@@ -1163,41 +1163,7 @@ color: white
 </string>
                         </property>
                         <property name="text">
-                         <string>Balanced</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                    <widget class="QFrame" name="frame_11">
-                     <property name="geometry">
-                      <rect>
-                       <x>40</x>
-                       <y>300</y>
-                       <width>131</width>
-                       <height>41</height>
-                      </rect>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::StyledPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_14">
-                      <item>
-                       <widget class="QPushButton" name="highPerformancePushButton">
-                        <property name="font">
-                         <font>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: white
-</string>
-                        </property>
-                        <property name="text">
-                         <string>High Performance</string>
+                         <string>Bind E Core</string>
                         </property>
                        </widget>
                       </item>
@@ -1206,8 +1172,8 @@ color: white
                     <widget class="QFrame" name="applyFrame">
                      <property name="geometry">
                       <rect>
-                       <x>410</x>
-                       <y>307</y>
+                       <x>420</x>
+                       <y>270</y>
                        <width>71</width>
                        <height>31</height>
                       </rect>
