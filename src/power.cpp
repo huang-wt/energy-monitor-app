@@ -104,3 +104,11 @@ long long Power::EnergyUsageInUj() {
     long long energy = std::stoll(raymii::Command::exec(cmd).output, 0, 10);
     return energy;
 }
+
+void Power::SetBudget(double value) {
+    budget = value;
+}
+
+double Power::Budget() {
+    return budget;
+}

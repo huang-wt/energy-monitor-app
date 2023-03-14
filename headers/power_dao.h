@@ -10,6 +10,10 @@
 class PowerDAO {
 
     public:
+        void InitHoursLogFile(std::string curr_date, std::vector<double> usages);
+
+        void InitDaysLogFile();
+
         /**
          * Get the last date that has been logged in the file.
          * @return The last logged date.

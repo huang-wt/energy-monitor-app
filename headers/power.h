@@ -89,6 +89,9 @@ class Power {
         */
         void UpdatePowerAndEnergyUsage();
 
+        void SetBudget(double value);
+
+        double Budget();
 
     private:
 
@@ -111,6 +114,8 @@ class Power {
         double curr_hour_energy_usage = 0;
         double total_energy_usage;
         double curr_power_usage = 0;
+
+        double budget = 3000;
 
         // The total energy usage (in uj) in the previous hours 
         // since the pc boots

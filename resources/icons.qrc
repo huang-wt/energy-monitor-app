@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/camera.png</file>
+        <file>icons/action.png</file>
+        <file>icons/bottom.png</file>
+        <file>icons/setting.png</file>
+        <file>icons/dashboard.png</file>
+        <file>icons/power.png</file>
+        <file>icons/process.png</file>
+        <file>icons/report.png</file>
+        <file>icons/statistics.png</file>
+        <file>icons/circle.png</file>
+        <file>icons/lighting.png</file>
+        <file>icons/balance.png</file>
+    </qresource>
+</RCC>

@@ -1,10 +1,10 @@
-#include "system.h"
+#include "headers/system.h"
 
 #include <algorithm>
 
-#include "system_parser.h"
-#include "command.h"
-#include "date_time.h"
+#include "headers/system_parser.h"
+#include "headers/command.h"
+#include "headers/date_time.h"
 
 // Hungry singleton pattern (thread-safe)
 System* System::instance = new System();
@@ -21,6 +21,9 @@ System::System() {
     kernel = SystemParser::Kernel();
     power = Power();
     dao = PowerDAO();
+
+    dao.InitDaysLogFile();
+    dao.InitHoursLogFile(DateTime::CurrentDate(), power.HoursEnergyUsages());
 }
 
 string System::OperatingSystem() { 
@@ -205,4 +208,12 @@ void System::UpdateEnergy() {
         dao.UpdateHoursLogFile(curr_date, power.HoursEnergyUsages());
 
     }
+}
+
+void System::SetBudget(double value) {
+    power.SetBudget(value);
+}
+
+double System::Budget() {
+    return power.Budget();
 }

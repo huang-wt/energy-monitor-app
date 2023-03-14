@@ -1,14 +1,38 @@
-#include "power_dao.h"
+#include "headers/power_dao.h"
 
 #include <fstream>
 
-#include "command.h"
+#include <QStandardPaths>
+
+#include "headers/command.h"
 
 using std::string;
 using std::vector;
+using std::ifstream;
+using std::ofstream;
 
-const string PowerDAO::HOURS_LOG_FILE = "/home/intel-ucl/Desktop/workspace/qt/energy-monitor-app-feature-gui/intelEnergyMonitorApp/data/hours_power_usage.csv";
-const string PowerDAO::DAYS_LOG_FILE = "/home/intel-ucl/Desktop/workspace/qt/energy-monitor-app-feature-gui/intelEnergyMonitorApp/data/days_power_usage.csv";
+QString data_dir_path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+const string PowerDAO::HOURS_LOG_FILE = (data_dir_path + "/hours_usage.csv").toStdString();
+const string PowerDAO::DAYS_LOG_FILE = (data_dir_path + "/days_usage.csv").toStdString();
+
+void PowerDAO::InitHoursLogFile(string curr_date, vector<double> usages) {
+    ifstream in(HOURS_LOG_FILE);
+    if (!in.good()) {
+        ofstream out(HOURS_LOG_FILE);
+        out.close();
+        UpdateHoursLogFile(curr_date, usages);
+    }
+    in.close();
+}
+
+void PowerDAO::InitDaysLogFile() {
+    ifstream infile(DAYS_LOG_FILE);
+    if (!infile.good()) {
+        ofstream outfile(DAYS_LOG_FILE);
+        outfile.close();
+    }
+}
 
 string PowerDAO::LastLoggedDate() {
     string cmd = "head -1 " + HOURS_LOG_FILE + " | tr -d '\\n'";

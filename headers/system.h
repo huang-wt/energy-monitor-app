@@ -158,6 +158,10 @@ class System {
         */
         void UpdateEnergy();
 
+        void SetBudget(double value);
+
+        double Budget();
+
     private:
         System();
 

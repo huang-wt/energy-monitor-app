@@ -27,33 +27,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    memory.cpp \
-    power.cpp \
-    power_dao.cpp \
-    process.cpp \
-    processor.cpp \
-    system_parser.cpp \
-    system.cpp \
-    format.cpp \
-    date_time.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/memory.cpp \
+    src/power.cpp \
+    src/power_dao.cpp \
+    src/process.cpp \
+    src/processor.cpp \
+    src/system_parser.cpp \
+    src/system.cpp \
+    src/format.cpp \
+    src/date_time.cpp
 
 HEADERS += \
-    mainwindow.h \
-    command.h \
-    memory.h \
-    power.h \
-    power_dao.h \
-    process.h \
-    processor.h \
-    system_parser.h \
-    system.h \
-    format.h \
-    date_time.h
+    headers/mainwindow.h \
+    headers/command.h \
+    headers/memory.h \
+    headers/power.h \
+    headers/power_dao.h \
+    headers/process.h \
+    headers/processor.h \
+    headers/system_parser.h \
+    headers/system.h \
+    headers/format.h \
+    headers/date_time.h
 
 FORMS += \
-        mainwindow.ui
+        forms/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -61,5 +61,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    qss.qrc \
-    resource.qrc
+    resources/qss.qrc \
+    resources/icons.qrc
+
+OTHER_FILES += \
+    data/hours_usage.csv \
+    data/days_usage.csv

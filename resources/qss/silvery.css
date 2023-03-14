@@ -428,6 +428,7 @@ selection-background-color:#F2F3F4;
 selection-color:#000000;
 alternate-background-color:#E7E9EB;
 gridline-color:#B2B6B9;
+border-radius: 10px;
 }
 
 QTreeView::branch:closed:has-children{

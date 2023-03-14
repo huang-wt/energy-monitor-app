@@ -6,6 +6,8 @@
 #include <QInputDialog>
 #include <QWidget>
 #include <QLabel>
+#include <QtCharts>
+#include <QTimer>
 
 #include "system.h"
 
@@ -26,8 +28,6 @@ public:
 private slots:
     void on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
-    void on_pushButton_edit_clicked();
-
     /**
      * @brief Update current date in format of YYYY/MM/DD.
      */
@@ -38,35 +38,20 @@ private slots:
      */
     void displayTime();
 
-    /**
-     * @brief Update live memory usage as a percentage.
-     */
-    void displayMemoryUsage();
+    void displayMemoryChart();
 
-    /**
-     * @brief Update real-time CPU temperature in degree Ceisuis.
-     */
-    void displayCpuTemperature();
+    void displayCpuChart();
+
+    void displayTemperatureChart();
 
     /**
      * @brief Update live power usage in Watts.
      */
     void displayPowerUsage();
 
-    /**
-     * @brief Update live cpu utilisation as a percentage.
-     */
-    void displayCpuUtilisation();
-
-    /**
-     * @brief Update total energy cost in the current date.
-     */
-    void displayTodayEnergyCost();
-
-    /**
-     * @brief Update total energy cost in the last week (seven days).
-     */
     void displayWeekEnergyCost();
+
+    void displayEnergyUsage();
 
     void bindToAllCores();
 
@@ -79,22 +64,25 @@ private slots:
      */
     void displayProcesses();
 
+    void clickEnergyReportButtons();
+
     /**
      * @brief Display hourly energy usages in line chart.
      */
     void displayDayReportGraph();
 
+    void displayAccumDayReportGraph();
+
+    void displayWeekReportGraph();
+
+    void budgetInputReturn();
+
 private:
-    /**
-     * @brief Set data's color to red when the given metric value exceeds threshold;
-     *        Otherwise set its color to green.
-     * @param label The chosen label.
-     * @param value The value about to display.
-     * @param threshold The threshold for determining color.
-     */
-    void colorData(QLabel* label, double value, double threshold);
+
+    void createDonutChart(float value, std::string title, QChartView *chartView, std::string unit, int precision);
 
     Ui::MainWindow *ui;
+    QTimer* timer = new QTimer(this);
     System* system_ = System::Instance();
 };
 
