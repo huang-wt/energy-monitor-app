@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2023-03-10T14:21:23
-#
-#-------------------------------------------------
-
 QT       += core gui
 
 QT += charts
@@ -40,17 +34,17 @@ SOURCES += \
     src/date_time.cpp
 
 HEADERS += \
-    headers/mainwindow.h \
-    headers/command.h \
-    headers/memory.h \
-    headers/power.h \
-    headers/power_dao.h \
-    headers/process.h \
-    headers/processor.h \
-    headers/system_parser.h \
-    headers/system.h \
-    headers/format.h \
-    headers/date_time.h
+    include/mainwindow.h \
+    include/command.h \
+    include/memory.h \
+    include/power.h \
+    include/power_dao.h \
+    include/process.h \
+    include/processor.h \
+    include/system_parser.h \
+    include/system.h \
+    include/format.h \
+    include/date_time.h
 
 FORMS += \
         forms/mainwindow.ui
@@ -63,7 +57,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resources/qss.qrc \
     resources/icons.qrc
-
-OTHER_FILES += \
-    data/hours_usage.csv \
-    data/days_usage.csv

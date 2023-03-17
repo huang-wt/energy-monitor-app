@@ -1,4 +1,3 @@
-
 #ifndef FORMAT_H
 #define FORMAT_H
 
@@ -35,15 +34,16 @@ class Format {
         static std::string Time(int hour, int min, int sec);
 
         /**
-         * Reserve n decimals.
-         * @param value The given decimal number.
+         * Format fractions with some number of decimals.
+         * @param value The given fraction number.
+         * @param precison The number of decimals reserved.
          * @return The formatted number with n decimals in string.
         */
-        static std::string Decimal(double value);
+        static std::string Decimal(double value, int precision);
 
         /** 
-         * Format percentage with 2 decimals.
-         * @param times The percentage number.
+         * Format percentage numbers with 1 or 2 decimals.
+         * @param percent The percentage number.
          * @return The formatted percentage number in string.
         */
         static std::string Percentage(double percent);

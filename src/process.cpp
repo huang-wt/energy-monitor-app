@@ -1,6 +1,6 @@
-#include "process.h"
+#include "include/process.h"
 
-#include "system_parser.h"
+#include "include/system_parser.h"
 
 using std::string;
 using std::to_string;
@@ -51,15 +51,15 @@ void Process::SetCommand(int pid) {
 }
 
 void Process::SetCpuUtilisation(int pid, long curr_total_jiffies) {
-    long curr_active_jiffies = SystemParser::ActiveJiffiesP(pid);
-    if (prev_active_jiffies == 0 && prev_total_jiffies == 0) {
+    long curr_jiffies_on_process = SystemParser::ActiveJiffiesP(pid);
+    if (prev_jiffies_on_process == 0 && prev_total_jiffies == 0) {
         cpu_utilisation = 0;
     } else {
-        cpu_utilisation = (curr_active_jiffies - prev_active_jiffies + 0.0) /
+        cpu_utilisation = (curr_jiffies_on_process - prev_jiffies_on_process + 0.0) /
                           (curr_total_jiffies - prev_total_jiffies);
     }
 
-    prev_active_jiffies = curr_active_jiffies;
+    prev_jiffies_on_process = curr_jiffies_on_process;
     prev_total_jiffies = curr_total_jiffies;
 }
 

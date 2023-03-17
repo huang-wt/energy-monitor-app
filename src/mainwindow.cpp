@@ -1,29 +1,34 @@
-﻿#include "mainwindow.h"
-#include "ui_mainwindow.h"
-
-#include <QTimer>
-#include <QFile>
-#include <QTextStream>
-#include <QtCharts/QChartView>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QCategoryAxis>
-#include <QBarSet>
-#include <QBarSeries>
-#include <QPieSeries>
+﻿#include "include/mainwindow.h"
 
 #include <vector>
 #include <string>
 #include <map>
+#include <QTimer>
+#include <QFile>
+#include <QTextStream>
+#include <QChartView>
+#include <QLineSeries>
+#include <QCategoryAxis>
+#include <QBarSet>
+#include <QBarSeries>
+#include <QPieSeries>
 
-#include "format.h"
-#include "date_time.h"
+#include "include/format.h"
+#include "include/date_time.h"
+#include "ui_mainwindow.h"
 
+#define INTERVAL 1000
+#define PERCENT_CNV_AMT 100
 #define THRESHOLD 70
 #define PROCESSES_NUM 10
-#define ENERGY_COST 34
+#define ENERGY_COST 34 / 1000
 #define HOURS 24
 #define PRECISION 1
 #define POWER_MAX 999
+#define TITLE_FONT_SIZE 16
+#define DATA_FONT_SIZE 24
+#define DONUT_HOLE_SIZE 0.5
+#define SCALE 1.1
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -52,11 +57,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(displayTemperatureChart()));
     connect(timer, SIGNAL(timeout()), this, SLOT(displayMemoryChart()));
     connect(timer, SIGNAL(timeout()), this, SLOT(displayPowerUsage()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(displayWeekEnergyCost()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(displayWeekEnergyUsage()));
     connect(timer, SIGNAL(timeout()), this, SLOT(displayEnergyUsage()));
     connect(timer, SIGNAL(timeout()), this, SLOT(displayProcesses()));
 
-    timer->start(1000);
+    timer->start(INTERVAL);
 
     // Connect the clicked signals of the bindAllCore, bindPCore and bindEcore to corresponding slots
     connect(ui->bindAllCorePushButton, &QPushButton::clicked, this, &MainWindow::bindToAllCores);
@@ -68,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->dayChartButton->click();
 
-    ui->budgetInput->setPlaceholderText("set daily budget");
+    ui->budgetInput->setPlaceholderText("set energy cap");
     connect(ui->budgetInput, &QLineEdit::returnPressed, this, &MainWindow::budgetInputReturn);
 
 }
@@ -101,7 +106,7 @@ void MainWindow::setWindowStyle()
     }
 }
 
-void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void MainWindow::on_treeWidget_currentItemChanged(QTreeWidgetItem *current)
 {
     int index = ui->treeWidget->indexOfTopLevelItem(current);
     ui->stackedWidget->setCurrentIndex(index);
@@ -117,19 +122,19 @@ void MainWindow::displayDate()
 
 void MainWindow::displayTime()
 {
-    std::string up_time = Format::ElapsedTime(system_->UpTime());
+    std::string time = DateTime::CurrentTime();
 
-    QLabel* upTimeLabel = findChild<QLabel*>("upTime");
-    upTimeLabel->setText(QString::fromStdString(up_time));
+    QLabel* timeLabel = findChild<QLabel*>("time");
+    timeLabel->setText(QString::fromStdString(time));
 }
 
 void MainWindow::displayMemoryChart() {
-    float utilisation = system_->MemoryUtilisation() * 100;
+    float utilisation = system_->MemoryUtilisation() * PERCENT_CNV_AMT;
     createDonutChart(utilisation, "RAM Memory", ui->ramChartView, "%", PRECISION);
 }
 
 void MainWindow::displayCpuChart() {
-    float utilisation = system_->CpuUtilisations()[0] * 100;
+    float utilisation = system_->CpuUtilisations()[0] * PERCENT_CNV_AMT;
     createDonutChart(utilisation, "CPU", ui->cpuChartView, "%", PRECISION);
 }
 
@@ -153,10 +158,10 @@ void MainWindow::displayPowerUsage()
     powerUsageRLabel->setText(QString("%1W").arg(powerUsage, 0, 'f', PRECISION));
 }
 
-void MainWindow::displayWeekEnergyCost()
+void MainWindow::displayWeekEnergyUsage()
 {
     double energyUsage = system_->TotalEnergyUsageLastWeek();
-    double cost = energyUsage * ENERGY_COST / 1000;
+    double cost = energyUsage * ENERGY_COST;
 
     QLabel* energyUsageWeekLabel = findChild<QLabel*>("usageWeek");
     energyUsageWeekLabel->setText(QString("%1Wh").arg(energyUsage, 0, 'f', PRECISION));
@@ -167,7 +172,7 @@ void MainWindow::displayWeekEnergyCost()
 void MainWindow::displayEnergyUsage()
 {
     double energyUsage = system_->TotalEnergyUsage();
-    double cost = energyUsage * ENERGY_COST / 1000;
+    double cost = energyUsage * ENERGY_COST;
 
     QLabel* energyUsageLabel = findChild<QLabel*>("energyUsage");
     energyUsageLabel->setText(QString("%1Wh").arg(energyUsage, 0, 'f', PRECISION));
@@ -189,7 +194,7 @@ void MainWindow::budgetInputReturn() {
         ui->budgetInput->setText("invalid input!");
     } else {
         ui->budgetInput->setText(QString::number(budget));
-        system_->SetBudget(budget);
+        system_->SetEnergyCap(budget);
     }
 }
 
@@ -232,11 +237,12 @@ void MainWindow::displayProcesses()
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
     std::vector<Process> processes = system_->SortedProcesses();
+    Process p;
     int row;
     for (int r = 0 ; r < PROCESSES_NUM ; r++) {
-        Process p = processes[r];
+        p = processes[r];
         int pid = p.Pid();
-        float cpuUtilisation = p.CpuUtilisation() * 100;
+        float cpuUtilisation = p.CpuUtilisation() * PERCENT_CNV_AMT;
         std::string command = p.Command();
 
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
@@ -269,31 +275,38 @@ void MainWindow::clickEnergyReportButtons()
 
 void MainWindow::displayDayReportGraph() {
     QBarSet *set = new QBarSet("");
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-
     std::vector<double> energyUsages = system_->HoursEnergyUsages();
+    double maxUsage = 0;
     for (int h = 0 ; h < DateTime::Hour() + 1; h++) {
-        axisX->append(QString::number(h));
         set->append(energyUsages[h]);
+        maxUsage = energyUsages[h] > maxUsage ? energyUsages[h] : maxUsage;
     }
-
     QBarSeries *series = new QBarSeries();
     series->append(set);
 
-    // Create chart, add data, hide legend, and add axis
+    QValueAxis *axisX = new QValueAxis;
+    axisX->setRange(0, DateTime::Hour());
+    axisX->setLabelFormat("%d");
+    axisX->setTickCount(DateTime::Hour() + 1);
+
+    QValueAxis *axisY = new QValueAxis;
+    axisY->setRange(0, maxUsage * SCALE);
+    axisY->setLabelFormat("%d");
+
     QChart *chart = new QChart();
     chart->legend()->hide();
+    chart->autoFillBackground();
     chart->addSeries(series);
-    chart->createDefaultAxes();
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisX);
+    series->attachAxis(axisY);
 
     // Customize the title font
     QFont font;
-    font.setPixelSize(18);
+    font.setPixelSize(TITLE_FONT_SIZE);
     chart->setTitleFont(font);
-//    chart->setTitleBrush(QBrush(Qt::black));
     chart->setTitle("Hourly Energy Consumption (Wh)");
-    chart->setAxisX(axisX, series);
-    chart->autoFillBackground();
 
     ui->reportGraph->setChart(chart);
     ui->reportGraph->setRenderHint(QPainter::Antialiasing);
@@ -302,75 +315,85 @@ void MainWindow::displayDayReportGraph() {
 void MainWindow::displayWeekReportGraph() {
     QBarSet *set = new QBarSet("");
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
-
     std::map<std::string, double> usages = system_->LastWeekEnergyUsage();
     int x = 0;
-    for (auto const& [key, val] : usages) {
-        axisX->append(QString::fromStdString(key));
-        set->append(val);
+    double maxUsage = 0;
+    for (auto const& [date, usage] : usages) {
+        axisX->append(QString::fromStdString(date));
+        set->append(usage);
+        maxUsage = usage > maxUsage ? usage : maxUsage;
         x++;
     }
-
     QBarSeries *series = new QBarSeries();
     series->append(set);
+    axisX->setGridLineVisible(false);
+    QValueAxis *axisY = new QValueAxis;
+    axisY->setRange(0, maxUsage * SCALE);
+    axisY->setLabelFormat("%d");
 
-    // Create chart, add data, hide legend, and add axis
     QChart *chart = new QChart();
     chart->legend()->hide();
     chart->addSeries(series);
-    chart->createDefaultAxes();
+//    chart->createDefaultAxes();
+    chart->autoFillBackground();
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisX);
+    series->attachAxis(axisY);
 
     // Customize the title font
     QFont font;
-    font.setPixelSize(18);
+    font.setPixelSize(TITLE_FONT_SIZE);
     chart->setTitleFont(font);
-//    chart->setTitleBrush(QBrush(Qt::black));
     chart->setTitle("Energy Consumption in Last Week (Wh)");
-    chart->setAxisX(axisX, series);
-    chart->autoFillBackground();
 
     ui->reportGraph->setChart(chart);
     ui->reportGraph->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::displayAccumDayReportGraph() {
-    QLineSeries *series0 = new QLineSeries();
-    QLineSeries *series1 = new QLineSeries();
+    QLineSeries *seriesUp = new QLineSeries();
+    QLineSeries *seriesDown = new QLineSeries();
     QLineSeries *lineSeries = new QLineSeries();
-    QCategoryAxis *axisX = new QCategoryAxis();
 
-    double budget = system_->Budget();
+    double budget = system_->EnergyCap();
     std::vector<double> energyUsages = system_->HoursEnergyUsages();
     double prevTotalUsage = 0;
     for (int h = 0 ; h < DateTime::Hour() + 1 ; h++) {
-        series0->append(h, prevTotalUsage + energyUsages[h]);
-        series1->append(h, 0);
+        seriesUp->append(h, prevTotalUsage + energyUsages[h]);
+        seriesDown->append(h, 0);
         lineSeries->append(h, budget);
-        axisX->append(QString::number(h),h);
         prevTotalUsage += energyUsages[h];
     }
 
-    QAreaSeries *series = new QAreaSeries(series0, series1);
-    lineSeries->setName("budget");
-    series->setName("energy usage");
+    QAreaSeries *areaSeries = new QAreaSeries(seriesUp, seriesDown);
+    lineSeries->setName("cap");
+    areaSeries->setName("energy usage");
+    QValueAxis *axisX = new QValueAxis;
+    axisX->setRange(0, DateTime::Hour());
+    axisX->setLabelFormat("%d");
+    axisX->setTickCount(DateTime::Hour() + 1);
+
+    double rangeY = budget > prevTotalUsage ? budget * SCALE : prevTotalUsage * SCALE;
+    QValueAxis *axisY = new QValueAxis;
+    axisY->setRange(0, rangeY);
+    axisY->setLabelFormat("%d");
 
     QChart *chart = new QChart();
-    chart->addSeries(series);
+    chart->addSeries(areaSeries);
     chart->addSeries(lineSeries);
-    chart->createDefaultAxes();
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    lineSeries->attachAxis(axisX);
+    lineSeries->attachAxis(axisY);
+    areaSeries->attachAxis(axisX);
+    areaSeries->attachAxis(axisY);
 
     QFont font;
-    font.setPixelSize(18);
+    font.setPixelSize(TITLE_FONT_SIZE);
     chart->setTitleFont(font);
     chart->setTitle("Accumulated Hourly Energy Consumption (Wh)");
-    chart->setAxisX(axisX, series);
     chart->autoFillBackground();
-
-    if (budget > prevTotalUsage) {
-        chart->axes(Qt::Vertical).first()->setRange(0, budget + 100);
-    } else {
-        chart->axes(Qt::Vertical).first()->setRange(0, prevTotalUsage + 100);
-    }
 
     ui->reportGraph->setChart(chart);
     ui->reportGraph->setRenderHint(QPainter::Antialiasing);
@@ -379,17 +402,16 @@ void MainWindow::displayAccumDayReportGraph() {
 
 void MainWindow::createDonutChart(float value, std::string title, QChartView *chartView, std::string unit, int precision) {
     QPieSeries *series = new QPieSeries();
-    series->setHoleSize(0.5);
+    series->setHoleSize(DONUT_HOLE_SIZE);
     series->append("", value);
 
     for (auto slice : series->slices()) {
+        // Green if less then THRESHOLD
         if (value > THRESHOLD) {
             slice->setBrush(QBrush(QColor(237, 51, 59)));
         } else {
             slice->setBrush(QBrush(QColor(87, 227, 137)));
         }
-        //rgb(143, 240, 164);rgb(246, 97, 81)
-        //rgb(87, 227, 137);rgb(237, 51, 59)
     }
 
     series->append("", 100 - value);
@@ -399,15 +421,16 @@ void MainWindow::createDonutChart(float value, std::string title, QChartView *ch
     chart->legend()->hide();
     chart->setMargins({0, 20, 0, 0});
     chart->setTitle(QString::fromStdString(title));
-    QFont titleFont = QFont("Ubuntu", 16);
+    QFont titleFont = QFont("Ubuntu", TITLE_FONT_SIZE);
     titleFont.setBold(true);
     chart->setTitleFont(titleFont);
 
     chartView->setChart(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
+    // Display number in the center of Donut
     QGraphicsTextItem *label = new QGraphicsTextItem(QString::fromStdString("%1" + unit).arg(value, 0, 'f', precision));
-    label->setFont(QFont("Ubuntu", 24));
+    label->setFont(QFont("Ubuntu", DATA_FONT_SIZE));
     QRectF rect = label->boundingRect();
     QPointF center = chartView->rect().center();
     label->setPos(center - QPointF(rect.width()/2, rect.height()/2 - 20));

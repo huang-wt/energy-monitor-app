@@ -4,7 +4,7 @@
 #include <string>
 
 /**
- * This class represents a computer process with attrbutes of ID, 
+ * This class represents a system process with attrbutes of ID,
  * user name, command, cpu utilisation, memory usage and up time.
 */
 class Process {
@@ -104,9 +104,9 @@ class Process {
         std::string ram;
         long up_time;
 
-        // Record previous cpu active/total jiffies to calculate
-		// the live utilisation of each process in a short period
-        long prev_active_jiffies = 0;
+        // previous cpu jiffies of a proces
+        long prev_jiffies_on_process = 0;
+        // previous cpu total jiffies
         long prev_total_jiffies = 0;
 };
 

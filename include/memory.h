@@ -28,14 +28,8 @@ class Memory {
          */
         float Utilisation();
 
-        /**
-         * Update the amount of used memory.
-        */
-        void UpdateUsedMemory();
-
     private:
         float total_memory;
-        float used_memory;
 
 };
 
