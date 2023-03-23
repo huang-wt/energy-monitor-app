@@ -1,38 +1,12 @@
-#include <thread>
-#include <iostream>
-#include <unistd.h>
+#include "include/mainwindow.h"
 
-#include "view.h"
+#include <QApplication>
 
-using std::thread;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
-void UpdatePowerAndEnergyUsage() {
-    System* system_ = System::Instance();
-    system_->UpdateEnergy();
-}
-
-void UpdateCpuAndMemoryUsage() {
-    System* system_ = System::Instance();
-    system_->UpdateCpuAndMemory();
-}
-
-// void UpdateProcesses() {
-//     System* system_ = System::Instance();
-//     while (true) {
-//         sleep(2);
-//         system_->UpdateProcesses();
-//     } 
-// }
-
-int main() {
-    thread t(UpdatePowerAndEnergyUsage);
-    thread t1(UpdateCpuAndMemoryUsage);
-    // thread t2(UpdateProcesses);
-
-    View view = View();
-    view.ServiceSelect();
-
-    t.join();
-    t1.join();
-    // t2.join();
+    return a.exec();
 }

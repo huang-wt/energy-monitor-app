@@ -1,4 +1,4 @@
-#include "system_parser.h"
+#include "include/system_parser.h"
 
 #include <dirent.h>
 #include <unistd.h>
@@ -12,6 +12,17 @@ using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
+
+const std::string SystemParser::kProcDirectory = "/proc/";
+const std::string SystemParser::kCmdlineFilename = "/cmdline";
+const std::string SystemParser::kCpuinfoFilename = "/cpuinfo";
+const std::string SystemParser::kStatusFilename = "/status";
+const std::string SystemParser::kStatFilename = "/stat";
+const std::string SystemParser::kUptimeFilename = "/uptime";
+const std::string SystemParser::kMeminfoFilename = "/meminfo";
+const std::string SystemParser::kVersionFilename = "/version";
+const std::string SystemParser::kOSPath = "/etc/os-release";
+const std::string SystemParser::kPasswordPath = "/etc/passwd";
 
 //-----------------------------------------------------------------------------
 // Utils
@@ -124,7 +135,7 @@ float SystemParser::AvalMemory() {
 int SystemParser::TotalProcesses() { 
 	int total_processes = 0;
 	string path = kProcDirectory + kStatFilename;
-	string result = SystemParser::KeyValParser("processes", path);
+	string result = KeyValParser("processes", path);
 	total_processes = std::stoi(result);
 	return total_processes;
 }
@@ -133,7 +144,7 @@ int SystemParser::TotalProcesses() {
 int SystemParser::RunningProcesses() { 
 	int active_processes = 0;
 	string path = kProcDirectory + kStatFilename;
-	string result = SystemParser::KeyValParser("procs_running", path);
+	string result = KeyValParser("procs_running", path);
 	active_processes = std::stoi(result);
 	return active_processes;
 }

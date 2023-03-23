@@ -1,48 +1,53 @@
-#include "processor.h"
+#include "include/processor.h"
 
-#include "system_parser.h"
-#include "command.h"
+#include "include/system_parser.h"
+#include "include/command.h"
+
+#define PHYSICAL_CORES_CMD "lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l"
+#define LOGICAL_CORES_CMD "lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l"
+#define TEMP_CMD "cat /sys/class/thermal/thermal_zone0/temp"
+#define TEMP_CNV_AMT 1000
+
+const int Processor::PHYSICAL_CORES = std::stoi(raymii::Command::exec(PHYSICAL_CORES_CMD).output);
+const int Processor::LOGICAL_CORES = std::stoi(raymii::Command::exec(LOGICAL_CORES_CMD).output);
+const int Processor::HYPERTHREADED_CORES = (LOGICAL_CORES - PHYSICAL_CORES) * 2;
+const int Processor::E_CORES = LOGICAL_CORES - HYPERTHREADED_CORES;
+const int Processor::P_CORES = HYPERTHREADED_CORES / 2;
 
 Processor::Processor() {
-    // Initialise cpu cores number of the following types
-    physical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=Core,Socket | grep -v '^#' | sort -u | wc -l").output);
-	logical_cores = std::stoi(raymii::Command::exec("lscpu -b -p=cpu | grep -v '^#' | sort -u | wc -l").output);
-	hyperthreaded_cores = (logical_cores - physical_cores) * 2;
-	e_cores = logical_cores - hyperthreaded_cores;
-    p_cores = hyperthreaded_cores / 2;
-
-    // Initialise utilisations with all 0 in length of the number of logical cores + 1
-    for (int i = 0 ; i < logical_cores + 1 ; i++) {
+    // Initialise utilisations with all 0 in length of the number of cores + 1
+    for (int i = 0 ; i < LOGICAL_CORES + 1 ; i++) {
         utilisations.push_back(0);
     }
 }
 
 int Processor::PhysicalCores() {
-    return physical_cores;
+    return PHYSICAL_CORES;
 }
 
 int Processor::LogicalCores() {
-    return logical_cores;
+    return LOGICAL_CORES;
 }
 
 int Processor::HyperThreadedCores() {
-    return hyperthreaded_cores;
+    return HYPERTHREADED_CORES;
 }
 
 int Processor::ECores() {
-    return e_cores;
+    return E_CORES;
 }
 
 int Processor::PCores() {
-    return p_cores;
+    return P_CORES;
 }
 
 std::vector<float> Processor::Utilisations() {
+    UpdateUtilisations();
     return utilisations;
 }
 
 int Processor::Temperature() {
-    return temperature;
+    return stoi(raymii::Command::exec(TEMP_CMD).output) / TEMP_CNV_AMT;
 }
 
 void Processor::UpdateUtilisations() {
@@ -65,9 +70,4 @@ void Processor::UpdateUtilisations() {
             prev_total_jiffies.push_back(curr_total_jiffies);
         }
     }
-}
-
-void Processor::UpdateTemperature() {
-    std::string cmd = "cat /sys/class/thermal/thermal_zone0/temp";
-    temperature = stoi(raymii::Command::exec(cmd).output) / 1000;
 }

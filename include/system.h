@@ -7,10 +7,11 @@
 #include <vector>
 #include <map>
 
-#include "processor.h"
-#include "memory.h"
-#include "process.h"
-#include "power.h"
+#include "include/processor.h"
+#include "include/memory.h"
+#include "include/process.h"
+#include "include/power.h"
+#include "include/power_dao.h"
 
 using std::string;
 using std::vector;
@@ -92,35 +93,10 @@ class System {
         vector<float> CpuUtilisations();
 
         /**
-         * Update cpu utilisations & temperature and memory usage.
-        */
-        void UpdateCpuAndMemory();
-
-        /**
          * Getter method for processes in descending order on cpu usage.
          * @return The sorted vector containing all processes.
         */
         vector<Process> SortedProcesses();
-
-        /**
-         * Update the processes.
-        */
-        void UpdateProcesses();
-
-        /**
-         * Bind the most cpu consuming processes to performance cores.
-        */
-        void BindToPCores();
-
-        /**
-         * Bind the most cpu consuming processes to all cores.
-        */
-        void BindToAllCores();
-
-        /**
-         * Bind the most cpu consuming processes to efficiency cores.
-        */
-        void BindToECores();
 
         /**
          * Getter method for live power usage.
@@ -141,18 +117,60 @@ class System {
         double TotalEnergyUsage();
 
         /**
-         * Getter method for energy usage drawn in last week.
-         * @return The pairs of date and corresponding energy usage in Wh during last week.
+         * Getter method for energy usages drawn in last week.
+         * @return The date and corresponding energy usage in Wh during last week.
         */
         map<string, double> LastWeekEnergyUsage();
 
         /**
-         * Keep updating and logging energy and power usage.
+         * Getter method for total energy usage drawn in last week.
+         * @return The total energy usage in Wh in last week.
         */
-        void UpdateEnergy();
+        double TotalEnergyUsageLastWeek();
+
+        /**
+         * Bind the most cpu-consuming processes to performance cores.
+        */
+        void BindToPCores();
+
+        /**
+         * Bind the most cpu-consuming processes to all cores.
+        */
+        void BindToAllCores();
+
+        /**
+         * Bind the most cpu-consuming processes to efficiency cores.
+        */
+        void BindToECores();
+
+        /**
+         * Bind the most cpu-consuming processes to 1/2 p-cores and 1/2 e-cores.
+         */
+        void BindToPAndECores();
+
+        /**
+         * Setter method for energy cap.
+         * @param cap The value of energy cap.
+         */
+        void SetEnergyCap(double cap);
+
+        /**
+         * Getter method for energy cap.
+         * @return The value of energy cap in Wh.
+         */
+        double EnergyCap();
 
     private:
         System();
+
+        /**
+         * Update the processes.
+        */
+        void UpdateProcesses();
+
+        void UpdateEnergy();
+
+        void SetUpEnergyDataAndFiles();
 
         /**
          * Get processes whose cpu utilisation is greater than 1%.
@@ -168,58 +186,19 @@ class System {
         */
         void BindProcesses(vector<int> pids, int low, int high);
 
-        /**
-         * Format the given date as YYYY/MM/DD.
-         * @param year The year of a specific date.
-         * @param mon The month of a specific date.
-         * @param day The day of a specific date.
-         * @return The formatted date in string.
-        */
-        string FormatDate(int year, int mon, int day);
-
-        /**
-         * Get the last date that has been logged in the file.
-         * @return The last logged date.
-        */
-        string LastLoggedDate();
-
-        /**
-         * Append the total energy usage drawn in last day to the logging file.
-         * @param last_logged_date The last logged date.
-         * @param total_usage The total energy usage in Wh drawn in last day.
-        */
-        void UpdateDaysLogFile(string last_logged_date, double total_usage);
-
-        /**
-         * Update the hours logging file.
-         * @param curr_date The current date.
-         * @param usages The current status of energy usages in the given day.
-        */
-        void UpdateHoursLogFile(string curr_date, vector<double> usages);
-
-        /**
-         * Read datas from the hours logging file.
-         * @return The hourly energy usages read from the logging file.
-        */
-        std::vector<double> ReadHoursFile();
-
-        /**
-         * Read datas from the days logging file.
-         * @return The energy usages read from the logging file.
-        */
-        std::vector<string> ReadDaysFile();
-
         static System* instance;
-        string hours_log_file = "../data/hours_power_usage.csv";
-        string days_log_file = "../data/days_power_usage.csv";
+
         Processor cpu;
         Memory memory;
         map<int, Process> processes;
-        Power power;
         string operating_system;
         string kernel;
+
+        Power power;
+        PowerDAO dao;
+        double energy_cap = 500; // by default in Wh
+
         int hour;
-        string curr_date;
 };
 
 #endif // SYSTEM_H

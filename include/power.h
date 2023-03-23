@@ -19,13 +19,13 @@ class Power {
 
         /**
          * Getter method for current hour energy usage.
-         * @return The energy usage in Wh in current hour.
+         * @return The energy usage in Wh drawn in current hour.
         */
         double CurrHourEnergyUsage();
 
         /**
          * Getter method for current power usage.
-         * @return The real-time power usage in watts.
+         * @return The real-time power usage in Watts.
         */
         double CurrPowerUsage();
 
@@ -36,8 +36,8 @@ class Power {
         double TotalEnergyUsage();
 
         /**
-         * Getter method for hourly energy usages in the current day.
-         * @return The vector containing energy usage in Wh in every hour.
+         * Getter method for hourly energy usages in current day.
+         * @return The vector containing energy usage in Wh drawn in every hour.
         */
         vector<double> HoursEnergyUsages();
 
@@ -55,77 +55,66 @@ class Power {
 
         /**
          * Setter method for hourly energy usages.
-         * @param datas The vector that will be assigned to log vector.
+         * @param datas The vector containing updated values of energy usages.
         */
         void SetLogVector(vector<double> datas);
 
         /**
          * Update energy usage in a particular hour.
-         * @param hour The given hour.
+         * @param hour The given (current) hour.
         */
         void UpdateLogVector(int hour);
 
         /**
-         * Get the energy usage drawn in the last n days.
-         * @param rows The unparsed rows read from logging files.
-         * @param n The last n days.
-         * @return The date and corresponding energy usage.
-        */
-        map<string, double> LastNDaysEnergyUsage(vector<string> rows, int n);
-
-        /**
-         * Update the energy used in previous hours.
+         * Update the total energy usage drawn in previous hours.
         */
         void UpdatePrevHoursEnergy();
 
         /**
          * Setter method for extra.
-         * @param value The value will be assigned to extra.
+         * @param value The value of extra.
         */
         void SetExtra(double value);
 
         /**
-         * Update power and energy usage by reading from the system.
+         * Update power and energy usage.
         */
         void UpdatePowerAndEnergyUsage();
 
-
     private:
-
         /**
-         * Get the current accumulated energy usage from system.
-         * @return The current accumulated energy usage in micro joules.
+         * Get the current energy counter from system.
+         * @return The current energy counter in micro joules.
         */
         long long EnergyUsageInUj();
         
-        string energy_usage_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/energy_uj";
-        string mex_energy_path = "/sys/class/powercap/intel-rapl/intel-rapl:1/max_energy_range_uj";
+        // The range of the energy counter
+        static const long long MAX_ENERGY;
 
-        // The energy amount got from the system will
-        // reset to zero when it exceeds this bound
-        long long max_energy;
-
-        // Record energy usages in every hour in a day
         vector<double> hours_energy_usages;
-
         double curr_hour_energy_usage = 0;
-        double total_energy_usage;
+        double total_energy_usage = 0; // in a day
         double curr_power_usage = 0;
 
-        // The total energy usage (in uj) in the previous hours 
-        // since the pc boots
+        // total energy usage (in uj) in the previous hours
+        // since the system is booted
         long long prev_hours_energy = 0;
-        // The total energy usage since the pc boots
+
+        // total energy usage since the pc is booted
         long long accum_energy_usage = 0;
-        // The current energy amount extracted from the system
+
+        // current energy counter extracted from the system file
         long long energy = 0;
-        // The energy amount extracted in the last logging time
+
+        // energy counter extracted in the last logging time
         long long prev_energy = 0;
-        // The number of times when the capped energy amount 
+
+        // number of times when the capped energy amount
         // is reached
         long long capped_times = 0;
+
         // The extra energy usage in the current hour 
-        // (in case the pc reboots)
+        // (in case the pc is rebooted)
         double extra = 0;
 };
 
