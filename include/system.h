@@ -129,19 +129,24 @@ class System {
         double TotalEnergyUsageLastWeek();
 
         /**
-         * Bind the most cpu consuming processes to performance cores.
+         * Bind the most cpu-consuming processes to performance cores.
         */
         void BindToPCores();
 
         /**
-         * Bind the most cpu consuming processes to all cores.
+         * Bind the most cpu-consuming processes to all cores.
         */
         void BindToAllCores();
 
         /**
-         * Bind the most cpu consuming processes to efficiency cores.
+         * Bind the most cpu-consuming processes to efficiency cores.
         */
         void BindToECores();
+
+        /**
+         * Bind the most cpu-consuming processes to 1/2 p-cores and 1/2 e-cores.
+         */
+        void BindToPAndECores();
 
         /**
          * Setter method for energy cap.
@@ -191,7 +196,7 @@ class System {
 
         Power power;
         PowerDAO dao;
-        double energy_cap = 3000; // default
+        double energy_cap = 500; // by default in Wh
 
         int hour;
 };

@@ -44,11 +44,13 @@ private slots:
 
     void displayEnergyUsage();
 
-    void bindToAllCores();
+    void maxTurboMode();
 
-    void bindToPCores();
+    void highPerformMode();
 
-    void bindToECores();
+    void powerSaverMode();
+
+    void balancedMode();
 
     void displayProcesses();
 

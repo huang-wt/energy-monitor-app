@@ -23,8 +23,8 @@ class Memory {
         float UsedMemory();
 
         /**
-         * Calculates and returns the memory utilization as a percentage.
-         * @return The memory utilization as a percentage.
+         * Calculates and returns the memory utilisation as a percentage.
+         * @return The memory utilisation as a percentage.
          */
         float Utilisation();
 

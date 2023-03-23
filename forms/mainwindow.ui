@@ -14,10 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#tableWIdget{
-border-radius: 10px
-
-}</string>
+   <string notr="true">background-color: rgba(249,250,255,255)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,3">
@@ -31,7 +28,10 @@ border-radius: 10px
       </property>
       <property name="styleSheet">
        <string notr="true">border:none;
-border-radius:20px;</string>
+border-radius:20px;
+background-color:#d0deff
+
+</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -66,9 +66,10 @@ border-radius:20px;</string>
          </property>
          <property name="font">
           <font>
-           <family>黑体</family>
-           <pointsize>12</pointsize>
-           <bold>false</bold>
+           <family>Ubuntu</family>
+           <pointsize>14</pointsize>
+           <italic>true</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
@@ -77,7 +78,7 @@ border:none;
 border-radius:20px;</string>
          </property>
          <property name="text">
-          <string>NAME OF APP|LOGO</string>
+          <string>EcoMeter</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -113,7 +114,20 @@ border-radius:20px;</string>
           <string notr="true">QTreeWidget::item
 {
 	height:60px;
-}</string>
+	border-radius: 15px;
+}
+
+QTreeView::item:hover {
+	background-color: #AFC5FF;
+}
+
+QTreeView::item:selected {
+	background-color: #AFC5FF;
+}
+
+
+
+</string>
          </property>
          <property name="rootIsDecorated">
           <bool>false</bool>
@@ -125,12 +139,7 @@ border-radius:20px;</string>
          </column>
          <item>
           <property name="text">
-           <string>Dashboard</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Power Mode</string>
+           <string>System Info</string>
           </property>
          </item>
          <item>
@@ -140,12 +149,7 @@ border-radius:20px;</string>
          </item>
          <item>
           <property name="text">
-           <string>Reports</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Setting's</string>
+           <string>Energy Reports</string>
           </property>
          </item>
         </widget>
@@ -156,7 +160,7 @@ border-radius:20px;</string>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page1_dashboard">
        <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -184,6 +188,9 @@ border-radius:20px;</string>
             <pointsize>20</pointsize>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #768aaf</string>
           </property>
           <property name="text">
            <string>System Dashboard</string>
@@ -318,7 +325,7 @@ border-radius:20px;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(222, 221, 218);
+             <string notr="true">background-color:#ecf2fe;
 border:none;
 border-radius:20px;</string>
             </property>
@@ -417,7 +424,8 @@ border-radius:20px;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(222, 221, 218);
+             <string notr="true">background-color:#5688fb;
+color:#ffffff;
 border:none;
 border-radius:20px;</string>
             </property>
@@ -448,7 +456,7 @@ border-radius:20px;</string>
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 700 14pt &quot;Ubuntu&quot;;</string>
                   </property>
                   <property name="text">
@@ -485,7 +493,7 @@ font: 700 14pt &quot;Ubuntu&quot;;</string>
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 24pt &quot;Ubuntu&quot;;</string>
                   </property>
                   <property name="text">
@@ -527,10 +535,10 @@ font: 24pt &quot;Ubuntu&quot;;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color:rgb(222, 221, 218);
+             <string notr="true">background-color:#5688fb;
+color:#ffffff;
 border:none;
-border-radius:20px;
-color:white;</string>
+border-radius:20px;</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -545,7 +553,7 @@ color:white;</string>
                 <item alignment="Qt::AlignHCenter">
                  <widget class="QLabel" name="energyUsageText">
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 700 14pt &quot;Ubuntu&quot;;</string>
                   </property>
                   <property name="text">
@@ -562,7 +570,7 @@ font: 700 14pt &quot;Ubuntu&quot;;</string>
                    </size>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 24pt &quot;Ubuntu&quot;;
 </string>
                   </property>
@@ -586,7 +594,7 @@ font: 24pt &quot;Ubuntu&quot;;
                    </sizepolicy>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 700 14pt &quot;Ubuntu&quot;;</string>
                   </property>
                   <property name="text">
@@ -617,7 +625,7 @@ font: 700 14pt &quot;Ubuntu&quot;;</string>
                    </font>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
+                   <string notr="true">
 font: 24pt &quot;Ubuntu&quot;;
 </string>
                   </property>
@@ -674,308 +682,7 @@ font: 24pt &quot;Ubuntu&quot;;
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page2_powerMode">
-       <layout class="QVBoxLayout" name="verticalLayout_17">
-        <item>
-         <spacer name="verticalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_18">
-          <property name="font">
-           <font>
-            <family>黑体</family>
-            <pointsize>20</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Power Mode</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QFrame" name="frame_14">
-          <property name="styleSheet">
-           <string notr="true">QPushButton
-{
-	border:transparent;
-}
-
-QFrame
-{
-	background-color:rgb(217,217,217);
-	border:none;
-	border-radius:20px;
-}</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_16" stretch="9,1">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_15">
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>22</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string/>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">text-align : left;</string>
-               </property>
-               <property name="text">
-                <string>     Auto</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/circle.png</normaloff>:/circle.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="bindECorePushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>22</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">text-align : left;</string>
-               </property>
-               <property name="text">
-                <string>    Power saver</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/lighting.png</normaloff>:/lighting.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="bindAllCorePushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>22</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">text-align : left;</string>
-               </property>
-               <property name="text">
-                <string>     Balanced</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/balance.png</normaloff>:/balance.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="bindPCorePushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>22</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>The high performance,,,,</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">text-align : left;</string>
-               </property>
-               <property name="text">
-                <string>     High performance</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/statistics.png</normaloff>:/statistics.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <widget class="QPushButton" name="pushButton_6">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>16</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">
-border:none;
-border-radius:15px;
-color:white;</string>
-               </property>
-               <property name="text">
-                <string>Learn more</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_17">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_5">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>16</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">
-border:none;
-border-radius:15px;
-color:white;</string>
-               </property>
-               <property name="text">
-                <string>Apply</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page3_processes">
+      <widget class="QWidget" name="page2_processes">
        <layout class="QVBoxLayout" name="verticalLayout_19">
         <item>
          <spacer name="verticalSpacer_12">
@@ -1002,6 +709,9 @@ color:white;</string>
             <bold>true</bold>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: #768aaf</string>
+          </property>
           <property name="text">
            <string>Processes</string>
           </property>
@@ -1024,22 +734,26 @@ color:white;</string>
          </spacer>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget">
-          <property name="font">
-           <font>
-            <family>Times New Roman</family>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background:white;</string>
-          </property>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QTableWidget" name="tableWidget">
+            <property name="font">
+             <font>
+              <family>Times New Roman</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background:white;</string>
+            </property>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <spacer name="verticalSpacer_13">
@@ -1059,7 +773,7 @@ color:white;</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page4_reports">
+      <widget class="QWidget" name="page3_reports">
        <layout class="QVBoxLayout" name="verticalLayout_26">
         <item>
          <spacer name="verticalSpacer_15">
@@ -1085,6 +799,9 @@ color:white;</string>
             <pointsize>20</pointsize>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #768aaf</string>
           </property>
           <property name="text">
            <string>Reports</string>
@@ -1130,7 +847,561 @@ QFrame
           <layout class="QVBoxLayout" name="verticalLayout_25" stretch="0">
            <item>
             <layout class="QGridLayout" name="gridLayout" rowstretch="1,0">
-             <item row="0" column="0" colspan="2">
+             <item row="1" column="0">
+              <widget class="QFrame" name="frame_21">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border:none;
+border-radius:20px;
+color:black;</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_23">
+                <item>
+                 <widget class="QFrame" name="formFrame">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:#5688fb;;
+border:none;
+border-radius:20px;
+color:#ffffff</string>
+                  </property>
+                  <layout class="QFormLayout" name="formLayout">
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="energyUsageR">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>14</pointsize>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255)</string>
+                     </property>
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                     <property name="margin">
+                      <number>15</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="costTodayR">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>14</pointsize>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color:#ffffff;</string>
+                     </property>
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_2">
+                     <property name="font">
+                      <font>
+                       <pointsize>13</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font-weight:bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>TODAY</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QFrame" name="verticalFrame">
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QFrame" name="formFrame_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>80</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:#5688fb;;
+border:none;
+border-radius:20px;
+color:#ffffff</string>
+                  </property>
+                  <layout class="QFormLayout" name="formLayout_2">
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="costWeek">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>14</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="usageWeek">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>14</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                     <property name="margin">
+                      <number>15</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_3">
+                     <property name="font">
+                      <font>
+                       <pointsize>13</pointsize>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font-weight:bold;</string>
+                     </property>
+                     <property name="text">
+                      <string>WEEK</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QFrame" name="verticalFrame">
+               <layout class="QVBoxLayout" name="verticalLayout_18">
+                <item>
+                 <widget class="QFrame" name="energyCapFrame">
+                  <property name="styleSheet">
+                   <string notr="true">background-color:#ffffff;
+border:none;
+border-radius:10px;</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <item alignment="Qt::AlignLeft">
+                    <widget class="QLabel" name="label_12">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Custom Budget:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="budgetInput">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QFrame" name="modeButtonsFrame">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(255, 255, 255);
+font: 14pt &quot;Ubuntu&quot;;
+text-align : center;
+border-radius:20px;</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_7">
+                   <item row="1" column="2">
+                    <widget class="QLabel" name="label_16">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(255, 163, 72);
+border-radius:10px</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_18">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(248, 228, 92);
+border-radius:10px</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="3">
+                    <widget class="QPushButton" name="powerSaverButton">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>30</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Ubuntu</family>
+                       <pointsize>-1</pointsize>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;reduces CPU performance to conserve energy&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">
+background-color: #7dadfc;
+color: rgb(255, 255, 255);
+border: transparent;
+border-radius:10px;
+font:15px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Power-saver</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>:/lighting.png</normaloff>:/lighting.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_17">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(237, 51, 59);
+border-radius:10px</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QPushButton" name="balancedButton">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>30</width>
+                       <height>33</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Ubuntu</family>
+                       <pointsize>-1</pointsize>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;balance between power and performance&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true"> 
+background-color: #7dadfc;
+color: rgb(255, 255, 255);
+font: 14pt &quot;Ubuntu&quot;;
+border: transparent;
+border-radius:10px;
+font:15px;
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Balanced</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>:/circle.png</normaloff>:/circle.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>40</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="2">
+                    <widget class="QLabel" name="label_21">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:rgb(87, 227, 137);
+border-radius:10px</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="3">
+                    <widget class="QPushButton" name="highPerformButton">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>30</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Ubuntu</family>
+                       <pointsize>-1</pointsize>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;sustained high performance&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">
+background-color: #7dadfc;
+color: rgb(255, 255, 255);
+border: transparent;
+border-radius:10px;
+font:15px;</string>
+                     </property>
+                     <property name="text">
+                      <string>High-perform</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>:/statistics.png</normaloff>:/statistics.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QPushButton" name="maxTurboButton">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>30</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Ubuntu</family>
+                       <pointsize>-1</pointsize>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;maximum processing power&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+border: transparent;
+border-radius:10px;
+font:15px;
+background-color: #7dadfc;
+}
+
+QPushButton:hover {
+	background-color: #808cfc;
+}
+
+QPushButton:checked {
+	background-color: #808cfc;
+	font-weight:bold;
+}
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Max-turbo</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>:/balance.png</normaloff>:/balance.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>40</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="3">
               <widget class="QFrame" name="reportGraphFrame">
                <property name="frameShape">
                 <enum>QFrame::Box</enum>
@@ -1236,400 +1507,7 @@ QFrame
                </layout>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QFrame" name="verticalFrame">
-               <layout class="QVBoxLayout" name="verticalLayout_13">
-                <item>
-                 <widget class="QFrame" name="formFrame_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>80</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color:rgb(222, 221, 218);
-border:none;
-border-radius:20px;</string>
-                  </property>
-                  <layout class="QFormLayout" name="formLayout_2">
-                   <item row="1" column="1">
-                    <widget class="QLabel" name="costWeek">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_4">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Last Week Energy Usage: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_5">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Estimated Costs:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="usageWeek">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QFrame" name="powerUsageRFrame">
-                  <property name="styleSheet">
-                   <string notr="true">background-color:rgb(222, 221, 218);
-border:none;
-border-radius:10px;</string>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
-                   <item>
-                    <widget class="QLabel" name="label_6">
-                     <property name="text">
-                      <string>Live Power Usage:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="powerUsageR">
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QFrame" name="frame_21">
-               <property name="minimumSize">
-                <size>
-                 <width>150</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>200</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">border:none;
-border-radius:20px;
-color:black;</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_23">
-                <item>
-                 <widget class="QFrame" name="formFrame">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>80</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color:rgb(222, 221, 218);
-border:none;
-border-radius:20px;</string>
-                  </property>
-                  <layout class="QFormLayout" name="formLayout">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Totday Energy Usage: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="energyUsageR">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_3">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Estimated Costs:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLabel" name="costTodayR">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QFrame" name="energyCapFrame">
-                  <property name="styleSheet">
-                   <string notr="true">background-color:rgb(222, 221, 218);
-border:none;
-border-radius:10px;</string>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_11">
-                   <item alignment="Qt::AlignLeft">
-                    <widget class="QLabel" name="label_12">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Custom Budget:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="budgetInput">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
             </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_5">
-       <layout class="QVBoxLayout" name="verticalLayout_27">
-        <item>
-         <spacer name="verticalSpacer_18">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_30">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>黑体</family>
-            <pointsize>20</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Setting</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_17">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QFrame" name="frame_22">
-          <property name="styleSheet">
-           <string notr="true">border:none;
-border-radius:20px;</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_28">
-           <item>
-            <widget class="QLabel" name="label_31">
-             <property name="font">
-              <font>
-               <family>黑体</family>
-               <pointsize>20</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>How to</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_32">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>:/camera.png</pixmap>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
-             <item>
-              <widget class="QLabel" name="label_34">
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>10</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Light</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_33">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="pixmap">
-                <pixmap>:/action.png</pixmap>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_35">
-               <property name="font">
-                <font>
-                 <family>Times New Roman</family>
-                 <pointsize>10</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Dark</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_20">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_36">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>:/bottom.png</pixmap>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -1648,6 +1526,9 @@ border-radius:20px;</string>
      <width>1106</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

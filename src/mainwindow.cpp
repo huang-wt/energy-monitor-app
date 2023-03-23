@@ -20,7 +20,7 @@
 #define INTERVAL 1000
 #define PERCENT_CNV_AMT 100
 #define THRESHOLD 70
-#define PROCESSES_NUM 10
+#define PROCESSES_NUM 17
 #define ENERGY_COST 34 / 1000
 #define HOURS 24
 #define PRECISION 1
@@ -29,6 +29,17 @@
 #define DATA_FONT_SIZE 24
 #define DONUT_HOLE_SIZE 0.5
 #define SCALE 1.1
+#define UNSELECTED_MODE_STYLE "color: rgb(255, 255, 255);\
+                               border: transparent;\
+                               border-radius:10px;\
+                               font:15px;\
+                               background-color: #7dadfc;"
+#define SELECTED_MODE_STYLE "color: rgb(255, 255, 255);\
+                             border: transparent;\
+                             border-radius:10px;\
+                             font:15px;\
+                             font-weight: bold;\
+                             background-color: #808cfc;"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,14 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("System Monitor");
 
+    // Set up sidebar
     ui->treeWidget->header()->hide();
     ui->treeWidget->topLevelItem(0)->setIcon(0,QIcon(":/dashboard.png"));
-    ui->treeWidget->topLevelItem(1)->setIcon(0,QIcon(":/power.png"));
-    ui->treeWidget->topLevelItem(2)->setIcon(0,QIcon(":/process.png"));
-    ui->treeWidget->topLevelItem(3)->setIcon(0,QIcon(":/report.png"));
-    ui->treeWidget->topLevelItem(4)->setIcon(0,QIcon(":/setting.png"));
+    ui->treeWidget->topLevelItem(1)->setIcon(0,QIcon(":/process.png"));
+    ui->treeWidget->topLevelItem(2)->setIcon(0,QIcon(":/report.png"));
     ui->treeWidget->setCurrentItem(ui->treeWidget->topLevelItem(0));
-
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->stackedWidget->setCurrentIndex(0);
 
@@ -64,15 +73,17 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->start(INTERVAL);
 
     // Connect the clicked signals of the bindAllCore, bindPCore and bindEcore to corresponding slots
-    connect(ui->bindAllCorePushButton, &QPushButton::clicked, this, &MainWindow::bindToAllCores);
-    connect(ui->bindPCorePushButton, &QPushButton::clicked, this, &MainWindow::bindToPCores);
-    connect(ui->bindECorePushButton, &QPushButton::clicked, this, &MainWindow::bindToECores);
+    connect(ui->maxTurboButton, &QPushButton::clicked, this, &MainWindow::maxTurboMode);
+    connect(ui->highPerformButton, &QPushButton::clicked, this, &MainWindow::highPerformMode);
+    connect(ui->powerSaverButton, &QPushButton::clicked, this, &MainWindow::powerSaverMode);
+    connect(ui->balancedButton, &QPushButton::clicked, this, &MainWindow::balancedMode);
     connect(ui->dayChartButton, &QRadioButton::clicked, this, &MainWindow::clickEnergyReportButtons);
     connect(ui->accumDayChartButton, &QRadioButton::clicked, this, &MainWindow::clickEnergyReportButtons);
     connect(ui->weekChartButton, &QRadioButton::clicked, this, &MainWindow::clickEnergyReportButtons);
 
+    // Default buttons/modes
+    ui->maxTurboButton->click();
     ui->dayChartButton->click();
-
     ui->budgetInput->setPlaceholderText("set energy cap");
     connect(ui->budgetInput, &QLineEdit::returnPressed, this, &MainWindow::budgetInputReturn);
 
@@ -128,17 +139,20 @@ void MainWindow::displayTime()
     timeLabel->setText(QString::fromStdString(time));
 }
 
-void MainWindow::displayMemoryChart() {
+void MainWindow::displayMemoryChart()
+{
     float utilisation = system_->MemoryUtilisation() * PERCENT_CNV_AMT;
     createDonutChart(utilisation, "RAM Memory", ui->ramChartView, "%", PRECISION);
 }
 
-void MainWindow::displayCpuChart() {
+void MainWindow::displayCpuChart()
+{
     float utilisation = system_->CpuUtilisations()[0] * PERCENT_CNV_AMT;
     createDonutChart(utilisation, "CPU", ui->cpuChartView, "%", PRECISION);
 }
 
-void MainWindow::displayTemperatureChart() {
+void MainWindow::displayTemperatureChart()
+{
     int temperature = system_->CpuTemperature();
     createDonutChart(temperature, "Temperature", ui->tempChartView, "°C", 0);
 }
@@ -147,15 +161,13 @@ void MainWindow::displayPowerUsage()
 {
     double powerUsage = system_->PowerUsage();
 
-    if (powerUsage > POWER_MAX) {
+    if (powerUsage > POWER_MAX)
+    {
         powerUsage = 0;
     }
 
     QLabel* powerUsageDLabel = findChild<QLabel*>("powerUsage");
     powerUsageDLabel->setText(QString("%1W").arg(powerUsage, 0, 'f', PRECISION));
-
-    QLabel* powerUsageRLabel = findChild<QLabel*>("powerUsageR");
-    powerUsageRLabel->setText(QString("%1W").arg(powerUsage, 0, 'f', PRECISION));
 }
 
 void MainWindow::displayWeekEnergyUsage()
@@ -185,49 +197,66 @@ void MainWindow::displayEnergyUsage()
     costTodayRLabel->setText(QString("%1p").arg(cost, 0, 'f', PRECISION));
 }
 
-void MainWindow::budgetInputReturn() {
+void MainWindow::budgetInputReturn()
+{
     QString userInput = ui->budgetInput->text();
     bool ok;
     int budget = userInput.toInt(&ok);
 
-    if (!ok) {
+    if (!ok)
+    {
         ui->budgetInput->setText("invalid input!");
-    } else {
+    } else
+    {
         ui->budgetInput->setText(QString::number(budget));
         system_->SetEnergyCap(budget);
     }
 }
 
-void MainWindow::bindToAllCores()
+void MainWindow::maxTurboMode()
 {
     system_->BindToAllCores();
 
-    ui->bindAllCorePushButton->setStyleSheet("color: black; font-weight: bold;");
-    ui->bindPCorePushButton->setStyleSheet("");
-    ui->bindECorePushButton->setStyleSheet("");
+    ui->maxTurboButton->setStyleSheet(SELECTED_MODE_STYLE);
+    ui->highPerformButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->powerSaverButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->balancedButton->setStyleSheet(UNSELECTED_MODE_STYLE);
 }
 
-void MainWindow::bindToPCores()
+void MainWindow::highPerformMode()
 {
     system_->BindToPCores();
 
-    ui->bindPCorePushButton->setStyleSheet("color: black; font-weight: bold;");
-    ui->bindAllCorePushButton->setStyleSheet("");
-    ui->bindECorePushButton->setStyleSheet("");
+    ui->highPerformButton->setStyleSheet(SELECTED_MODE_STYLE);
+    ui->maxTurboButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->powerSaverButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->balancedButton->setStyleSheet(UNSELECTED_MODE_STYLE);
 }
 
-void MainWindow::bindToECores()
+void MainWindow::powerSaverMode()
 {
     system_->BindToECores();
 
-    ui->bindECorePushButton->setStyleSheet("color: black; font-weight: bold;");
-    ui->bindAllCorePushButton->setStyleSheet("");
-    ui->bindPCorePushButton->setStyleSheet("");
+    ui->powerSaverButton->setStyleSheet(SELECTED_MODE_STYLE);
+    ui->maxTurboButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->highPerformButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->balancedButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+}
+
+void MainWindow::balancedMode()
+{
+    system_->BindToPAndECores();
+
+    ui->balancedButton->setStyleSheet(SELECTED_MODE_STYLE);
+    ui->maxTurboButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->highPerformButton->setStyleSheet(UNSELECTED_MODE_STYLE);
+    ui->powerSaverButton->setStyleSheet(UNSELECTED_MODE_STYLE);
 }
 
 void MainWindow::displayProcesses()
 {
-    while (ui->tableWidget->rowCount() > 0) {
+    while (ui->tableWidget->rowCount() > 0)
+    {
         ui->tableWidget->removeRow(0);
     }
 
@@ -239,17 +268,21 @@ void MainWindow::displayProcesses()
     std::vector<Process> processes = system_->SortedProcesses();
     Process p;
     int row;
-    for (int r = 0 ; r < PROCESSES_NUM ; r++) {
+    for (int r = 0 ; r < PROCESSES_NUM ; r++)
+    {
         p = processes[r];
         int pid = p.Pid();
-        float cpuUtilisation = p.CpuUtilisation() * PERCENT_CNV_AMT;
-        std::string command = p.Command();
+        if (pid != 0)
+        {
+            float cpuUtilisation = p.CpuUtilisation() * PERCENT_CNV_AMT;
+            std::string command = p.Command();
 
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        row = ui->tableWidget->rowCount() - 1;
-        ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(pid)));
-        ui->tableWidget->setItem(row, 1, new QTableWidgetItem(QString("%1%").arg(cpuUtilisation, 0, 'f', PRECISION)));
-        ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(command)));
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            row = ui->tableWidget->rowCount() - 1;
+            ui->tableWidget->setItem(row, 0, new QTableWidgetItem(QString::number(pid)));
+            ui->tableWidget->setItem(row, 1, new QTableWidgetItem(QString("%1%").arg(cpuUtilisation, 0, 'f', PRECISION)));
+            ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(command)));
+        }
     }
 }
 
@@ -257,15 +290,18 @@ void MainWindow::clickEnergyReportButtons()
 {
     QRadioButton *clickedButton = qobject_cast<QRadioButton*>(sender());
 
-    if (clickedButton == ui->dayChartButton) {
+    if (clickedButton == ui->dayChartButton)
+    {
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayAccumDayReportGraph()));
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayWeekReportGraph()));
         connect(timer, SIGNAL(timeout()), this, SLOT(displayDayReportGraph()));
-    } else if (clickedButton == ui->accumDayChartButton) {
+    } else if (clickedButton == ui->accumDayChartButton)
+    {
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayDayReportGraph()));
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayWeekReportGraph()));
         connect(timer, SIGNAL(timeout()), this, SLOT(displayAccumDayReportGraph()));
-    } else if (clickedButton == ui->weekChartButton) {
+    } else if (clickedButton == ui->weekChartButton)
+    {
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayDayReportGraph()));
         disconnect(timer, SIGNAL(timeout()), this, SLOT(displayAccumDayReportGraph()));
         connect(timer, SIGNAL(timeout()), this, SLOT(displayWeekReportGraph()));
@@ -273,11 +309,13 @@ void MainWindow::clickEnergyReportButtons()
 
 }
 
-void MainWindow::displayDayReportGraph() {
+void MainWindow::displayDayReportGraph()
+{
     QBarSet *set = new QBarSet("");
     std::vector<double> energyUsages = system_->HoursEnergyUsages();
     double maxUsage = 0;
-    for (int h = 0 ; h < DateTime::Hour() + 1; h++) {
+    for (int h = 0 ; h < DateTime::Hour() + 1; h++)
+    {
         set->append(energyUsages[h]);
         maxUsage = energyUsages[h] > maxUsage ? energyUsages[h] : maxUsage;
     }
@@ -312,13 +350,15 @@ void MainWindow::displayDayReportGraph() {
     ui->reportGraph->setRenderHint(QPainter::Antialiasing);
 }
 
-void MainWindow::displayWeekReportGraph() {
+void MainWindow::displayWeekReportGraph()
+{
     QBarSet *set = new QBarSet("");
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     std::map<std::string, double> usages = system_->LastWeekEnergyUsage();
     int x = 0;
     double maxUsage = 0;
-    for (auto const& [date, usage] : usages) {
+    for (auto const& [date, usage] : usages)
+    {
         axisX->append(QString::fromStdString(date));
         set->append(usage);
         maxUsage = usage > maxUsage ? usage : maxUsage;
@@ -351,7 +391,8 @@ void MainWindow::displayWeekReportGraph() {
     ui->reportGraph->setRenderHint(QPainter::Antialiasing);
 }
 
-void MainWindow::displayAccumDayReportGraph() {
+void MainWindow::displayAccumDayReportGraph()
+{
     QLineSeries *seriesUp = new QLineSeries();
     QLineSeries *seriesDown = new QLineSeries();
     QLineSeries *lineSeries = new QLineSeries();
@@ -359,7 +400,8 @@ void MainWindow::displayAccumDayReportGraph() {
     double budget = system_->EnergyCap();
     std::vector<double> energyUsages = system_->HoursEnergyUsages();
     double prevTotalUsage = 0;
-    for (int h = 0 ; h < DateTime::Hour() + 1 ; h++) {
+    for (int h = 0 ; h < DateTime::Hour() + 1 ; h++)
+    {
         seriesUp->append(h, prevTotalUsage + energyUsages[h]);
         seriesDown->append(h, 0);
         lineSeries->append(h, budget);
@@ -400,17 +442,18 @@ void MainWindow::displayAccumDayReportGraph() {
 
 }
 
-void MainWindow::createDonutChart(float value, std::string title, QChartView *chartView, std::string unit, int precision) {
+void MainWindow::createDonutChart(float value, std::string title, QChartView *chartView, std::string unit, int precision)
+{
     QPieSeries *series = new QPieSeries();
     series->setHoleSize(DONUT_HOLE_SIZE);
     series->append("", value);
 
-    for (auto slice : series->slices()) {
-        // Green if less then THRESHOLD
+    for (auto slice : series->slices())
+    {
         if (value > THRESHOLD) {
-            slice->setBrush(QBrush(QColor(237, 51, 59)));
+            slice->setBrush(QBrush(QColor(237, 51, 59))); // red
         } else {
-            slice->setBrush(QBrush(QColor(87, 227, 137)));
+            slice->setBrush(QBrush(QColor(87, 227, 137))); // green
         }
     }
 
@@ -436,3 +479,4 @@ void MainWindow::createDonutChart(float value, std::string title, QChartView *ch
     label->setPos(center - QPointF(rect.width()/2, rect.height()/2 - 20));
     chartView->scene()->addItem(label);
 }
+

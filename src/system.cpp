@@ -208,6 +208,12 @@ void System::BindToECores() {
     BindProcesses(pids, cpu.HyperThreadedCores(), cpu.LogicalCores() - 1);
 }
 
+void System::BindToPAndECores() {
+    vector<int> pids = CpuConsumingProcesses();
+    BindProcesses(pids, cpu.HyperThreadedCores() / 2, \
+                  (cpu.LogicalCores() + cpu.HyperThreadedCores()) / 2 - 1 );
+}
+
 void System::SetEnergyCap(double cap) {
     energy_cap = cap;
 }
