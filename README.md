@@ -60,7 +60,3 @@ qmake ..
 make
 ./energy_monitor
 ```
-
-### Test
-
-## Showcase
