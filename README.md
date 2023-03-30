@@ -1,7 +1,7 @@
 # COMP0016 2022-23 Project: Linux Energy Monitor
 
 ## Project Introduction
-See the project report website for more details:______
+It is an Industry Exchange Network project in partnership with Intel, aiming to develop a Linux energy monitor application that enables users to view real-time system information and energy consumption while taking advantages of Intel's 12th Gen processor architecture.
 
 ## Project Tree
 ```txt
