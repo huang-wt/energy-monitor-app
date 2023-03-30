@@ -8,8 +8,9 @@ It is an Industry Exchange Network project in partnership with Intel, aiming to 
 .
 ├── src/        # The project source code
 ├── include/    # Headers
-├── data/       # Data logging files
+├── forms/      # UI forms
 ├── docs/       # Documentation files
+├── resources/  # Styling sheets and icons
 └──...
 ```
 
