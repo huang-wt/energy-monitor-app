@@ -1,0 +1,28 @@
+\hypertarget{format_8h_source}{}\doxysection{format.\+h}
+\label{format_8h_source}\index{include/format.h@{include/format.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FORMAT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FORMAT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFormat}{Format}}\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classFormat_ab70d1a70691b982c733b7a6178abc2a4}{ElapsedTime}}(\textcolor{keywordtype}{long}\ times);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classFormat_a6ff96ac1b5cb50ece421f8602172f5ca}{Date}}(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ month,\ \textcolor{keywordtype}{int}\ day);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classFormat_aea8a538562f4cf6c93449a667dbed138}{Time}}(\textcolor{keywordtype}{int}\ hour,\ \textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ sec);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classFormat_a0a0cadf5d43e0a9d85ec3319ff737d8f}{Decimal}}(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{int}\ precision);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classFormat_ae81c68605fd1469b4a9bc96aadd6366f}{Percentage}}(\textcolor{keywordtype}{double}\ percent);}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ AABBCC(\textcolor{keywordtype}{int}\ aa,\ \textcolor{keywordtype}{int}\ bb,\ \textcolor{keywordtype}{int}\ cc,\ std::string\ delimiter);}
+\DoxyCodeLine{00053\ \};\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

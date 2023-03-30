@@ -25,7 +25,7 @@ int DateTime::Day() {
 int DateTime::Hour() {
     now = time(0);
     struct tm *tmp = gmtime(&now);
-    return tmp->tm_hour;
+    return tmp->tm_hour == 23 ? 0 : tmp->tm_hour + 1;
 }
 
 int DateTime::Min() {

@@ -160,7 +160,7 @@ QTreeView::item:selected {
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page1_dashboard">
        <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -181,7 +181,7 @@ QTreeView::item:selected {
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="systemDashboardTitle">
           <property name="font">
            <font>
             <family>黑体</family>
@@ -198,7 +198,7 @@ QTreeView::item:selected {
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
+         <layout class="QVBoxLayout" name="dateAndTimeLayout">
           <property name="spacing">
            <number>1</number>
           </property>
@@ -235,7 +235,7 @@ QTreeView::item:selected {
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
+         <layout class="QHBoxLayout" name="cpuAndRamLayout" stretch="0,0,0">
           <property name="spacing">
            <number>6</number>
           </property>
@@ -392,7 +392,7 @@ border-radius:20px;</string>
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="powerAndEnergyLayout">
           <property name="topMargin">
            <number>3</number>
           </property>
@@ -416,7 +416,7 @@ border-radius:20px;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_3">
+           <widget class="QFrame" name="powerUsageOuterFrame">
             <property name="minimumSize">
              <size>
               <width>200</width>
@@ -527,7 +527,7 @@ font: 24pt &quot;Ubuntu&quot;;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QFrame" name="frame_4">
+           <widget class="QFrame" name="energyUsageOuterFrame">
             <property name="minimumSize">
              <size>
               <width>418</width>
@@ -701,7 +701,7 @@ font: 24pt &quot;Ubuntu&quot;;
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_19">
+         <widget class="QLabel" name="processesTitle">
           <property name="font">
            <font>
             <family>黑体</family>
@@ -734,7 +734,7 @@ font: 24pt &quot;Ubuntu&quot;;
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_12">
+         <layout class="QVBoxLayout" name="processesTableLayout">
           <item>
            <widget class="QTableWidget" name="tableWidget">
             <property name="font">
@@ -792,7 +792,7 @@ font: 24pt &quot;Ubuntu&quot;;
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="label_20">
+         <widget class="QLabel" name="reportsTitle">
           <property name="font">
            <font>
             <family>黑体</family>
@@ -825,7 +825,7 @@ font: 24pt &quot;Ubuntu&quot;;
          </spacer>
         </item>
         <item>
-         <widget class="QFrame" name="frame_16">
+         <widget class="QFrame" name="reportsMainFrame">
           <property name="styleSheet">
            <string notr="true">QPushButton
 {
@@ -846,9 +846,9 @@ QFrame
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_25" stretch="0">
            <item>
-            <layout class="QGridLayout" name="gridLayout" rowstretch="1,0">
+            <layout class="QGridLayout" name="reportsLayout" rowstretch="1,0">
              <item row="1" column="0">
-              <widget class="QFrame" name="frame_21">
+              <widget class="QFrame" name="todayOuterFrame">
                <property name="minimumSize">
                 <size>
                  <width>150</width>
@@ -874,7 +874,7 @@ color:black;</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_23">
                 <item>
-                 <widget class="QFrame" name="formFrame">
+                 <widget class="QFrame" name="todayFrame">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -940,7 +940,7 @@ color:#ffffff</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLabel" name="label_2">
+                    <widget class="QLabel" name="todayLabel">
                      <property name="font">
                       <font>
                        <pointsize>13</pointsize>
@@ -962,10 +962,10 @@ color:#ffffff</string>
               </widget>
              </item>
              <item row="1" column="2">
-              <widget class="QFrame" name="verticalFrame">
+              <widget class="QFrame" name="weekOuterFrame">
                <layout class="QVBoxLayout" name="verticalLayout_13">
                 <item>
-                 <widget class="QFrame" name="formFrame_2">
+                 <widget class="QFrame" name="weekFrame">
                   <property name="minimumSize">
                    <size>
                     <width>150</width>
@@ -1025,7 +1025,7 @@ color:#ffffff</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLabel" name="label_3">
+                    <widget class="QLabel" name="weekLabel">
                      <property name="font">
                       <font>
                        <pointsize>13</pointsize>
@@ -1058,7 +1058,7 @@ border-radius:10px;</string>
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_11">
                    <item alignment="Qt::AlignLeft">
-                    <widget class="QLabel" name="label_12">
+                    <widget class="QLabel" name="budgetLabel">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                        <horstretch>0</horstretch>
@@ -1093,7 +1093,7 @@ border-radius:20px;</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_7">
                    <item row="1" column="2">
-                    <widget class="QLabel" name="label_16">
+                    <widget class="QLabel" name="orangeCircle">
                      <property name="minimumSize">
                       <size>
                        <width>20</width>
@@ -1116,7 +1116,7 @@ border-radius:10px</string>
                     </widget>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_18">
+                    <widget class="QLabel" name="yellowCircle">
                      <property name="minimumSize">
                       <size>
                        <width>20</width>
@@ -1187,7 +1187,7 @@ font:15px;</string>
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_17">
+                    <widget class="QLabel" name="redCircle">
                      <property name="minimumSize">
                       <size>
                        <width>20</width>
@@ -1266,7 +1266,7 @@ font:15px;
                     </widget>
                    </item>
                    <item row="2" column="2">
-                    <widget class="QLabel" name="label_21">
+                    <widget class="QLabel" name="greenCircle">
                      <property name="minimumSize">
                       <size>
                        <width>20</width>

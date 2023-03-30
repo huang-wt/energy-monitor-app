@@ -42,7 +42,7 @@ class Format {
         static std::string Decimal(double value, int precision);
 
         /** 
-         * Format percentage numbers with 1 or 2 decimals.
+         * Format percentages with right number of decimals.
          * @param percent The percentage number.
          * @return The formatted percentage number in string.
         */

@@ -1,0 +1,59 @@
+\hypertarget{system__parser_8h_source}{}\doxysection{system\+\_\+parser.\+h}
+\label{system__parser_8h_source}\index{include/system\_parser.h@{include/system\_parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_PARSER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SYSTEM\_PARSER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classSystemParser}{SystemParser}}\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:\ }
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ System}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ OperatingSystem();}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ Kernel();}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::vector<int>\ Pids();}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::vector<float>\ MemoryInfo();}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ TotalMemory();}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ AvalMemory();}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ TotalProcesses();}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ RunningProcesses();}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ UpTime();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ CPU}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::vector<long>\ CpuTimes(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ TotalJiffies(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ IdleJiffiesC(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ ActiveJiffiesC(\textcolor{keywordtype}{int}\ cid);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Processes}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ ActiveJiffiesP(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ Command(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ Ram(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ Uid(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ User(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ UpTime(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Utils}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::string\ KeyValParser(std::string,\ std::string);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Paths}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kProcDirectory;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kCmdlineFilename;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kCpuinfoFilename;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kStatusFilename;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kStatFilename;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kUptimeFilename;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kMeminfoFilename;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kVersionFilename;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kOSPath;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ kPasswordPath;}
+\DoxyCodeLine{00051\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SYSTEM\_PARSER\_H}}
+
+\end{DoxyCode}

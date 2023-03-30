@@ -1,0 +1,306 @@
+\begin{theindex}
+
+  \item {BindToAllCores}
+    \subitem {System}, \hyperpage{28}
+  \item {BindToECores}
+    \subitem {System}, \hyperpage{28}
+  \item {BindToPAndECores}
+    \subitem {System}, \hyperpage{28}
+  \item {BindToPCores}
+    \subitem {System}, \hyperpage{28}
+
+  \indexspace
+
+  \item {Command}
+    \subitem {Process}, \hyperpage{21}
+  \item {CpuTemperature}
+    \subitem {System}, \hyperpage{28}
+  \item {CpuUtilisation}
+    \subitem {Process}, \hyperpage{21}
+  \item {CpuUtilisations}
+    \subitem {System}, \hyperpage{28}
+  \item {CurrentDate}
+    \subitem {DateTime}, \hyperpage{8}
+  \item {CurrentTime}
+    \subitem {DateTime}, \hyperpage{9}
+  \item {CurrHourEnergyUsage}
+    \subitem {Power}, \hyperpage{15}
+  \item {CurrPowerUsage}
+    \subitem {Power}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Date}
+    \subitem {Format}, \hyperpage{11}
+  \item {DateTime}, \hyperpage{8}
+    \subitem {CurrentDate}, \hyperpage{8}
+    \subitem {CurrentTime}, \hyperpage{9}
+    \subitem {Day}, \hyperpage{9}
+    \subitem {Hour}, \hyperpage{9}
+    \subitem {Min}, \hyperpage{9}
+    \subitem {Month}, \hyperpage{10}
+    \subitem {Sec}, \hyperpage{10}
+    \subitem {Year}, \hyperpage{10}
+  \item {Day}
+    \subitem {DateTime}, \hyperpage{9}
+  \item {Decimal}
+    \subitem {Format}, \hyperpage{11}
+
+  \indexspace
+
+  \item {ECores}
+    \subitem {Processor}, \hyperpage{25}
+  \item {ElapsedTime}
+    \subitem {Format}, \hyperpage{12}
+  \item {EnergyCap}
+    \subitem {System}, \hyperpage{29}
+  \item {exec}
+    \subitem {raymii::Command}, \hyperpage{7}
+
+  \indexspace
+
+  \item {Format}, \hyperpage{11}
+    \subitem {Date}, \hyperpage{11}
+    \subitem {Decimal}, \hyperpage{11}
+    \subitem {ElapsedTime}, \hyperpage{12}
+    \subitem {Percentage}, \hyperpage{12}
+    \subitem {Time}, \hyperpage{12}
+
+  \indexspace
+
+  \item {Hour}
+    \subitem {DateTime}, \hyperpage{9}
+  \item {HoursEnergyUsages}
+    \subitem {Power}, \hyperpage{15, 16}
+    \subitem {PowerDAO}, \hyperpage{18}
+    \subitem {System}, \hyperpage{29}
+  \item {HyperThreadedCores}
+    \subitem {Processor}, \hyperpage{25}
+
+  \indexspace
+
+  \item {include/command.h}, \hyperpage{35}
+  \item {include/date\_time.h}, \hyperpage{36}
+  \item {include/format.h}, \hyperpage{37}
+  \item {include/mainwindow.h}, \hyperpage{37}
+  \item {include/memory.h}, \hyperpage{38}
+  \item {include/power.h}, \hyperpage{38}
+  \item {include/power\_dao.h}, \hyperpage{39}
+  \item {include/process.h}, \hyperpage{39}
+  \item {include/processor.h}, \hyperpage{40}
+  \item {include/system.h}, \hyperpage{41}
+  \item {include/system\_parser.h}, \hyperpage{42}
+  \item {InitDaysLogFile}
+    \subitem {PowerDAO}, \hyperpage{18}
+  \item {InitHoursLogFile}
+    \subitem {PowerDAO}, \hyperpage{18}
+  \item {Instance}
+    \subitem {System}, \hyperpage{29}
+
+  \indexspace
+
+  \item {Kernel}
+    \subitem {System}, \hyperpage{29}
+
+  \indexspace
+
+  \item {LastLoggedDate}
+    \subitem {PowerDAO}, \hyperpage{19}
+  \item {LastNDaysEnergyUsage}
+    \subitem {PowerDAO}, \hyperpage{19}
+  \item {LastWeekEnergyUsage}
+    \subitem {System}, \hyperpage{30}
+  \item {LogicalCores}
+    \subitem {Processor}, \hyperpage{25}
+
+  \indexspace
+
+  \item {MainWindow}, \hyperpage{13}
+  \item {Memory}, \hyperpage{13}
+    \subitem {TotalMemory}, \hyperpage{14}
+    \subitem {UsedMemory}, \hyperpage{14}
+    \subitem {Utilisation}, \hyperpage{14}
+  \item {MemoryUtilisation}
+    \subitem {System}, \hyperpage{30}
+  \item {Min}
+    \subitem {DateTime}, \hyperpage{9}
+  \item {Month}
+    \subitem {DateTime}, \hyperpage{10}
+
+  \indexspace
+
+  \item {OperatingSystem}
+    \subitem {System}, \hyperpage{30}
+  \item {operator$<$}
+    \subitem {Process}, \hyperpage{21}
+  \item {operator$>$}
+    \subitem {Process}, \hyperpage{21}
+
+  \indexspace
+
+  \item {PCores}
+    \subitem {Processor}, \hyperpage{26}
+  \item {Percentage}
+    \subitem {Format}, \hyperpage{12}
+  \item {PhysicalCores}
+    \subitem {Processor}, \hyperpage{26}
+  \item {Pid}
+    \subitem {Process}, \hyperpage{22}
+  \item {Power}, \hyperpage{15}
+    \subitem {CurrHourEnergyUsage}, \hyperpage{15}
+    \subitem {CurrPowerUsage}, \hyperpage{15}
+    \subitem {HoursEnergyUsages}, \hyperpage{15, 16}
+    \subitem {ResetLogVector}, \hyperpage{16}
+    \subitem {SetExtra}, \hyperpage{16}
+    \subitem {SetLogVector}, \hyperpage{16}
+    \subitem {TotalEnergyUsage}, \hyperpage{17}
+    \subitem {UpdateLogVector}, \hyperpage{17}
+    \subitem {UpdatePowerAndEnergyUsage}, \hyperpage{17}
+    \subitem {UpdatePrevHoursEnergy}, \hyperpage{17}
+  \item {PowerDAO}, \hyperpage{18}
+    \subitem {HoursEnergyUsages}, \hyperpage{18}
+    \subitem {InitDaysLogFile}, \hyperpage{18}
+    \subitem {InitHoursLogFile}, \hyperpage{18}
+    \subitem {LastLoggedDate}, \hyperpage{19}
+    \subitem {LastNDaysEnergyUsage}, \hyperpage{19}
+    \subitem {UpdateDaysLogFile}, \hyperpage{19}
+    \subitem {UpdateHoursLogFile}, \hyperpage{20}
+  \item {PowerUsage}
+    \subitem {System}, \hyperpage{30}
+  \item {Process}, \hyperpage{20}
+    \subitem {Command}, \hyperpage{21}
+    \subitem {CpuUtilisation}, \hyperpage{21}
+    \subitem {operator$<$}, \hyperpage{21}
+    \subitem {operator$>$}, \hyperpage{21}
+    \subitem {Pid}, \hyperpage{22}
+    \subitem {Ram}, \hyperpage{22}
+    \subitem {SetCommand}, \hyperpage{22}
+    \subitem {SetCpuUtilisation}, \hyperpage{23}
+    \subitem {SetPid}, \hyperpage{23}
+    \subitem {SetRam}, \hyperpage{23}
+    \subitem {SetUpTime}, \hyperpage{23}
+    \subitem {SetUser}, \hyperpage{24}
+    \subitem {UpTime}, \hyperpage{24}
+    \subitem {User}, \hyperpage{24}
+  \item {Processor}, \hyperpage{25}
+    \subitem {ECores}, \hyperpage{25}
+    \subitem {HyperThreadedCores}, \hyperpage{25}
+    \subitem {LogicalCores}, \hyperpage{25}
+    \subitem {PCores}, \hyperpage{26}
+    \subitem {PhysicalCores}, \hyperpage{26}
+    \subitem {Temperature}, \hyperpage{26}
+    \subitem {UpdateUtilisations}, \hyperpage{26}
+    \subitem {Utilisations}, \hyperpage{27}
+
+  \indexspace
+
+  \item {Ram}
+    \subitem {Process}, \hyperpage{22}
+  \item {raymii::Command}, \hyperpage{7}
+    \subitem {exec}, \hyperpage{7}
+  \item {raymii::CommandResult}, \hyperpage{8}
+  \item {ResetLogVector}
+    \subitem {Power}, \hyperpage{16}
+  \item {RunningProcesses}
+    \subitem {System}, \hyperpage{31}
+
+  \indexspace
+
+  \item {Sec}
+    \subitem {DateTime}, \hyperpage{10}
+  \item {SetCommand}
+    \subitem {Process}, \hyperpage{22}
+  \item {SetCpuUtilisation}
+    \subitem {Process}, \hyperpage{23}
+  \item {SetEnergyCap}
+    \subitem {System}, \hyperpage{31}
+  \item {SetExtra}
+    \subitem {Power}, \hyperpage{16}
+  \item {SetLogVector}
+    \subitem {Power}, \hyperpage{16}
+  \item {SetPid}
+    \subitem {Process}, \hyperpage{23}
+  \item {SetRam}
+    \subitem {Process}, \hyperpage{23}
+  \item {SetUpTime}
+    \subitem {Process}, \hyperpage{23}
+  \item {SetUser}
+    \subitem {Process}, \hyperpage{24}
+  \item {SortedProcesses}
+    \subitem {System}, \hyperpage{31}
+  \item {System}, \hyperpage{27}
+    \subitem {BindToAllCores}, \hyperpage{28}
+    \subitem {BindToECores}, \hyperpage{28}
+    \subitem {BindToPAndECores}, \hyperpage{28}
+    \subitem {BindToPCores}, \hyperpage{28}
+    \subitem {CpuTemperature}, \hyperpage{28}
+    \subitem {CpuUtilisations}, \hyperpage{28}
+    \subitem {EnergyCap}, \hyperpage{29}
+    \subitem {HoursEnergyUsages}, \hyperpage{29}
+    \subitem {Instance}, \hyperpage{29}
+    \subitem {Kernel}, \hyperpage{29}
+    \subitem {LastWeekEnergyUsage}, \hyperpage{30}
+    \subitem {MemoryUtilisation}, \hyperpage{30}
+    \subitem {OperatingSystem}, \hyperpage{30}
+    \subitem {PowerUsage}, \hyperpage{30}
+    \subitem {RunningProcesses}, \hyperpage{31}
+    \subitem {SetEnergyCap}, \hyperpage{31}
+    \subitem {SortedProcesses}, \hyperpage{31}
+    \subitem {TotalEnergyUsage}, \hyperpage{31}
+    \subitem {TotalEnergyUsageLastWeek}, \hyperpage{32}
+    \subitem {TotalMemory}, \hyperpage{32}
+    \subitem {TotalProcesses}, \hyperpage{32}
+    \subitem {UpTime}, \hyperpage{32}
+    \subitem {UsedMemory}, \hyperpage{33}
+  \item {SystemParser}, \hyperpage{33}
+
+  \indexspace
+
+  \item {Temperature}
+    \subitem {Processor}, \hyperpage{26}
+  \item {Time}
+    \subitem {Format}, \hyperpage{12}
+  \item {TotalEnergyUsage}
+    \subitem {Power}, \hyperpage{17}
+    \subitem {System}, \hyperpage{31}
+  \item {TotalEnergyUsageLastWeek}
+    \subitem {System}, \hyperpage{32}
+  \item {TotalMemory}
+    \subitem {Memory}, \hyperpage{14}
+    \subitem {System}, \hyperpage{32}
+  \item {TotalProcesses}
+    \subitem {System}, \hyperpage{32}
+
+  \indexspace
+
+  \item {UpdateDaysLogFile}
+    \subitem {PowerDAO}, \hyperpage{19}
+  \item {UpdateHoursLogFile}
+    \subitem {PowerDAO}, \hyperpage{20}
+  \item {UpdateLogVector}
+    \subitem {Power}, \hyperpage{17}
+  \item {UpdatePowerAndEnergyUsage}
+    \subitem {Power}, \hyperpage{17}
+  \item {UpdatePrevHoursEnergy}
+    \subitem {Power}, \hyperpage{17}
+  \item {UpdateUtilisations}
+    \subitem {Processor}, \hyperpage{26}
+  \item {UpTime}
+    \subitem {Process}, \hyperpage{24}
+    \subitem {System}, \hyperpage{32}
+  \item {UsedMemory}
+    \subitem {Memory}, \hyperpage{14}
+    \subitem {System}, \hyperpage{33}
+  \item {User}
+    \subitem {Process}, \hyperpage{24}
+  \item {Utilisation}
+    \subitem {Memory}, \hyperpage{14}
+  \item {Utilisations}
+    \subitem {Processor}, \hyperpage{27}
+
+  \indexspace
+
+  \item {Year}
+    \subitem {DateTime}, \hyperpage{10}
+
+\end{theindex}

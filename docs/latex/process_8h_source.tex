@@ -1,0 +1,56 @@
+\hypertarget{process_8h_source}{}\doxysection{process.\+h}
+\label{process_8h_source}\index{include/process.h@{include/process.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PROCESS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PROCESS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classProcess}{Process}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classProcess_aacf1830ab1c6fa73f1b1ef5e5272d341}{operator<}}(\mbox{\hyperlink{classProcess}{Process}}\ \textcolor{keyword}{const}\&\ a)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classProcess_a8145d360c8c850011a4eacbbb9e4161f}{operator>}}(\mbox{\hyperlink{classProcess}{Process}}\ \textcolor{keyword}{const}\&\ a)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classProcess_a2caa00783b6c26d0c5811e70ebc0c022}{Pid}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classProcess_ab001a65db9e8ec7a3e3632d8a9279d57}{User}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classProcess_a96309076609385f93e9805c50bdc0ed1}{Command}}();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classProcess_a0657047d1bbcbbc24252a85980bb3126}{CpuUtilisation}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classProcess_ae548ab8b18c6032474cd77b33fa5e7e7}{Ram}}();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classProcess_a24e6fcf5f90b095cddcd6d4e86fdab61}{UpTime}}();}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_aab89d3f3c0ee65b5c6076d2ca8cfa5c3}{SetPid}}(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_a006c3e2d9e362eadd601ec2250723295}{SetUser}}(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_aea010e091766f01144fa4c82f8aba5b2}{SetCommand}}(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_a2aeaf66a04276bab5910e1da0af1244f}{SetCpuUtilisation}}(\textcolor{keywordtype}{int}\ pid,\ \textcolor{keywordtype}{long}\ curr\_total\_jiffies);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_a0d80a4a68d894a47ba9afe42522fb0d4}{SetRam}}(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classProcess_a36041648659a41bb1cbfa82381c974ca}{SetUpTime}}(\textcolor{keywordtype}{int}\ pid);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pid;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ std::string\ user;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::string\ command;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ cpu\_utilisation;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ std::string\ ram;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ up\_time;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ previous\ cpu\ jiffies\ of\ a\ proces}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ prev\_jiffies\_on\_process\ =\ 0;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ previous\ cpu\ total\ jiffies}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ prev\_total\_jiffies\ =\ 0;}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PROCESS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,110 @@
+\hypertarget{classFormat}{}\doxysection{Format Class Reference}
+\label{classFormat}\index{Format@{Format}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{classFormat_ab70d1a70691b982c733b7a6178abc2a4}{Elapsed\+Time}} (long times)
+\item 
+static std\+::string \mbox{\hyperlink{classFormat_a6ff96ac1b5cb50ece421f8602172f5ca}{Date}} (int year, int month, int day)
+\item 
+static std\+::string \mbox{\hyperlink{classFormat_aea8a538562f4cf6c93449a667dbed138}{Time}} (int hour, int min, int sec)
+\item 
+static std\+::string \mbox{\hyperlink{classFormat_a0a0cadf5d43e0a9d85ec3319ff737d8f}{Decimal}} (double value, int precision)
+\item 
+static std\+::string \mbox{\hyperlink{classFormat_ae81c68605fd1469b4a9bc96aadd6366f}{Percentage}} (double percent)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class helps format data of various types. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFormat_a6ff96ac1b5cb50ece421f8602172f5ca}\label{classFormat_a6ff96ac1b5cb50ece421f8602172f5ca}} 
+\index{Format@{Format}!Date@{Date}}
+\index{Date@{Date}!Format@{Format}}
+\doxysubsubsection{\texorpdfstring{Date()}{Date()}}
+{\footnotesize\ttfamily static std\+::string Format\+::\+Date (\begin{DoxyParamCaption}\item[{int}]{year,  }\item[{int}]{month,  }\item[{int}]{day }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get formatted date given the year, month and day. 
+\begin{DoxyParams}{Parameters}
+{\em year} & The given year. \\
+\hline
+{\em month} & The given month. \\
+\hline
+{\em day} & The given day. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The formatted date in YY/\+MM/\+DD. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFormat_a0a0cadf5d43e0a9d85ec3319ff737d8f}\label{classFormat_a0a0cadf5d43e0a9d85ec3319ff737d8f}} 
+\index{Format@{Format}!Decimal@{Decimal}}
+\index{Decimal@{Decimal}!Format@{Format}}
+\doxysubsubsection{\texorpdfstring{Decimal()}{Decimal()}}
+{\footnotesize\ttfamily static std\+::string Format\+::\+Decimal (\begin{DoxyParamCaption}\item[{double}]{value,  }\item[{int}]{precision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{classFormat}{Format} fractions with some number of decimals. 
+\begin{DoxyParams}{Parameters}
+{\em value} & The given fraction number. \\
+\hline
+{\em precison} & The number of decimals reserved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The formatted number with n decimals in string. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFormat_ab70d1a70691b982c733b7a6178abc2a4}\label{classFormat_ab70d1a70691b982c733b7a6178abc2a4}} 
+\index{Format@{Format}!ElapsedTime@{ElapsedTime}}
+\index{ElapsedTime@{ElapsedTime}!Format@{Format}}
+\doxysubsubsection{\texorpdfstring{ElapsedTime()}{ElapsedTime()}}
+{\footnotesize\ttfamily static std\+::string Format\+::\+Elapsed\+Time (\begin{DoxyParamCaption}\item[{long}]{times }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get formatted time given the elapsed times. 
+\begin{DoxyParams}{Parameters}
+{\em times} & The given elapsed times. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The formatted time in hh\+:mm\+:ss. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFormat_ae81c68605fd1469b4a9bc96aadd6366f}\label{classFormat_ae81c68605fd1469b4a9bc96aadd6366f}} 
+\index{Format@{Format}!Percentage@{Percentage}}
+\index{Percentage@{Percentage}!Format@{Format}}
+\doxysubsubsection{\texorpdfstring{Percentage()}{Percentage()}}
+{\footnotesize\ttfamily static std\+::string Format\+::\+Percentage (\begin{DoxyParamCaption}\item[{double}]{percent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{classFormat}{Format} percentages with right number of decimals. 
+\begin{DoxyParams}{Parameters}
+{\em percent} & The percentage number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The formatted percentage number in string. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFormat_aea8a538562f4cf6c93449a667dbed138}\label{classFormat_aea8a538562f4cf6c93449a667dbed138}} 
+\index{Format@{Format}!Time@{Time}}
+\index{Time@{Time}!Format@{Format}}
+\doxysubsubsection{\texorpdfstring{Time()}{Time()}}
+{\footnotesize\ttfamily static std\+::string Format\+::\+Time (\begin{DoxyParamCaption}\item[{int}]{hour,  }\item[{int}]{min,  }\item[{int}]{sec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Get formatted time given the hour, minute and second. 
+\begin{DoxyParams}{Parameters}
+{\em hour} & The given hour. \\
+\hline
+{\em min} & The given minute. \\
+\hline
+{\em sec} & The given second. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The formatted time in hh\+:mm\+:ss. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/format.\+h\end{DoxyCompactItemize}
