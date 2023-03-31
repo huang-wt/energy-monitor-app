@@ -60,3 +60,10 @@ qmake ..
 make
 ./energy_monitor
 ```
+
+## Showcases
+![System Monitor](images/system_dashboard.png)
+![System Monitor](images/processes.png)
+![System Monitor](images/report_day.png)
+![System Monitor](images/report_accum.png)
+![System Monitor](images/report_week.png)
