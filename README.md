@@ -20,7 +20,7 @@ It is an Industry Exchange Network project in partnership with Intel, aiming to 
 - Git
 - Linux
 - C++ 17 (and onwards)
-- Qt (include qmake and Charts module) 
+- Qt 5 (and onwards)
 - 12th Gen Intel Processor
 #### Qt Installation (take Ubuntu for example)
 1. Update the package list by running the following command:
