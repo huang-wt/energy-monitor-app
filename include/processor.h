@@ -1,7 +1,6 @@
 #ifndef PROCESSOR_H
 #define PROCESSOR_H
 
-#include <string>
 #include <vector>
 
 /**
@@ -53,25 +52,34 @@ class Processor {
          * Getter method for temperature.
          * @return The cpu temperature in degree Celsius.
         */
-        int Temperature();
+		int Temperature();
+		
+		/**
+		 * Update the utilisation of each cpu core and overall usage.
+		*/
+		void UpdateUtilisations();
 
-        /**
-         * Update the utilisation of each cpu core and overall usage.
-        */
-        void UpdateUtilisations();
-
+		/**
+		 * Update the cpu temperature.
+		*/
+		void UpdateTemperature();
+    
   	private:
 		static const int PHYSICAL_CORES;
 		static const int LOGICAL_CORES;
 		static const int HYPERTHREADED_CORES;
 		static const int E_CORES;
-        static const int P_CORES;
+		static const int P_CORES;
 
-        // utilisation of all cpu cores
+		int temperature;
+
+		// First element represents general/overall cpu utilisation,
+		// followed by that of all cores with index cid-1
 		std::vector<float> utilisations;
-        // previous jiffies when cpu is not idle
+
+		// Record previous cpu active/total jiffies to calculate
+		// the live utilisation of each core in a short period
 		std::vector<long> prev_active_jiffies;
-        // previous jiffies when cpu is in all states
 		std::vector<long> prev_total_jiffies;
 };
 

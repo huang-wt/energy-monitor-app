@@ -7,11 +7,11 @@
 #include <vector>
 #include <map>
 
-#include "include/processor.h"
-#include "include/memory.h"
-#include "include/process.h"
-#include "include/power.h"
-#include "include/power_dao.h"
+#include "processor.h"
+#include "memory.h"
+#include "process.h"
+#include "power.h"
+#include "power_dao.h"
 
 using std::string;
 using std::vector;
@@ -93,10 +93,35 @@ class System {
         vector<float> CpuUtilisations();
 
         /**
+         * Update cpu utilisations & temperature and memory usage.
+        */
+        void UpdateCpuAndMemory();
+
+        /**
          * Getter method for processes in descending order on cpu usage.
          * @return The sorted vector containing all processes.
         */
         vector<Process> SortedProcesses();
+
+        /**
+         * Update the processes.
+        */
+        void UpdateProcesses();
+
+        /**
+         * Bind the most cpu consuming processes to performance cores.
+        */
+        void BindToPCores();
+
+        /**
+         * Bind the most cpu consuming processes to all cores.
+        */
+        void BindToAllCores();
+
+        /**
+         * Bind the most cpu consuming processes to efficiency cores.
+        */
+        void BindToECores();
 
         /**
          * Getter method for live power usage.
@@ -117,8 +142,8 @@ class System {
         double TotalEnergyUsage();
 
         /**
-         * Getter method for energy usages drawn in last week.
-         * @return The date and corresponding energy usage in Wh during last week.
+         * Getter method for energy usage drawn in last week.
+         * @return The pairs of date and corresponding energy usage in Wh during last week.
         */
         map<string, double> LastWeekEnergyUsage();
 
@@ -129,48 +154,14 @@ class System {
         double TotalEnergyUsageLastWeek();
 
         /**
-         * Bind the most cpu-consuming processes to performance cores.
+         * Keep updating and logging energy and power usage.
         */
-        void BindToPCores();
+        void UpdateEnergy();
 
-        /**
-         * Bind the most cpu-consuming processes to all cores.
-        */
-        void BindToAllCores();
-
-        /**
-         * Bind the most cpu-consuming processes to efficiency cores.
-        */
-        void BindToECores();
-
-        /**
-         * Bind the most cpu-consuming processes to 1/2 p-cores and 1/2 e-cores.
-         */
-        void BindToPAndECores();
-
-        /**
-         * Setter method for energy cap.
-         * @param cap The value of energy cap.
-         */
-        void SetEnergyCap(double cap);
-
-        /**
-         * Getter method for energy cap.
-         * @return The value of energy cap in Wh.
-         */
-        double EnergyCap();
+        double CurrEnergy();
 
     private:
         System();
-
-        /**
-         * Update the processes.
-        */
-        void UpdateProcesses();
-
-        void UpdateEnergy();
-
-        void SetUpEnergyDataAndFiles();
 
         /**
          * Get processes whose cpu utilisation is greater than 1%.
@@ -196,9 +187,6 @@ class System {
 
         Power power;
         PowerDAO dao;
-        double energy_cap = 500; // by default in Wh
-
-        int hour;
 };
 
 #endif // SYSTEM_H

@@ -1,4 +1,4 @@
-#include "include/format.h"
+#include "format.h"
 
 #include <string>
 #include <sstream>
@@ -28,9 +28,9 @@ string Format::Time(int hour, int min, int sec) {
     return AABBCC(hour, min, sec, TIME_DELIMITER);
 }
 
-string Format::Decimal(double value, int precision) {
+string Format::Decimal(double value) {
     std::stringstream stream;
-    stream << std::fixed << std::setprecision(precision) << value;
+    stream << std::fixed << std::setprecision(2) << value;
     return stream.str();
 }
 

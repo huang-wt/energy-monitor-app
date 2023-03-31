@@ -1,20 +1,21 @@
-#include "include/memory.h"
+#include "memory.h"
 
-#include "include/system_parser.h"
+#include "system_parser.h"
 
-Memory::Memory() {
-    // Initialise totalMemory
-    total_memory = SystemParser::TotalMemory();
-}
+const float Memory::TOTAL_MEMORY = SystemParser::TotalMemory();
 
 float Memory::TotalMemory() {
-    return total_memory;
+    return TOTAL_MEMORY;
 }
 
 float Memory::UsedMemory() {
-    return TotalMemory() - SystemParser::AvalMemory();
+    return used_memory;
 }
 
 float Memory::Utilisation() {
     return UsedMemory() / TotalMemory();
+}
+
+void Memory::UpdateUsedMemory() {
+    used_memory = TotalMemory() - SystemParser::AvalMemory();
 }

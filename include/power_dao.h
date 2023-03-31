@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <map>
 
 /**
  * This class is responsible for accessing data in power logging files.
@@ -11,18 +10,6 @@
 class PowerDAO {
 
     public:
-        /**
-         * Create and initiate the hours log file when the application is used the first time.
-         * @param curr_date The current date.
-         * @param usages The hourly energy usages.
-         */
-        void InitHoursLogFile(std::string curr_date, std::vector<double> usages);
-
-        /**
-         * Create and initiate the days log file when the application is used the first time.
-         */
-        void InitDaysLogFile();
-
         /**
          * Get the last date that has been logged in the file.
          * @return The last logged date.
@@ -44,17 +31,16 @@ class PowerDAO {
         void UpdateHoursLogFile(std::string curr_date, std::vector<double> usages);
 
         /**
-         * Read datas from the hours log file.
+         * Read datas from the hours logging file.
          * @return The hourly energy usages read from the logging file.
         */
-        std::vector<double> HoursEnergyUsages();
+        std::vector<double> ReadHoursFile();
 
         /**
-         * Read datas from the days log file.
-         * @param n The last n days.
-         * @return The date and corresponding energy usage.
+         * Read datas from the days logging file.
+         * @return The energy usages read from the logging file.
         */
-        std::map<std::string, double> LastNDaysEnergyUsage(int n);
+        std::vector<std::string> ReadDaysFile();
 
     private:
         static const std::string HOURS_LOG_FILE;

@@ -1,4 +1,4 @@
-#include "include/system_parser.h"
+#include "system_parser.h"
 
 #include <dirent.h>
 #include <unistd.h>
@@ -14,15 +14,15 @@ using std::to_string;
 using std::vector;
 
 const std::string SystemParser::kProcDirectory = "/proc/";
-const std::string SystemParser::kCmdlineFilename = "/cmdline";
-const std::string SystemParser::kCpuinfoFilename = "/cpuinfo";
-const std::string SystemParser::kStatusFilename = "/status";
-const std::string SystemParser::kStatFilename = "/stat";
-const std::string SystemParser::kUptimeFilename = "/uptime";
-const std::string SystemParser::kMeminfoFilename = "/meminfo";
-const std::string SystemParser::kVersionFilename = "/version";
-const std::string SystemParser::kOSPath = "/etc/os-release";
-const std::string SystemParser::kPasswordPath = "/etc/passwd";
+const std::string SystemParser::kCmdlineFilename{"/cmdline"};
+const std::string SystemParser::kCpuinfoFilename{"/cpuinfo"};
+const std::string SystemParser::kStatusFilename{"/status"};
+const std::string SystemParser::kStatFilename{"/stat"};
+const std::string SystemParser::kUptimeFilename{"/uptime"};
+const std::string SystemParser::kMeminfoFilename{"/meminfo"};
+const std::string SystemParser::kVersionFilename{"/version"};
+const std::string SystemParser::kOSPath{"/etc/os-release"};
+const std::string SystemParser::kPasswordPath{"/etc/passwd"};
 
 //-----------------------------------------------------------------------------
 // Utils

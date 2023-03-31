@@ -8,7 +8,6 @@
 class Memory {
 
     public:
-        Memory();
 
         /**
          * Getter method for total memory.
@@ -23,13 +22,19 @@ class Memory {
         float UsedMemory();
 
         /**
-         * Calculates and returns the memory utilisation as a percentage.
-         * @return The memory utilisation as a percentage.
+         * Calculates and returns the memory utilization as a percentage.
+         * @return The memory utilization as a percentage.
          */
         float Utilisation();
 
+        /**
+         * Update the amount of used memory.
+        */
+        void UpdateUsedMemory();
+
     private:
-        float total_memory;
+        static const float TOTAL_MEMORY;
+        float used_memory;
 
 };
 
