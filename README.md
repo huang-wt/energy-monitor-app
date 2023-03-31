@@ -62,8 +62,8 @@ make
 ```
 
 ## Showcases
-![System Monitor](images/system_dashboard.png)
-![System Monitor](images/processes.png)
-![System Monitor](images/report_day.png)
-![System Monitor](images/report_accum.png)
-![System Monitor](images/report_week.png)
+![System Dashboard](images/system_dashboard.png)
+![Processes](images/processes.png)
+![Report Day](images/report_day.png)
+![Report Accum](images/report_accum.png)
+![Report Week](images/report_week.png)
