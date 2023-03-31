@@ -44,5 +44,6 @@ cd energy-monitor-app
 ```
 
 ### Build and Run
+```shell
 ./energy_monitor
 ```
